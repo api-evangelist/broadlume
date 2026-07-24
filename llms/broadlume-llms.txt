@@ -1,0 +1,17 @@
+# Broadlume
+
+> Broadlume is an all-in-one business platform for the flooring industry, serving 4,000+ retailers and 300+ manufacturers with websites, marketing, and operations software. Products span lead-generating websites, digital advertising and SEO, product catalogs, flooring business software (accounting, inventory, job costing, lead management), and a retail selling system with in-store visualization and e-commerce sample ordering. Broadlume is owned by Cyncly.
+
+This profile is maintained by the API Evangelist network. Broadlume does not publish a public developer API, SDKs, or API documentation at this time; the links below are the company's public web surface.
+
+## Company
+- [Broadlume](https://broadlume.com/): All-in-one platform for flooring retailers and manufacturers.
+- [Schedule a demo](https://www.broadlume.com/schedule-a-demo): Request a product demo / get started.
+- [Retailer login](https://www.broadlume.com/retailer-login): Client sign-in.
+
+## Resources
+- [Blog](https://www.broadlume.com/resources/blog): Company news and flooring-industry resources.
+
+## Legal
+- [Privacy Policy](https://www.broadlume.com/privacy-policy): Privacy policy.
+- [Terms of Use](https://www.broadlume.com/terms-of-use): Terms of use.

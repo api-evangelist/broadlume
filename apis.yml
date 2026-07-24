@@ -1,8 +1,25 @@
 aid: broadlume
 name: Broadlume
-description: Broadlume is a company surfaced as a portfolio company of techstars and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: Broadlume is an all-in-one business platform for the flooring industry, serving more than
+  4,000 retailers and 300+ manufacturers. Its products span lead-generating websites, digital advertising,
+  SEO and reputation management, product catalogs, and a suite of flooring business software covering
+  accounting, inventory management, job costing, and lead management, plus a retail selling system with
+  in-store visualization and e-commerce sample ordering. Broadlume is owned by Cyncly. The company does
+  not currently publish a public developer API, SDKs, or API documentation; this profile is maintained
+  by the API Evangelist network and tracks Broadlume's public web and security surface.
 url: https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://optimise2.assets-servd.host/broadlume-platform/production/images/Notebooks.png?w=1200&h=630&q=82&auto=format&fit=crop&dm=1663075995&s=fbf90ba9ce3de4a4318d0dd612edb58a
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,9 +28,15 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
+- Flooring
+- Retail
+- Marketing
+- Websites
+- Business Software
+- Home Improvement
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,3 +46,22 @@ maintainers:
 common:
 - type: Website
   url: https://broadlume.com/
+- type: Blog
+  url: https://www.broadlume.com/resources/blog
+- type: Login
+  url: https://www.broadlume.com/retailer-login
+- type: SignUp
+  url: https://www.broadlume.com/schedule-a-demo
+- type: PrivacyPolicy
+  url: https://www.broadlume.com/privacy-policy
+- type: TermsOfService
+  url: https://www.broadlume.com/terms-of-use
+- type: DomainSecurity
+  url: security/broadlume-domain-security.yml
+- type: LLMsTxt
+  url: llms/broadlume-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
