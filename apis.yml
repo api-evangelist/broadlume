@@ -4,31 +4,34 @@ description: Broadlume is an all-in-one business platform for the flooring indus
   4,000 retailers and 300+ manufacturers. Its products span lead-generating websites, digital advertising,
   SEO and reputation management, product catalogs, and a suite of flooring business software covering
   accounting, inventory management, job costing, and lead management, plus a retail selling system with
-  in-store visualization and e-commerce sample ordering. Broadlume is owned by Cyncly. The company does
-  not currently publish a public developer API, SDKs, or API documentation; this profile is maintained
-  by the API Evangelist network and tracks Broadlume's public web and security surface.
+  in-store visualization and e-commerce sample ordering. Broadlume publishes a public developer portal
+  at developer.broadlume.com documenting the Broadlume BMS API — the REST interface to its flooring ERP,
+  formerly known as RollMaster, which Broadlume acquired in November 2021 — covering orders, quotes,
+  leads, customers, products, inventory, purchase orders, invoicing, accounts receivable, general ledger,
+  installation scheduling and handheld barcode operations. Broadlume is owned by Cyncly.
 url: https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
-  onboarding: unknown
+  onboarding: contact
   trial: false
   try_now: false
-  public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
+  public: true
+  label: Documented, key required
+  confidence: medium
+  source:
+  - https://developer.broadlume.com/bms
+  generated: '2026-08-13'
   method: derived
 image: https://optimise2.assets-servd.host/broadlume-platform/production/images/Notebooks.png?w=1200&h=630&q=82&auto=format&fit=crop&dm=1663075995&s=fbf90ba9ce3de4a4318d0dd612edb58a
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: public-api-documented
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-08-13'
 tags:
 - Company
 - Flooring
@@ -37,7 +40,48 @@ tags:
 - Websites
 - Business Software
 - Home Improvement
-apis: []
+- ERP
+- Inventory
+- Point of Sale
+- Accounting
+- Order Management
+apis:
+- aid: broadlume:bms
+  name: Broadlume BMS API
+  description: REST API for Broadlume BMS, the flooring business management system formerly known as
+    RollMaster. 256 documented operations across 28 resource groups covering orders, quotes, leads,
+    customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable,
+    general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and
+    reporting. Authentication is a Broadlume-issued x-api-key header plus a per-user session token
+    obtained from the token endpoint.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - ERP
+  - Order Management
+  - Inventory
+  - Accounting
+  - Point of Sale
+  - Flooring
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-bms-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Overlay
+    url: overlays/broadlume-bms-overlay.yaml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -56,12 +100,61 @@ common:
   url: https://www.broadlume.com/privacy-policy
 - type: TermsOfService
   url: https://www.broadlume.com/terms-of-use
+- type: DeveloperPortal
+  url: https://developer.broadlume.com/
+- type: Documentation
+  url: https://developer.broadlume.com/bms
+- type: APIReference
+  url: https://developer.broadlume.com/bms
+- type: GettingStarted
+  url: https://developer.broadlume.com/bms/authentication
+- type: Sandbox
+  url: https://developer.broadlume.com/api-runner/broadlume/bms
+- type: ChangeLog
+  url: changelog/broadlume-changelog.yml
+- type: GitHubOrganization
+  url: https://github.com/broadlume
 - type: DomainSecurity
   url: security/broadlume-domain-security.yml
 - type: LLMsTxt
   url: llms/broadlume-llms.txt
+- type: Authentication
+  url: authentication/broadlume-authentication.yml
+- type: Conventions
+  url: conventions/broadlume-conventions.yml
+- type: ErrorCatalog
+  url: errors/broadlume-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/broadlume-lifecycle.yml
+- type: DataModel
+  url: data-model/broadlume-data-model.yml
+- type: Conformance
+  url: conformance/broadlume-conformance.yml
+- type: Packages
+  url: packages/broadlume-packages.yml
+- type: SDKs
+  url: packages/broadlume-packages.yml
+- type: MCPServer
+  url: mcp/broadlume-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/broadlume-bms-overlay.yaml
+- type: Plans
+  url: plans/broadlume-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/broadlume-rate-limits.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 19
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Contract discovery overturned the prior "no public developer API" finding. Broadlume publishes a
+    Theneo-hosted developer portal at developer.broadlume.com documenting the Broadlume BMS API — 256
+    operations across 28 resource groups, base https://api.rmaster.com/api. Broadlume ships no
+    downloadable spec file, so openapi/broadlume-bms-openapi.yml is an API Evangelist transcription of
+    the portal's own published reference data (paths, methods, parameters, response fields taken
+    verbatim). Domain ownership verified: Broadlume acquired RollMaster in November 2021 and the portal
+    titles the project "Broadlume BMS ... formarly known as rollmaster".
+
