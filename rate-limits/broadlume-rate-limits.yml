@@ -1,0 +1,49 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.broadlume.com/bms/authentication
+docs: https://developer.broadlume.com/bms/authentication
+limit_count: 0
+limits: []
+response_headers: []
+exhaustion_status: null
+note: >-
+  Broadlume publishes no request-rate limits for the BMS API. Across the 256 documented operations there
+  is no rate-limit response header (no X-RateLimit-*, no RateLimit-*, no Retry-After), no documented
+  status code on exhaustion, and no quota or throttling page in the developer portal. An honest zero.
+capacity_controls:
+  note: >-
+    The API does publish one capacity control, but it governs concurrent sessions rather than request
+    rate, so it is recorded here separately rather than as a rate limit.
+  controls:
+  - kind: concurrent-session-cap
+    scope: per tenant (alias)
+    endpoint: GET /{alias}/sessioncount
+    operationId: sessionCount
+    returns:
+    - field: SESSIONCOUNT
+      meaning: currently active session count
+    - field: LIMIT
+      meaning: the cap on concurrent sessions
+    published_value: null
+    discoverable_at_runtime: true
+    note: >-
+      The cap exists and is readable at runtime, but the number is not published in the documentation and
+      the response returned when the cap is reached is not documented either.
+  - kind: session-idle-timeout
+    scope: per session token
+    value: 5 minutes (documented default) for client grant tokens
+    reset_by: any API call, or GET /{alias}/token (keepalive)
+    note: >-
+      Application grant tokens do not time out provided they are used within a year of creation. This is
+      an availability constraint on long-running agents rather than a rate limit.
+  - kind: pagination-cap
+    scope: per request, 13 of 256 operations
+    param: pagelimit
+    default: 1000
+    note: Records returned per page on the paginated collection reads. Not a rate limit, but the only
+      published bound on response size.
+evidence:
+- url: https://developer.broadlume.com/bms/authentication
+  status: 200
+- url: https://developer.broadlume.com/bms
+  status: 200

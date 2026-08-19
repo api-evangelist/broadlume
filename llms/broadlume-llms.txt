@@ -2,12 +2,43 @@
 
 > Broadlume is an all-in-one business platform for the flooring industry, serving 4,000+ retailers and 300+ manufacturers with websites, marketing, and operations software. Products span lead-generating websites, digital advertising and SEO, product catalogs, flooring business software (accounting, inventory, job costing, lead management), and a retail selling system with in-store visualization and e-commerce sample ordering. Broadlume is owned by Cyncly.
 
-This profile is maintained by the API Evangelist network. Broadlume does not publish a public developer API, SDKs, or API documentation at this time; the links below are the company's public web surface.
+Broadlume publishes a public developer portal documenting the Broadlume BMS API — the REST interface to its flooring ERP, formerly known as RollMaster, which Broadlume acquired in November 2021. That is why the documented base URL remains api.rmaster.com. The reference covers 256 operations across 28 resource groups. Access is not self-service: the API key, the tenant alias and user credentials are issued by Broadlume to BMS customers.
+
+Note for agents: Broadlume does not publish a downloadable machine-readable specification. The reference is rendered client-side by the Theneo portal platform. The OpenAPI below is an API Evangelist transcription of that published reference — paths, methods, parameters and response fields taken verbatim from Broadlume's own documentation.
+
+## APIs
+- [Broadlume BMS API](https://developer.broadlume.com/bms): REST API for orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting. Base URL https://api.rmaster.com/api.
+- [API explorer](https://developer.broadlume.com/api-runner/broadlume/bms): Interactive console for the BMS API.
+- [Changelog](https://developer.broadlume.com/changelog/broadlume/bms): Portal changelog for the BMS API.
+
+## Specs
+- [OpenAPI 3.1 (transcribed)](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/openapi/broadlume-bms-openapi.yml): 256 operations, 199 paths, 28 tags.
+- [Overlay](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/overlays/broadlume-bms-overlay.yaml): API Evangelist annotations over the transcription.
+
+## Authentication
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/authentication/broadlume-authentication.yml): Two header keys — a static `x-api-key` issued by Broadlume, plus a per-user session `token` from `POST /{alias}/token`. No OAuth 2.0 or OpenID Connect. Client-grant tokens idle out after a documented default of 5 minutes; application-grant tokens are long-lived. Every path is prefixed by the tenant `alias`, and 203 of 256 operations are scoped by a 2-character `company` code.
+
+## Conventions and limits
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/conventions/broadlume-conventions.yml): Page-number pagination (`page`/`pagelimit`) on 13 of 256 operations; `YYYYMMDD` date strings; uppercase ERP response field names. No idempotency contract on any of the 70 write operations.
+- [Rate limits](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/rate-limits/broadlume-rate-limits.yml): No published request-rate limits and no rate-limit response headers. A concurrent-session cap exists and is readable at runtime from `GET /{alias}/sessioncount`.
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/errors/broadlume-problem-types.yml): Broadlume documents no error responses — all 256 operations publish only a 200.
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/lifecycle/broadlume-lifecycle.yml): No version segment in the URL; deployed version readable from `GET /{alias}/version`. No deprecation policy and no status page. Five operations are documented as "Inactive until 2102 Release".
+
+## SDKs
+- [Packages](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/packages/broadlume-packages.yml): One first-party SDK for this API — `bl-erp-sdk` on NuGet ("Broadlume / RollMaster SDK"), still at 1.0.0 and last published 2023-04-03, more than three years behind the reference. No first-party client library for JavaScript, Python, Java, Go, PHP or Ruby.
+
+## Agent skills
+- [Authenticate and scope a session](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/skills/broadlume-authenticate-and-scope-session.md)
+- [Lead to quote to order](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/skills/broadlume-lead-to-quote-to-order.md)
+- [Purchasing and inventory](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/skills/broadlume-purchasing-and-inventory.md)
+- [Receivables and reporting](https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/skills/broadlume-receivables-and-reporting.md)
 
 ## Company
 - [Broadlume](https://broadlume.com/): All-in-one platform for flooring retailers and manufacturers.
+- [Developer portal](https://developer.broadlume.com/): Broadlume developer documentation.
 - [Schedule a demo](https://www.broadlume.com/schedule-a-demo): Request a product demo / get started.
 - [Retailer login](https://www.broadlume.com/retailer-login): Client sign-in.
+- [GitHub](https://github.com/broadlume): Broadlume GitHub organization.
 
 ## Resources
 - [Blog](https://www.broadlume.com/resources/blog): Company news and flooring-industry resources.
@@ -15,3 +46,4 @@ This profile is maintained by the API Evangelist network. Broadlume does not pub
 ## Legal
 - [Privacy Policy](https://www.broadlume.com/privacy-policy): Privacy policy.
 - [Terms of Use](https://www.broadlume.com/terms-of-use): Terms of use.
+- [Acceptable Use Policy](https://www.broadlume.com/acceptable-use-policy): Acceptable use policy.

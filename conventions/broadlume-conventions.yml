@@ -1,0 +1,89 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/broadlume-bms-openapi.yml
+docs: https://developer.broadlume.com/bms
+note: Cross-cutting request/response semantics for the Broadlume BMS API, derived from the 256 operations
+  transcribed from Broadlume's published developer portal and from the parameter descriptions on that
+  reference. Where the provider does not document a convention it is recorded as unspecified rather than
+  guessed.
+authentication:
+  style: two api-key headers (x-api-key + token)
+  see: authentication/broadlume-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: No idempotency key header or parameter appears anywhere in the 256 documented operations, and the
+    reference does not describe safe-retry semantics for the 70 write operations (35 POST, 25 PATCH,
+    10 DELETE). Retrying a failed Create Order or Create PO is not documented as safe.
+pagination:
+  style: page-number
+  supported_on: 13 of 256 operations
+  params:
+  - name: page
+    default: 1
+    description: Offsets data by page; used with pagelimit.
+  - name: pagelimit
+    default: 1000
+    description: Records allowed per page of data.
+  response_fields: []
+  note: Pagination is opt-in per endpoint rather than a global convention. The large collection reads
+    (Customer Search, Get ORDLSUB Records, Get Sales Rep Commission Details, vendor and inventory lists)
+    carry page/pagelimit; most list operations do not, and no total-count or next-cursor field is
+    documented on any response.
+filtering:
+  style: query parameters
+  common_params:
+  - company
+  - branch
+  - startdate
+  - enddate
+  - lastdays
+  - customer
+  - status
+  date_format: YYYYMMDD
+  note: Date-range reads consistently take startdate/enddate as 8-character YYYYMMDD strings, frequently
+    with a lastdays alternative for relative windows.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  supported: false
+versioning:
+  scheme: none-in-path
+  current: v1
+  discovery: GET /{alias}/version returns the deployed VERSION string.
+  note: The base URL carries no version segment. The documentation project is versioned v1 in the portal,
+    and the deployed build is discoverable at runtime from the version endpoint rather than pinned by the
+    client. See lifecycle/broadlume-lifecycle.yml.
+error_envelope:
+  documented: false
+  format: null
+  note: The published reference documents only 200 responses across all 256 operations. No error status
+    codes, error envelope shape, or error code registry is published. See errors/broadlume-problem-types.yml.
+rate_limit_signaling:
+  headers: []
+  documented: false
+  note: No rate-limit response headers are documented. The only published capacity control is a
+    concurrent-session limit readable from GET /{alias}/sessioncount. See rate-limits/broadlume-rate-limits.yml.
+response_shape:
+  style: uppercase field names
+  note: Response bodies use uppercase field names mirroring the underlying ERP record layout (COMPANY,
+    BRANCH, PONUMBER, STATUS, VENDOR). Many list operations return an object whose properties are
+    numeric string keys ("0") holding arrays, rather than a top-level JSON array.
+  content_type: application/json
+  binary_responses:
+  - Edoc download — returned as a file
+  - Invoice download — returned as a file
+  - Generate Installer Invoice PDF
+field_constraints:
+  note: The reference publishes maxLength on 1,122 parameters and fields, reflecting fixed-width ERP
+    columns (company and branch 2 chars, PO number 6, username and password 8, catalog sequence 13).
+  captured_in: openapi/broadlume-bms-openapi.yml
+cross_links:
+  authentication: authentication/broadlume-authentication.yml
+  errors: errors/broadlume-problem-types.yml
+  lifecycle: lifecycle/broadlume-lifecycle.yml
+  rate_limits: rate-limits/broadlume-rate-limits.yml
+  data_model: data-model/broadlume-data-model.yml

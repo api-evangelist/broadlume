@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.broadlume.com/bms
+versioning:
+  scheme: none-in-url
+  current: v1
+  docs: https://developer.broadlume.com/bms
+  runtime_discovery: GET /{alias}/version returns the deployed VERSION string.
+  note: The base URL https://api.rmaster.com/api carries no version segment. The documentation project
+    is published as version v1 (the only version offered in the portal's version selector), and the
+    actual deployed build is discoverable at runtime from the version endpoint. Clients therefore cannot
+    pin a contract version.
+release_train:
+  scheme: numbered releases referenced in operation names
+  observed: '2102'
+  note: Five operations are published in the reference but marked "Inactive until 2102 Release",
+    meaning Broadlume documents forthcoming operations ahead of their activation. This is a real,
+    if informal, forward-looking release signal — the reverse of a deprecation notice.
+  pending_operations:
+  - operationId: getOrderLinesInactiveUntil2102Release
+    path: /{alias}/orderline
+    method: GET
+  - operationId: createsACustomerNoteByShiptoCodeInactiveUntil2102Release
+    path: /{alias}/shiptonotes
+    method: POST
+  - operationId: updatesACustomerNoteByShiptoCodeInactiveUntil2102Release
+    path: /{alias}/shiptonotes
+    method: PATCH
+  - operationId: getsAllCustomerNoteByShiptoCodeInactiveUntil2102Release
+    path: /{alias}/shiptonotes
+    method: GET
+  - operationId: erasesACustomerNoteByShiptoCodeInactiveUntil2102Release
+    path: /{alias}/shiptonotes
+    method: DELETE
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  note: No deprecation policy, sunset schedule or RFC 8594 Sunset/Deprecation header support is published
+    anywhere in the developer portal, and no operation in the spec is marked deprecated.
+deprecated_operations: []
+changelog:
+  published: true
+  url: https://developer.broadlume.com/changelog/broadlume/bms
+  note: The portal enables Theneo's changelog feature for this project (isChangelogEnabled true) and the
+    changelog route resolves with HTTP 200. See changelog/broadlume-changelog.yml.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  note: No status page was found. status.broadlume.com does not resolve, and the marketing sitemap
+    (316 URLs) contains no status or uptime page.
+  probes:
+  - url: https://status.broadlume.com/
+    status: 0
+    result: DNS does not resolve
+support_lifecycle:
+  documentation_last_published: '2026-06-03'
+  documentation_first_published: '2024-10-10'
+  note: The portal project reports publishedAt 2026-06-03 and createdAt 2024-10-10, so the reference is
+    actively maintained. By contrast the first-party SDK (bl-erp-sdk on NuGet) was last published
+    2023-04-03 — see packages/broadlume-packages.yml for that divergence.
+evidence:
+- url: https://developer.broadlume.com/bms
+  status: 200
+- url: https://developer.broadlume.com/changelog/broadlume/bms
+  status: 200
+- url: https://status.broadlume.com/
+  status: 0

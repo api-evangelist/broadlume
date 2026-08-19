@@ -1,0 +1,30 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.broadlume.com/changelog/broadlume/bms
+url: https://developer.broadlume.com/changelog/broadlume/bms
+published: true
+scheme: portal-generated
+current_version: v1
+entry_count: 0
+entries: []
+note: >-
+  Broadlume enables a changelog on the BMS developer portal — the project's isChangelogEnabled flag is
+  true and https://developer.broadlume.com/changelog/broadlume/bms returns HTTP 200 — but the changelog
+  route renders the same document payload as the reference and exposes no dated entry list in its
+  server-rendered data. Entries, if any, are drawn client-side by the portal platform (Theneo) from
+  version diffs and are not machine-readable from the published page. Recorded here as a real published
+  surface with an honest zero on structured entries, rather than a fabricated entry list.
+observed:
+  documentation_published_at: '2026-06-03'
+  documentation_created_at: '2024-10-10'
+  project_versions:
+  - name: v1
+    slug: v1
+    default: true
+  note: The only dated publication signal readable from the portal is the project's publishedAt
+    timestamp, which shows the reference was last republished 2026-06-03.
+evidence:
+- url: https://developer.broadlume.com/changelog/broadlume/bms
+  status: 200
+  content_type: text/html
+  result: 200 but no structured dated entries in the server-rendered payload

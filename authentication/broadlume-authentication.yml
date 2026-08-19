@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/broadlume-bms-openapi.yml
+docs: https://developer.broadlume.com/bms/authentication
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  model: two-factor header auth — a static Broadlume-issued API key plus a per-user session token
+  oauth2: false
+  oauth2_flows: []
+  note: Broadlume BMS uses no OAuth 2.0 or OpenID Connect. Every request carries two headers, and the
+    session token is minted by a dedicated token endpoint rather than by a standards-based authorization
+    server.
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: API key issued by Broadlume, required on every request including the token endpoint and
+    the unauthenticated version endpoint.
+  sources:
+  - openapi/broadlume-bms-openapi.yml
+  - https://developer.broadlume.com/bms/authentication
+- name: sessionToken
+  type: apiKey
+  in: header
+  parameter: token
+  description: User session token obtained from POST /{alias}/token. Required on every operation except
+    GET /{alias}/version and POST /{alias}/token.
+  sources:
+  - openapi/broadlume-bms-openapi.yml
+  - https://developer.broadlume.com/bms/authentication
+flow:
+  step_1: GET /{alias}/version — reachable with only x-api-key; returns the deployed API version.
+  step_2: POST /{alias}/token with {username, password, granttype} and the x-api-key header; returns
+    TOKEN plus the COMPANIES the user may access.
+  step_3: Send both x-api-key and token headers on every subsequent call.
+  step_4: GET /{alias}/token (keepalive) to validate a token and reset its idle timer.
+  step_5: DELETE /{alias}/token to end the session; required to reissue an application token.
+grant_types:
+- name: client
+  default: true
+  description: Times out after a server-specified idle period (documented default 5 minutes). Any API
+    call refreshes the last-active time, so a keepalive call is only needed while idle. Once expired the
+    token is invalid and a new one must be minted.
+- name: application
+  default: false
+  description: Long-term token for API-to-API transactions. Does not time out provided it is used within
+    a year of creation. A DELETE on the token endpoint is required to reset the issued key.
+credentials:
+  username:
+    max_length: 8
+    required: true
+  password:
+    max_length: 8
+    required: true
+  note: The documented credential fields are capped at 8 characters each, reflecting the underlying
+    RollMaster ERP user model.
+tenancy:
+  alias: Path segment on every operation — the client id identifying the Broadlume BMS tenant.
+  company: Query/body parameter, 2 characters; scopes 203 of 256 documented operations.
+  branch: Query/body parameter, 2 characters; scopes 86 operations. Active branches are set per session
+    via POST /{alias}/changebranch, and subsequent queries filter to the active branch list.
+session_limits:
+  endpoint: GET /{alias}/sessioncount
+  returns:
+  - SESSIONCOUNT
+  - LIMIT
+  note: Concurrent sessions are capped per tenant. The limit value is discoverable at runtime but is not
+    published as a number in the documentation.
+onboarding:
+  public_self_service: false
+  note: The reference is public, but the x-api-key, the alias and user credentials are issued by
+    Broadlume to BMS customers; there is no self-service signup or published key-request form.

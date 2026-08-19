@@ -1,0 +1,47 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/broadlume-bms-openapi.yml
+docs: https://developer.broadlume.com/bms
+format: null
+problem_count: 0
+problems: []
+finding: >-
+  Broadlume's published BMS reference documents no error responses at all. Across all 256 operations in
+  28 resource groups the only documented response is 200; the portal's per-section statusCodes and
+  errorCodes collections are empty for every operation, and there is no error-reference page, error-code
+  registry, or error-envelope description anywhere in the developer portal. This is a real, recorded
+  absence, not a harvesting gap — the portal's own structured data was read for every section.
+implications:
+  - An agent or client integrating Broadlume BMS cannot tell from the contract what a failure looks like,
+    what shape the body takes, or how to distinguish an expired session token from a bad company code.
+  - Combined with the absence of any idempotency contract (see conventions/broadlume-conventions.yml),
+    the 70 write operations have neither documented failure semantics nor documented safe-retry
+    semantics.
+inferred_only:
+  note: >-
+    The following are inferred from the documented authentication model and are NOT published by
+    Broadlume. They are recorded here as leads for a provider conversation, deliberately kept out of
+    openapi/broadlume-bms-openapi.yml so the spec stays a faithful transcription of what the provider
+    actually publishes.
+  candidates:
+    - condition: missing or invalid x-api-key
+      evidence: >-
+        The portal's own API-explorer pre-request script throws "API key is missing in query parameters
+        or headers." before a request is sent, so the key is mandatory, but the server-side rejection
+        response is undocumented.
+      source: https://developer.broadlume.com/bms
+    - condition: expired or invalid session token
+      evidence: >-
+        Documented behaviour states client tokens expire after a server-specified idle period (default
+        5 minutes) and that "once client tokens expire, they are invalid" — but the response returned on
+        an expired token is not documented.
+      source: https://developer.broadlume.com/bms/authentication
+    - condition: concurrent session limit exceeded
+      evidence: >-
+        GET /{alias}/sessioncount returns SESSIONCOUNT and LIMIT, implying a cap, but the response
+        returned when the cap is reached is not documented.
+      source: https://developer.broadlume.com/bms/authentication
+recommendation: >-
+  Ask Broadlume to publish the error envelope and the status codes returned for authentication failure,
+  session expiry, session-limit exhaustion, validation failure and not-found. This is the single highest
+  value addition available to this contract.

@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: searched
+source: registry metadata from api.nuget.org and registry.npmjs.org
+package_count: 5
+official_count: 5
+sdk_for_this_api: 1
+note: >-
+  Registries probed unauthenticated on 2026-08-13: npm, PyPI, RubyGems, crates.io, NuGet, Packagist.
+  PyPI, RubyGems and crates.io hold nothing for broadlume or rollmaster. One first-party SDK for the
+  BMS API exists, on NuGet, and it is materially stale relative to the API it wraps.
+packages:
+- language: csharp
+  registry: nuget
+  name: bl-erp-sdk
+  title: Broadlume / RollMaster SDK
+  url: https://www.nuget.org/packages/bl-erp-sdk
+  install: dotnet add package bl-erp-sdk
+  official: true
+  wraps_api: broadlume:bms
+  version: 1.0.0
+  published: '2023-04-03'
+  downloads: 2419
+  evidence: >-
+    NuGet registration lists authors "RollMaster SDK", owner "jhowell" (the same owner as the first-party
+    npm packages below), title "Broadlume / RollMaster SDK", tags rollmaster/rm/broadlume/erp/api, and
+    description "Software Developmetn Kit for ERP API" [sic]. This is the client library for the API
+    documented at developer.broadlume.com/bms.
+  note: >-
+    DECAY SIGNAL. The only SDK for the BMS API is still at 1.0.0 and was last published 2023-04-03, while
+    Broadlume republished the API reference on 2026-06-03 — a gap of more than three years. Five
+    operations documented as "Inactive until 2102 Release" cannot be covered by it, and any operation
+    added since April 2023 is unwrapped. A consumer adopting this SDK today is working against a
+    three-year-old projection of a maintained API.
+- language: javascript
+  registry: npm
+  name: broadlume-common
+  url: https://www.npmjs.com/package/broadlume-common
+  install: npm install broadlume-common
+  official: true
+  wraps_api: null
+  version: 1.0.1
+  published: '2023-01-27'
+  evidence: 'npm author "Broadlume"; repository git+https://github.com/broadlume/BroadlumeCommonControls.git'
+  note: Shared UI control library, not a client for the BMS API.
+- language: javascript
+  registry: npm
+  name: bl_styles
+  url: https://www.npmjs.com/package/bl_styles
+  install: npm install bl_styles
+  official: true
+  wraps_api: null
+  version: 1.1.11
+  published: '2023-01-25'
+  evidence: 'npm description "Standard Broadlume style"; repository git+https://github.com/broadlume/bl-styles.git'
+  note: Design-system stylesheet package, not a client for the BMS API.
+- language: javascript
+  registry: npm
+  name: '@rollmaster/api'
+  url: https://www.npmjs.com/package/@rollmaster/api
+  install: npm install @rollmaster/api
+  official: true
+  wraps_api: null
+  version: 1.0.0
+  published: '2021-01-11'
+  evidence: >-
+    Published under the @rollmaster npm scope by maintainer "zintj", the same maintainer as
+    @rollmaster/gql-generator whose repository is git.rmaster.com — RollMaster's own git host. Predates
+    Broadlume's November 2021 acquisition of RollMaster.
+  note: >-
+    Carries no description, README or repository link and has not been republished since January 2021.
+    Its relationship to the currently documented BMS REST API is unstated; do not treat it as the
+    supported client.
+- language: javascript
+  registry: npm
+  name: '@rollmaster/gql-generator'
+  url: https://www.npmjs.com/package/@rollmaster/gql-generator
+  install: npm install @rollmaster/gql-generator
+  official: true
+  wraps_api: null
+  version: 1.0.1
+  published: '2021-02-03'
+  evidence: 'repository git+https://git.rmaster.com/jzint/gql-generator.git — RollMaster''s own git host'
+  note: >-
+    GraphQL code generator. Its existence hints at an internal GraphQL surface at RollMaster, but no
+    GraphQL endpoint is documented on the Broadlume developer portal and none was found by probe.
+registries_checked:
+- registry: npm
+  result: 5 first-party packages found (2 broadlume, 2 @rollmaster, 1 bl_styles)
+- registry: nuget
+  result: 1 first-party package found (bl-erp-sdk)
+- registry: pypi
+  result: 404 for broadlume and rollmaster
+- registry: rubygems
+  result: 404 for broadlume and rollmaster
+- registry: crates.io
+  result: 0 results
+- registry: packagist
+  result: no first-party vendor namespace found
+- registry: maven-central
+  result: no first-party artifacts found
+gaps:
+  note: >-
+    No first-party client library exists for JavaScript/TypeScript, Python, Java, Go, PHP or Ruby against
+    an API of 256 operations. The single .NET SDK is three years behind the reference.

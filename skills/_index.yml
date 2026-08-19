@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/broadlume-bms-openapi.yml
+note: >-
+  Packaged Agent Skills for the Broadlume BMS API. Every operationId referenced in these skills was
+  verified against openapi/broadlume-bms-openapi.yml, which is itself a faithful transcription of
+  Broadlume's published reference at developer.broadlume.com/bms. Broadlume publishes no skills or
+  AGENTS.md of its own — searched 2026-08-13.
+api: openapi/broadlume-bms-openapi.yml
+skill_count: 4
+skills:
+- file: broadlume-authenticate-and-scope-session.md
+  name: Authenticate and scope a Broadlume BMS session
+  description: Open an authenticated session, discover accessible companies, set active branches, and
+    keep the token alive. Prerequisite for every other skill.
+  api: openapi/broadlume-bms-openapi.yml
+  operations:
+  - apiVersion
+  - authenticateUserCreateSession
+  - userPermissions
+  - changeBranches
+  - sessionCount
+  - sessionKeepalive
+  - removeSession
+- file: broadlume-lead-to-quote-to-order.md
+  name: Take a flooring lead through quote to order
+  description: The retail selling flow — capture and work a lead, convert it to a quote, price the quote
+    lines, and turn the accepted quote into an order with lines.
+  api: openapi/broadlume-bms-openapi.yml
+  operations:
+  - createsLead
+  - leadDetail
+  - updateLead
+  - createLeadRoom
+  - convertsAnExistingLeadIntoAQuote
+  - createQuote
+  - createQuoteLine
+  - getQuoteLines
+  - createOrder
+  - createOrderLine
+  - getOrder
+- file: broadlume-purchasing-and-inventory.md
+  name: Purchase and receive flooring inventory
+  description: Raise and manage purchase orders, receive material with the handheld barcode operations,
+    and assign stock to a job.
+  api: openapi/broadlume-bms-openapi.yml
+  operations:
+  - getCatalogItemsBelowSafetyStockLimit
+  - createPo
+  - createPoLine
+  - updatePo
+  - purchaseOrderDetail
+  - findPoSByBarcode
+  - inventoryFromBarcodeScan
+  - assignInventory
+  - shipsWorkOrder
+  - assignInventoryToJob
+- file: broadlume-receivables-and-reporting.md
+  name: Read Broadlume BMS receivables and financial reporting
+  description: Pull dashboards, aged receivables, customer payment history, invoices and general-ledger
+    detail for collections and financial reporting.
+  api: openapi/broadlume-bms-openapi.yml
+  operations:
+  - salesQuicklist
+  - arBucketDefinitions
+  - arByBucket
+  - arOpenItems
+  - paymentHistory
+  - invoiceHeader
+  - getInvoiceLines
+  - getGlChartOfAccounts
+  - getGlDetailByPeriod
+  - getPreBuiltSalesReport

@@ -1,0 +1,1312 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: openapi/broadlume-bms-openapi.yml
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: searched
+note: Broadlume ships no MCP server. Searched the developer portal, broadlume.com, the broadlume GitHub organization,
+  npm (@modelcontextprotocol and broadlume/rollmaster scopes) and public MCP registries on 2026-08-13 and found
+  nothing. The tool list below is a CANDIDATE derived one-to-one from the 256 operations Broadlume documents, so
+  each tool inherits a real input contract from its backing operation. No endpoint URL is asserted because none
+  exists.
+search_evidence:
+- source: https://developer.broadlume.com/bms
+  result: no MCP server documented
+- source: https://github.com/broadlume
+  result: 27 public repos; no MCP server
+- source: npm registry search broadlume / rollmaster
+  result: no MCP packages
+server:
+  name: broadlume-bms
+  transport: null
+  url: null
+  auth: Would require the x-api-key header plus a session token from POST /{alias}/token, and the tenant alias as
+    a path segment — see authentication/broadlume-authentication.yml.
+tool_count: 256
+tools:
+- name: apiVersion
+  description: API Version
+  category: Version
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#apiVersion
+- name: authenticateUserCreateSession
+  description: Authenticate User / Create Session
+  category: Authentication
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#authenticateUserCreateSession
+- name: sessionKeepalive
+  description: Session Keepalive
+  category: Authentication
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#sessionKeepalive
+- name: removeSession
+  description: Remove Session
+  category: Authentication
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#removeSession
+- name: sessionCount
+  description: Session Count
+  category: Authentication
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#sessionCount
+- name: userPermissions
+  description: User permissions
+  category: Authentication
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#userPermissions
+- name: changeBranches
+  description: Change Branches
+  category: Authentication
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#changeBranches
+- name: createOrder
+  description: Create Order
+  category: Order
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createOrder
+- name: updateOrder
+  description: Update Order
+  category: Order
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateOrder
+- name: getOrder
+  description: Get Order
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getOrder
+- name: updateOrderLineInstallerSingleDateOnly
+  description: Update Order Line Installer (Single Date Only)
+  category: Order
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateOrderLineInstallerSingleDateOnly
+- name: getOrderLinesInactiveUntil2102Release
+  description: Get Order Lines - Inactive until 2102 Release
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getOrderLinesInactiveUntil2102Release
+- name: createOrderLine
+  description: Create Order Line
+  category: Order
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createOrderLine
+- name: salesReps
+  description: Sales Reps
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#salesReps
+- name: orderTypeList
+  description: Order Type List
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#orderTypeList
+- name: accumulatorCodeList
+  description: Accumulator Code List
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#accumulatorCodeList
+- name: orderTimeSlotList
+  description: Order Time Slot List
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#orderTimeSlotList
+- name: ordersByDateRange
+  description: Orders by date range
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#ordersByDateRange
+- name: agingInvoices
+  description: Aging Invoices
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#agingInvoices
+- name: createOrderLineComment
+  description: Create Order Line Comment
+  category: Order
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createOrderLineComment
+- name: updateOrderLineComment
+  description: Update Order Line Comment
+  category: Order
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateOrderLineComment
+- name: getOrderLineCommments
+  description: Get order line commments
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getOrderLineCommments
+- name: deleteOrderLineCommment
+  description: Delete order line commment
+  category: Order
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#deleteOrderLineCommment
+- name: createsAJobNote
+  description: Creates a Job Note
+  category: Order
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsAJobNote
+- name: editsAJobNote
+  description: Edits a Job Note
+  category: Order
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#editsAJobNote
+- name: readsAJobNote
+  description: Reads a Job Note
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readsAJobNote
+- name: erasesAJobNote
+  description: Erases a Job Note
+  category: Order
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#erasesAJobNote
+- name: listOfInitials
+  description: List of Initials
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#listOfInitials
+- name: jobStatusList
+  description: Job Status List
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#jobStatusList
+- name: getRegionTaxCodes
+  description: Get Region Tax Codes
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getRegionTaxCodes
+- name: getSalesRepCommissionDetails
+  description: Get Sales Rep Commission Details
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getSalesRepCommissionDetails
+- name: taxCodeDetails
+  description: Tax Code Details
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#taxCodeDetails
+- name: getOrdlsubRecords
+  description: Get ORDLSUB Records
+  category: Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getOrdlsubRecords
+- name: customerList
+  description: Customer List
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerList
+- name: customerInfo
+  description: Customer info
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerInfo
+- name: customerInfo1
+  description: Customer info
+  category: Customer
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#customerInfo1
+- name: customerInfo2
+  description: Customer info
+  category: Customer
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#customerInfo2
+- name: customerSearch
+  description: Customer Search
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerSearch
+- name: customerSearch1
+  description: Customer Search
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerSearch1
+- name: customerProperties
+  description: Customer Properties
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerProperties
+- name: customerPropertyManagers
+  description: Customer Property Managers
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerPropertyManagers
+- name: customerInvoices
+  description: Customer Invoices
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerInvoices
+- name: customer5YearSales
+  description: Customer 5 Year Sales
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customer5YearSales
+- name: customerArContacts
+  description: Customer AR Contacts
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerArContacts
+- name: createsCustomerContact
+  description: Creates Customer Contact
+  category: Customer
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsCustomerContact
+- name: updatesExistingCustomerContact
+  description: Updates Existing Customer Contact
+  category: Customer
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesExistingCustomerContact
+- name: customerArContactNotes
+  description: Customer AR Contact Notes
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerArContactNotes
+- name: createCustomerArContactNotes
+  description: Create Customer AR Contact Notes
+  category: Customer
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createCustomerArContactNotes
+- name: updateCustomerArContactNotes
+  description: Update Customer AR Contact Notes
+  category: Customer
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateCustomerArContactNotes
+- name: allCustomerContactNotes
+  description: All Customer Contact Notes
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#allCustomerContactNotes
+- name: customerSales
+  description: Customer Sales
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerSales
+- name: getContactRoleList
+  description: Get Contact Role List
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getContactRoleList
+- name: shipToInformation
+  description: Ship To Information
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#shipToInformation
+- name: customerShipToCodes
+  description: Customer Ship To Codes
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerShipToCodes
+- name: paymentHistory
+  description: Payment History
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#paymentHistory
+- name: arOpenItems
+  description: AR Open Items
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arOpenItems
+- name: shipToCodeList
+  description: Ship To Code List
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#shipToCodeList
+- name: getListOfNationalPropertyManagerRelationships
+  description: Get list of national property manager relationships
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getListOfNationalPropertyManagerRelationships
+- name: createsACustomerNote
+  description: Creates a Customer Note
+  category: Customer
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsACustomerNote
+- name: editsACustomerNote
+  description: Edits a Customer Note
+  category: Customer
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#editsACustomerNote
+- name: readsACustomerNote
+  description: Reads a Customer Note
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readsACustomerNote
+- name: erasesACustomerNote
+  description: Erases a Customer Note
+  category: Customer
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#erasesACustomerNote
+- name: createsASalesNote
+  description: Creates a Sales Note
+  category: Customer
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsASalesNote
+- name: editsASalesNote
+  description: Edits a Sales Note
+  category: Customer
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#editsASalesNote
+- name: readsASalesNote
+  description: Reads a Sales Note
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readsASalesNote
+- name: erasesASalesNote
+  description: Erases a Sales Note
+  category: Customer
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#erasesASalesNote
+- name: createsACustomerNoteByShiptoCodeInactiveUntil2102Release
+  description: Creates a Customer Note by ShipTo Code - Inactive until 2102 Release
+  category: Customer
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsACustomerNoteByShiptoCodeInactiveUntil2102Release
+- name: updatesACustomerNoteByShiptoCodeInactiveUntil2102Release
+  description: Updates a Customer Note by ShipTo Code - Inactive until 2102 Release
+  category: Customer
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesACustomerNoteByShiptoCodeInactiveUntil2102Release
+- name: getsAllCustomerNoteByShiptoCodeInactiveUntil2102Release
+  description: Gets all Customer Note by ShipTo Code - Inactive until 2102 Release
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getsAllCustomerNoteByShiptoCodeInactiveUntil2102Release
+- name: erasesACustomerNoteByShiptoCodeInactiveUntil2102Release
+  description: Erases a Customer Note by ShipTo Code - Inactive until 2102 Release
+  category: Customer
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#erasesACustomerNoteByShiptoCodeInactiveUntil2102Release
+- name: customerSearch2
+  description: Customer Search
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerSearch2
+- name: getListOfPossibleCustomerCreditStatusCodes
+  description: Get List of possible customer credit status codes
+  category: Customer
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getListOfPossibleCustomerCreditStatusCodes
+- name: companyInfo
+  description: Company Info
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#companyInfo
+- name: branchInfo
+  description: Branch info
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#branchInfo
+- name: branchesList
+  description: Branches list
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#branchesList
+- name: systemInformation
+  description: System Information
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#systemInformation
+- name: globalSettings
+  description: Global settings
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#globalSettings
+- name: settingsSpecificToACompany
+  description: Settings specific to a company
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#settingsSpecificToACompany
+- name: territoryCodesList
+  description: Territory Codes List
+  category: Company
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#territoryCodesList
+- name: productTypes
+  description: Product types
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productTypes
+- name: productCodes
+  description: Product codes
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productCodes
+- name: productStyles
+  description: Product styles
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productStyles
+- name: productStyles1
+  description: Product styles
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productStyles1
+- name: productColors
+  description: Product colors
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productColors
+- name: productStock
+  description: Product stock
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productStock
+- name: productPrice
+  description: Product price
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productPrice
+- name: productAttributes
+  description: Product Attributes
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productAttributes
+- name: attributesLabels
+  description: Attributes Labels
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#attributesLabels
+- name: webProducts
+  description: Web Products
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#webProducts
+- name: productDetails
+  description: Product details
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#productDetails
+- name: getAssociatedProducts
+  description: Get Associated Products
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getAssociatedProducts
+- name: catalogItems
+  description: Catalog Items
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#catalogItems
+- name: getCatalogAttributeCollections
+  description: Get Catalog Attribute Collections
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogAttributeCollections
+- name: getCatalogAttributeBrands
+  description: Get Catalog Attribute Brands
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogAttributeBrands
+- name: getCatalogAttributeSalesRep
+  description: Get Catalog Attribute Sales Rep
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogAttributeSalesRep
+- name: getCatalogAttributeInventoryTypes
+  description: Get Catalog Attribute Inventory Types
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogAttributeInventoryTypes
+- name: getCatalogAttributeCustomer
+  description: Get Catalog Attribute Customer
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogAttributeCustomer
+- name: getCatalogAttributeDates
+  description: Get Catalog Attribute Dates
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogAttributeDates
+- name: getSelectedInventoryCatalogAttribute
+  description: Get Selected Inventory Catalog Attribute
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getSelectedInventoryCatalogAttribute
+- name: getSelectedCatalogAttributeFile2
+  description: Get Selected Catalog Attribute File 2
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getSelectedCatalogAttributeFile2
+- name: getSelectedCatalogAttributeFile3
+  description: Get Selected Catalog Attribute File 3
+  category: Product
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getSelectedCatalogAttributeFile3
+- name: samplePricingData
+  description: Sample Pricing Data
+  category: Retail Pricing
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#samplePricingData
+- name: edocsList
+  description: Edocs List
+  category: Edocs
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#edocsList
+- name: edocUpload
+  description: Edoc upload
+  category: Edocs
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#edocUpload
+- name: edocDownload
+  description: Edoc download
+  category: Edocs
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#edocDownload
+- name: getEdocTypesForUser
+  description: Get Edoc types for user
+  category: Edocs
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getEdocTypesForUser
+- name: installersList
+  description: Installers list
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#installersList
+- name: installerInfo
+  description: Installer info
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#installerInfo
+- name: installerList
+  description: Installer List
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#installerList
+- name: installListByDate
+  description: Install List by date
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#installListByDate
+- name: generateInstallerInvoicePdf
+  description: Generate Installer Invoice PDF
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#generateInstallerInvoicePdf
+- name: installationsByDate
+  description: Installations By Date
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#installationsByDate
+- name: createInstallationRecord
+  description: Create Installation Record
+  category: Install
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createInstallationRecord
+- name: getInstallationRecords
+  description: Get Installation Records
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInstallationRecords
+- name: installationLimitsAndCapacities
+  description: Installation limits and capacities
+  category: Install
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#installationLimitsAndCapacities
+- name: salesQuicklist
+  description: Sales Quicklist
+  category: Dashboard
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#salesQuicklist
+- name: arQuicklist
+  description: AR Quicklist
+  category: Dashboard
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arQuicklist
+- name: apQuicklist
+  description: AP Quicklist
+  category: Dashboard
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#apQuicklist
+- name: inventoryValuationQuicklist
+  description: Inventory Valuation Quicklist
+  category: Dashboard
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#inventoryValuationQuicklist
+- name: workInProcessQuicklist
+  description: Work in Process quicklist
+  category: Dashboard
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#workInProcessQuicklist
+- name: fiscalYearQuicklist
+  description: Fiscal Year Quicklist
+  category: Dashboard
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#fiscalYearQuicklist
+- name: apBucketDefinitions
+  description: AP Bucket Definitions
+  category: Pivot
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#apBucketDefinitions
+- name: apByBucket
+  description: AP by Bucket
+  category: Pivot
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#apByBucket
+- name: arBucketDefinitions
+  description: AR Bucket Definitions
+  category: Pivot
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arBucketDefinitions
+- name: arByBucket
+  description: AR By Bucket
+  category: Pivot
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arByBucket
+- name: salesVolumeByDate
+  description: Sales Volume by Date
+  category: Pivot
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#salesVolumeByDate
+- name: inventoryValuation
+  description: Inventory Valuation
+  category: Pivot
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#inventoryValuation
+- name: leadTimeSlots
+  description: Lead Time Slots
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadTimeSlots
+- name: leadsList
+  description: Leads list
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadsList
+- name: createsLead
+  description: Creates Lead
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsLead
+- name: updateLead
+  description: Update lead
+  category: Lead
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateLead
+- name: leadDetail
+  description: Lead detail
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadDetail
+- name: updatesLeadNotes
+  description: Updates Lead Notes
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesLeadNotes
+- name: updatesLeadQuickNote
+  description: Updates Lead Quick Note
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesLeadQuickNote
+- name: updatesLeadDispStyleQuantityNotes
+  description: Updates Lead Disp Style/Quantity Notes
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesLeadDispStyleQuantityNotes
+- name: updatesLeadDispoNotes
+  description: Updates Lead Dispo Notes
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesLeadDispoNotes
+- name: leadNonqualifiedCategories
+  description: Lead Nonqualified Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadNonqualifiedCategories
+- name: updatesNonqualifiersOnALeadSendingExistingDescriptionWillRemoveFromALead
+  description: Updates Nonqualifiers on a Lead. Sending existing description will remove from a lead.
+  category: Lead
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesNonqualifiersOnALeadSendingExistingDescriptionWillRemoveFromALead
+- name: leadZoneCategories
+  description: Lead Zone Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadZoneCategories
+- name: subterritoryCategories
+  description: Subterritory Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#subterritoryCategories
+- name: leadExceptionCategories
+  description: Lead Exception Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadExceptionCategories
+- name: leadOfficeNotesCategories
+  description: Lead Office Notes Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadOfficeNotesCategories
+- name: createLeadOfficeNotes
+  description: Create Lead Office Notes
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createLeadOfficeNotes
+- name: updateLeadOfficeNotes
+  description: Update Lead Office Notes
+  category: Lead
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateLeadOfficeNotes
+- name: leadSchedulingCategories
+  description: Lead Scheduling Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadSchedulingCategories
+- name: nonqualifiedCategories
+  description: Nonqualified Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#nonqualifiedCategories
+- name: leadMatTypeCategories
+  description: Lead Mat Type Categories
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadMatTypeCategories
+- name: leadAppointments
+  description: Lead Appointments
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#leadAppointments
+- name: createLeadProductNotes
+  description: Create Lead Product Notes
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createLeadProductNotes
+- name: updatesLeadProductNotes
+  description: Updates Lead Product Notes
+  category: Lead
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updatesLeadProductNotes
+- name: getsLeadProductNotes
+  description: Gets Lead Product Notes
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getsLeadProductNotes
+- name: deletesLeadProductNotes
+  description: Deletes Lead Product Notes
+  category: Lead
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#deletesLeadProductNotes
+- name: getLeadRoom
+  description: Get Lead Room
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getLeadRoom
+- name: createLeadRoom
+  description: Create Lead Room
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createLeadRoom
+- name: updateLeadRoom
+  description: Update Lead Room
+  category: Lead
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateLeadRoom
+- name: removeLeadRoom
+  description: Remove Lead Room
+  category: Lead
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#removeLeadRoom
+- name: roomFile
+  description: Room File
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#roomFile
+- name: getAllAvailability
+  description: Get All Availability
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getAllAvailability
+- name: getLeadSpecials
+  description: Get Lead Specials
+  category: Lead
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getLeadSpecials
+- name: convertsAnExistingLeadIntoAQuote
+  description: Converts an existing lead into a quote
+  category: Lead
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#convertsAnExistingLeadIntoAQuote
+- name: createBundleJobQuoteRecord
+  description: Create Bundle(Job/Quote) Record
+  category: Bundle
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createBundleJobQuoteRecord
+- name: updateBundleJobQuoteNameBySequence
+  description: Update Bundle(Job/Quote) Name by sequence
+  category: Bundle
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateBundleJobQuoteNameBySequence
+- name: returnBundleJobQuoteNameBySequence
+  description: Return Bundle(Job/Quote) Name by sequence
+  category: Bundle
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#returnBundleJobQuoteNameBySequence
+- name: quotesByFollowUpDateRange
+  description: Quotes by follow up date range
+  category: Quote
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#quotesByFollowUpDateRange
+- name: createQuote
+  description: Create Quote
+  category: Quote
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createQuote
+- name: updateQuote
+  description: Update Quote
+  category: Quote
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateQuote
+- name: getQuote
+  description: Get Quote
+  category: Quote
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getQuote
+- name: createQuoteLine
+  description: Create Quote Line
+  category: Quote
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createQuoteLine
+- name: getQuoteLines
+  description: Get quote lines
+  category: Quote
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getQuoteLines
+- name: updateQuoteLine
+  description: Update Quote Line
+  category: Quote
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateQuoteLine
+- name: deleteQuoteLine
+  description: Delete Quote Line
+  category: Quote
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#deleteQuoteLine
+- name: createQuoteLineComment
+  description: Create Quote Line Comment
+  category: Quote
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createQuoteLineComment
+- name: updateQuoteLineComment
+  description: Update Quote Line Comment
+  category: Quote
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateQuoteLineComment
+- name: getQuoteLineCommments
+  description: Get Quote line commments
+  category: Quote
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getQuoteLineCommments
+- name: readsAQuoteNote
+  description: Reads a Quote Note
+  category: Quote
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readsAQuoteNote
+- name: getQrdlsubRecords
+  description: Get QRDLSUB Records
+  category: Quote
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getQrdlsubRecords
+- name: getCatalogItemsBelowSafetyStockLimit
+  description: Get Catalog Items below Safety Stock Limit
+  category: Inventory
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getCatalogItemsBelowSafetyStockLimit
+- name: assignedInventoryReceived
+  description: Assigned Inventory Received
+  category: Inventory
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#assignedInventoryReceived
+- name: getInventoryPointRecords
+  description: Get Inventory Point records
+  category: Inventory
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInventoryPointRecords
+- name: getInventoryFileRecords
+  description: Get Inventory File Records
+  category: Inventory
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInventoryFileRecords
+- name: getInventoryAssignedOnJob
+  description: Get Inventory Assigned on Job
+  category: Inventory
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInventoryAssignedOnJob
+- name: unassignInventoryOnJob
+  description: Unassign Inventory on Job
+  category: Inventory
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#unassignInventoryOnJob
+- name: assignInventoryToJob
+  description: Assign Inventory to Job
+  category: Inventory
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#assignInventoryToJob
+- name: invoiceHeader
+  description: Invoice Header
+  category: Invoice
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#invoiceHeader
+- name: getInvoiceLines
+  description: Get Invoice Lines
+  category: Invoice
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInvoiceLines
+- name: invoiceDownload
+  description: Invoice download
+  category: Invoice
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#invoiceDownload
+- name: getInvoiceCommissionInfo
+  description: Get Invoice Commission Info
+  category: Invoice
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInvoiceCommissionInfo
+- name: getJobCostInfo
+  description: Get Job Cost Info
+  category: Invoice
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getJobCostInfo
+- name: arNotesByBucket
+  description: AR Notes by Bucket
+  category: Accounts Receivable
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arNotesByBucket
+- name: paymentTypeCodes
+  description: Payment Type Codes
+  category: Accounts Receivable
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#paymentTypeCodes
+- name: arCustomerRegister
+  description: AR Customer Register
+  category: Accounts Receivable
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arCustomerRegister
+- name: arCustomerRegisterHistory
+  description: AR Customer Register History
+  category: Accounts Receivable
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#arCustomerRegisterHistory
+- name: getPreBuiltSalesReport
+  description: Get pre-built sales report
+  category: Reports
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getPreBuiltSalesReport
+- name: getWrittenBusinessReport
+  description: Get written business report
+  category: Reports
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getWrittenBusinessReport
+- name: getWrittenBusinessReportDetail
+  description: Get written business report detail
+  category: Reports
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getWrittenBusinessReportDetail
+- name: auditCreateRecordForOrder
+  description: Audit create record for order
+  category: Audit
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#auditCreateRecordForOrder
+- name: auditCreateRecordForQuote
+  description: Audit create record for quote
+  category: Audit
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#auditCreateRecordForQuote
+- name: getGlChartOfAccounts
+  description: Get GL Chart of Accounts
+  category: General Ledger
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getGlChartOfAccounts
+- name: getGlReportFormatList
+  description: Get GL Report Format List
+  category: General Ledger
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getGlReportFormatList
+- name: getGlDetailByPeriod
+  description: Get GL Detail By Period
+  category: General Ledger
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getGlDetailByPeriod
+- name: getGlDetailByPeriod1
+  description: Get GL Detail By Period
+  category: General Ledger
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getGlDetailByPeriod1
+- name: inventoryFromBarcodeScan
+  description: Inventory from barcode scan
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#inventoryFromBarcodeScan
+- name: inventoryByLocation
+  description: Inventory by location
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#inventoryByLocation
+- name: viewAJPricing
+  description: View A-J pricing
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#viewAJPricing
+- name: findPoSByBarcode
+  description: Find PO's by barcode
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#findPoSByBarcode
+- name: findPoSByVendorThatCanHaveAdditionalMaterialAdded
+  description: Find PO's by vendor that can have additional material added
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#findPoSByVendorThatCanHaveAdditionalMaterialAdded
+- name: createPo
+  description: Create PO
+  category: Handheld
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createPo
+- name: createPoLine
+  description: Create PO Line
+  category: Handheld
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createPoLine
+- name: getPoLines
+  description: Get PO lines
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getPoLines
+- name: updatePoLine
+  description: Update PO Line
+  category: Handheld
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updatePoLine
+- name: readWoLinesFromBarcode
+  description: Read WO lines from barcode
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readWoLinesFromBarcode
+- name: readWoHeaderFromBarcode
+  description: Read WO header from barcode
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readWoHeaderFromBarcode
+- name: unassignInventory
+  description: Unassign Inventory
+  category: Handheld
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#unassignInventory
+- name: assignInventory
+  description: Assign Inventory
+  category: Handheld
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#assignInventory
+- name: shipsWorkOrder
+  description: Ships Work Order
+  category: Handheld
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#shipsWorkOrder
+- name: inventoryLocationsFromBarcodeScan
+  description: Inventory Locations from barcode scan
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#inventoryLocationsFromBarcodeScan
+- name: getUnpickedInventory
+  description: Get unpicked inventory
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getUnpickedInventory
+- name: getInventoryComments
+  description: Get inventory comments
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInventoryComments
+- name: findTemporaryInventoryBarcode
+  description: Find temporary inventory barcode.
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#findTemporaryInventoryBarcode
+- name: getUserBarcodeSettings
+  description: Get user barcode settings.
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getUserBarcodeSettings
+- name: getStagedRevisionsList
+  description: Get staged revisions list
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getStagedRevisionsList
+- name: convertInventoryQuantity
+  description: Convert Inventory Quantity
+  category: Handheld
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#convertInventoryQuantity
+- name: updatePo
+  description: Update PO
+  category: Purchase Order
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updatePo
+- name: readPurchaseOrderLinesThatAreOpen
+  description: Read purchase order lines that are open
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readPurchaseOrderLinesThatAreOpen
+- name: purchaseOrderDetail
+  description: Purchase order detail
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#purchaseOrderDetail
+- name: listOfPurchaseOrdersByDate
+  description: List of purchase orders by date
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#listOfPurchaseOrdersByDate
+- name: poShipvia
+  description: PO Shipvia
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#poShipvia
+- name: poFreightTerms
+  description: PO Freight Terms
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#poFreightTerms
+- name: poShipmentMethodOfPayment
+  description: PO Shipment Method of Payment
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#poShipmentMethodOfPayment
+- name: vendorTypeList
+  description: Vendor Type List
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#vendorTypeList
+- name: customerTypeList
+  description: Customer Type List
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#customerTypeList
+- name: createsAPoNote
+  description: Creates a PO Note
+  category: Purchase Order
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createsAPoNote
+- name: editsAPoNote
+  description: Edits a PO Note
+  category: Purchase Order
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#editsAPoNote
+- name: readsPoNotes
+  description: Reads PO Notes
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#readsPoNotes
+- name: createPoLineComment
+  description: Create PO Line Comment
+  category: Purchase Order
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createPoLineComment
+- name: getPoLineCommments
+  description: Get PO line commments
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getPoLineCommments
+- name: getPoPointers
+  description: Get PO Pointers
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getPoPointers
+- name: getPurchaseOrderFileDataSqlFormat
+  description: Get Purchase Order File Data - SQL Format
+  category: Purchase Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getPurchaseOrderFileDataSqlFormat
+- name: chargeitproSummary
+  description: ChargeItPro summary
+  category: ChargeItPro
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#chargeitproSummary
+- name: vendorDetails
+  description: Vendor Details
+  category: Vendor
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#vendorDetails
+- name: getVendorContacts
+  description: Get Vendor Contacts
+  category: Vendor
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getVendorContacts
+- name: committedInventory
+  description: Committed Inventory
+  category: Committed
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#committedInventory
+- name: getRecordsFromTheCustomerCustomerAddressCustomerContactsLeadsAndVendorRecordsBasedOnPhoneNumber
+  description: Get records from the customer, customer address, customer contacts, leads, and vendor records based
+    on phone number.
+  category: General
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getRecordsFromTheCustomerCustomerAddressCustomerContactsLeadsAndVendorRecordsBasedOnPhoneNumber
+- name: getRecordsForContactsCreatedOnOrAfterDateSent
+  description: Get records for contacts created on or after date sent.
+  category: General
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getRecordsForContactsCreatedOnOrAfterDateSent
+- name: getWebStorageObjectsPerUser
+  description: Get web storage objects per user
+  category: General
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getWebStorageObjectsPerUser
+- name: getWebStorageObjectsPerUser1
+  description: Get web storage objects per user
+  category: General
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getWebStorageObjectsPerUser1
+- name: createWebstorageObject
+  description: Create webstorage object
+  category: General
+  method: post
+  source_operation: openapi/broadlume-bms-openapi.yml#createWebstorageObject
+- name: updateWebstorageObject
+  description: Update webstorage object
+  category: General
+  method: patch
+  source_operation: openapi/broadlume-bms-openapi.yml#updateWebstorageObject
+- name: updateWebstorageObject1
+  description: Update webstorage object
+  category: General
+  method: delete
+  source_operation: openapi/broadlume-bms-openapi.yml#updateWebstorageObject1
+- name: getBmFile
+  description: Get BM File
+  category: Build Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getBmFile
+- name: getBuildOrderLinesFile
+  description: Get Build Order Lines File
+  category: Build Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getBuildOrderLinesFile
+- name: getBuildOrderPointFile
+  description: Get Build Order Point File
+  category: Build Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getBuildOrderPointFile
+- name: getOrderRelatedBuildOrderLines
+  description: Get Order-Related Build Order Lines
+  category: Build Order
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getOrderRelatedBuildOrderLines
+- name: getInstallerLogo
+  description: Get Installer Logo
+  category: Logo
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getInstallerLogo
+- name: getLogo
+  description: Get Logo
+  category: Logo
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getLogo
+- name: getLogoSettingsBuDocumentType
+  description: Get Logo settings bu document type
+  category: Logo
+  method: get
+  source_operation: openapi/broadlume-bms-openapi.yml#getLogoSettingsBuDocumentType

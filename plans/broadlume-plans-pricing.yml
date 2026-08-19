@@ -1,0 +1,28 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.broadlume.com/schedule-a-demo
+plan_count: 0
+plans: []
+model: contact-sales
+api_pricing_published: false
+note: >-
+  Broadlume publishes no pricing for either its platform or its BMS API. There is no /pricing page —
+  https://www.broadlume.com/pricing returns HTTP 404 — and the full marketing sitemap (316 URLs across
+  six section sitemaps) contains no pricing, plans or packages page. Every commercial path on the site
+  funnels to a "Schedule a demo" form, and the developer portal carries no pricing, quota or tier
+  information for the API. API access is bundled with a BMS customer relationship: the x-api-key, the
+  tenant alias and the user credentials are all issued by Broadlume rather than self-served.
+sales_contact:
+  demo_request: https://www.broadlume.com/schedule-a-demo
+  customer_login: https://www.broadlume.com/retailer-login
+evidence:
+- url: https://www.broadlume.com/pricing
+  status: 404
+- url: https://www.broadlume.com/schedule-a-demo
+  status: 200
+- url: https://www.broadlume.com/sitemap.xml
+  status: 200
+  result: 316 URLs enumerated across six section sitemaps; no pricing page present
+- url: https://developer.broadlume.com/bms
+  status: 200
+  result: reference published; no pricing, quota or tier information

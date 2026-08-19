@@ -1,0 +1,406 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/broadlume-bms-openapi.yml
+note: 'Entity graph derived from the Broadlume BMS OpenAPI. Resource groups are the portal tag set; relationships
+  are inferred from shared id-reference parameters/body fields (company, branch, order, customer, quote, leadno,
+  ponumber, vendor, invoice) that appear across groups. The API is a flat RPC-style surface over a multi-company/multi-branch
+  ERP: nearly every operation is scoped by the company code and most by branch, which act as the tenancy keys rather
+  than as entities in their own right.'
+tenancy:
+  keys:
+  - alias (path — client id)
+  - company (query — 2-char company code)
+  - branch (query — 2-char branch code)
+  note: alias is the per-client path segment; company scopes 203 of 256 operations and branch 86.
+entities:
+- name: Customer
+  operations: 39
+  methods:
+    get: 24
+    post: 6
+    patch: 6
+    delete: 3
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 39
+- name: Lead
+  operations: 33
+  methods:
+    get: 17
+    post: 9
+    patch: 5
+    delete: 2
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 33
+  - to: Purchase Order
+    type: belongs_to
+    via: po
+    operations: 2
+- name: Order
+  operations: 26
+  methods:
+    post: 4
+    patch: 4
+    get: 16
+    delete: 2
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 26
+  - to: Customer
+    type: belongs_to
+    via: shcode
+    operations: 2
+  - to: Install
+    type: belongs_to
+    via: installer
+    operations: 1
+  - to: Customer
+    type: belongs_to
+    via: custid
+    operations: 1
+- name: Product
+  operations: 22
+  methods:
+    get: 22
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 22
+  - to: Customer
+    type: belongs_to
+    via: customer
+    operations: 1
+- name: Handheld
+  operations: 21
+  methods:
+    get: 15
+    post: 4
+    patch: 2
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 21
+  - to: Product
+    type: belongs_to
+    via: barcode
+    operations: 14
+  - to: Purchase Order
+    type: belongs_to
+    via: pono
+    operations: 3
+  - to: Product
+    type: belongs_to
+    via: catseq
+    operations: 2
+  - to: Vendor
+    type: belongs_to
+    via: vendor
+    operations: 1
+- name: Purchase Order
+  operations: 16
+  methods:
+    patch: 2
+    get: 12
+    post: 2
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 16
+  - to: Order
+    type: belongs_to
+    via: order
+    operations: 4
+  - to: Vendor
+    type: belongs_to
+    via: vendor
+    operations: 2
+- name: Quote
+  operations: 13
+  methods:
+    get: 6
+    post: 3
+    patch: 3
+    delete: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 13
+  - to: Customer
+    type: belongs_to
+    via: shcode
+    operations: 2
+  - to: Customer
+    type: belongs_to
+    via: customer
+    operations: 1
+  - to: Order
+    type: belongs_to
+    via: ordlseq
+    operations: 1
+- name: Install
+  operations: 9
+  methods:
+    get: 8
+    post: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 9
+  - to: Product
+    type: belongs_to
+    via: barcode
+    operations: 1
+- name: Company
+  operations: 7
+  methods:
+    get: 7
+  relationships: []
+- name: Inventory
+  operations: 7
+  methods:
+    get: 5
+    patch: 1
+    post: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 7
+  - to: Order
+    type: belongs_to
+    via: order
+    operations: 1
+  - to: Product
+    type: belongs_to
+    via: catseq
+    operations: 1
+  - to: Product
+    type: belongs_to
+    via: barcode
+    operations: 1
+- name: General
+  operations: 7
+  methods:
+    get: 4
+    post: 1
+    patch: 1
+    delete: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 7
+- name: Authentication
+  operations: 6
+  methods:
+    post: 2
+    get: 3
+    delete: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 2
+- name: Dashboard
+  operations: 6
+  methods:
+    get: 6
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 6
+  - to: Customer
+    type: belongs_to
+    via: customer
+    operations: 3
+- name: Pivot
+  operations: 6
+  methods:
+    get: 6
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 6
+- name: Invoice
+  operations: 5
+  methods:
+    get: 5
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 5
+  - to: Order
+    type: belongs_to
+    via: order
+    operations: 1
+- name: Edocs
+  operations: 4
+  methods:
+    get: 3
+    post: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 4
+  - to: Order
+    type: belongs_to
+    via: order
+    operations: 3
+  - to: Lead
+    type: belongs_to
+    via: leadno
+    operations: 3
+  - to: Quote
+    type: belongs_to
+    via: quote
+    operations: 3
+  - to: Customer
+    type: belongs_to
+    via: customer
+    operations: 3
+  - to: Vendor
+    type: belongs_to
+    via: vendor
+    operations: 3
+- name: Accounts Receivable
+  operations: 4
+  methods:
+    get: 4
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 4
+- name: General Ledger
+  operations: 4
+  methods:
+    get: 4
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 4
+- name: Build Order
+  operations: 4
+  methods:
+    get: 4
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 4
+  - to: Order
+    type: belongs_to
+    via: order
+    operations: 4
+- name: Bundle
+  operations: 3
+  methods:
+    post: 1
+    patch: 1
+    get: 1
+  relationships:
+  - to: Order
+    type: belongs_to
+    via: order
+    operations: 3
+  - to: Quote
+    type: belongs_to
+    via: quote
+    operations: 3
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 3
+- name: Reports
+  operations: 3
+  methods:
+    get: 3
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 3
+- name: Logo
+  operations: 3
+  methods:
+    get: 3
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 3
+  - to: Install
+    type: belongs_to
+    via: installer
+    operations: 1
+- name: Audit
+  operations: 2
+  methods:
+    get: 2
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 2
+- name: Vendor
+  operations: 2
+  methods:
+    get: 2
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 2
+- name: Version
+  operations: 1
+  methods:
+    get: 1
+  relationships: []
+- name: Retail Pricing
+  operations: 1
+  methods:
+    get: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 1
+  - to: Product
+    type: belongs_to
+    via: catseq
+    operations: 1
+- name: ChargeItPro
+  operations: 1
+  methods:
+    get: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 1
+- name: Committed
+  operations: 1
+  methods:
+    get: 1
+  relationships:
+  - to: Company
+    type: belongs_to
+    via: company
+    operations: 1

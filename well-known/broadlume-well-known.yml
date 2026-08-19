@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every Broadlume host on 2026-08-13
+result: no-hit
+note: >-
+  No /.well-known/ document is served by any Broadlume host. Recorded as a probe only — NO WellKnown or
+  SecurityTxt pointer is wired into apis.yml, because nothing was found. Two of the three hosts return a
+  misleading 200 on every /.well-known/ path: developer.broadlume.com is a Next.js single-page portal
+  whose catch-all answers HTTP 200 with a ~3.8KB HTML shell for any path, and www.broadlume.com answers
+  its 404 page with a 200-shaped HTML body on some paths. Neither is a document; both are recorded as
+  misses per the soft-404 rule.
+hosts:
+- host: https://www.broadlume.com
+  role: website
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://developer.broadlume.com
+  role: developer portal
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    result: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    result: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    result: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /llms.txt
+    status: 404
+  - path: /sitemap.xml
+    status: 404
+    result: advertised by robots.txt but returns 404
+  - path: /robots.txt
+    status: 200
+    result: 'single directive: Sitemap: https://developer.broadlume.com/sitemap.xml (which 404s)'
+- host: https://api.rmaster.com
+  role: API host
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  note: >-
+    The API host rejects every unauthenticated request with 403 and a 23-byte JSON body, including the
+    root and all /.well-known/ paths. Consistent with the documented mandatory x-api-key header.
+security_txt: null
+openid_configuration: null
+oauth_authorization_server: null
+api_catalog: null
+agent_card: null

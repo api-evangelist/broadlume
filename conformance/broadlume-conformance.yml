@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/broadlume-bms-openapi.yml
+docs: https://developer.broadlume.com/bms
+note: >-
+  Cross-cutting standards posture for the Broadlume BMS API, derived from the transcribed OpenAPI and
+  from probes of Broadlume's public surface. No compliance certifications are published anywhere on
+  broadlume.com or the developer portal, so no Compliance pointer is wired in apis.yml.
+standards:
+- id: openapi
+  conforms: true
+  evidence: >-
+    OpenAPI 3.1.0 document at openapi/broadlume-bms-openapi.yml, transcribed from the provider's own
+    published reference. Note Broadlume itself does not publish a downloadable machine-readable spec —
+    the reference is rendered by the Theneo portal platform and no export endpoint is reachable.
+  caveat: provider-published spec file not available; this document is an API Evangelist transcription
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme; authentication is two apiKey headers.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery document; /.well-known/openid-configuration 404/403 on all hosts.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No error responses documented at all; no application/problem+json media type anywhere.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt absent on every host — see well-known/broadlume-well-known.yml.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation policy or Sunset/Deprecation header support published.
+- id: rfc7807-problem-json
+  conforms: false
+  evidence: No error envelope published.
+- id: json-api
+  conforms: false
+  evidence: >-
+    Responses use uppercase ERP column names and numeric-string keyed objects, not a JSON:API document
+    structure.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No idempotency key header or parameter across 70 write operations — see
+    conventions/broadlume-conventions.yml.
+- id: pagination
+  conforms: partial
+  evidence: >-
+    page/pagelimit page-number pagination on 13 of 256 operations; no total-count or next-cursor field.
+- id: rest
+  conforms: partial
+  evidence: >-
+    Resource-oriented paths with GET/POST/PATCH/DELETE, but an RPC-flavoured surface — 199 paths for 256
+    operations, with verbs and record layouts carried in the path name (changebranch, sessioncount,
+    hhgetinvpointers) and filtering done entirely through query parameters.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    No event, streaming or webhook surface is documented; none of the 256 operations registers or manages
+    a subscription. Not applicable rather than failed.
+- id: mcp
+  conforms: false
+  evidence: No MCP server published — see mcp/broadlume-mcp.yml.
+- id: a2a
+  conforms: false
+  evidence: >-
+    No agent card. /.well-known/agent-card.json and /.well-known/agent.json return 404 on
+    www.broadlume.com and an SPA HTML shell on developer.broadlume.com.
+compliance_program:
+  published: false
+  certifications: []
+  trust_center: null
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP or GDPR claim is published on broadlume.com or the
+    developer portal. trust.broadlume.com does not resolve and /security returns 404. Notable given the
+    API exposes accounts receivable, general ledger and payment-processing (ChargeItPro) data.
+  probes:
+  - url: https://trust.broadlume.com/
+    status: 0
+  - url: https://www.broadlume.com/security
+    status: 404

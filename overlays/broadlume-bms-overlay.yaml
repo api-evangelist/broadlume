@@ -1,0 +1,54 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Broadlume BMS
+  version: 1.0.0
+extends: openapi/broadlume-bms-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/broadlume-bms-openapi.yml
+x-note: >-
+  Captures API Evangelist annotations on top of the transcribed Broadlume BMS contract without mutating
+  the transcription. Every statement below is an observation about the contract, not an addition to what
+  Broadlume publishes.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/broadlume
+    x-apievangelist-transcribed-from: https://developer.broadlume.com/bms
+    x-apievangelist-provider-publishes-spec-file: false
+    x-apievangelist-operations: 256
+    x-apievangelist-resource-groups: 28
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+      documented_error_responses: 0
+      idempotency_contract: false
+      rate_limit_headers: false
+      published_status_page: false
+      deprecation_policy: false
+      security_txt: false
+      compliance_certifications_published: false
+- target: $.components.securitySchemes.sessionToken
+  update:
+    x-token-grant-types:
+    - name: client
+      default: true
+      idle_timeout: 5 minutes (documented default)
+    - name: application
+      default: false
+      expiry: no idle timeout if used within a year of creation
+    x-session-cap-endpoint: GET /{alias}/sessioncount
+- target: $.servers[0]
+  update:
+    x-apievangelist-domain-note: >-
+      api.rmaster.com is the correct base for this Broadlume product. Broadlume acquired RollMaster in
+      November 2021 and Broadlume BMS is the renamed RollMaster ERP; the developer portal at
+      developer.broadlume.com titles the project "Broadlume BMS" and describes it as "formarly known as
+      rollmaster" [sic].
+- target: $.paths['/{alias}/orderline'].get
+  update:
+    x-apievangelist-status: documented but inactive until the 2102 release
+- target: $.paths['/{alias}/shiptonotes']
+  update:
+    x-apievangelist-status: >-
+      All four ShipTo note operations on this path are documented but inactive until the 2102 release.
