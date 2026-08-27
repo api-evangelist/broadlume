@@ -59,33 +59,16 @@ tags_raw:
 - Accounting
 - Order Management
 apis:
-- aid: broadlume:bms
-  name: Broadlume BMS API
-  description: REST API for Broadlume BMS, the flooring business management system formerly known as
-    RollMaster. 256 documented operations across 28 resource groups covering orders, quotes, leads,
-    customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable,
-    general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and
-    reporting. Authentication is a Broadlume-issued x-api-key header plus a per-user session token
-    obtained from the token endpoint.
+- aid: broadlume:broadlume-accounts-receivable-api
+  name: Broadlume Accounts Receivable API
+  description: The Accounts Receivable API from Broadlume — 4 operation(s) for accounts receivable.
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
-  - ERP
-  - Order Management
-  - Inventory
-  - Accounting
-  - Point-of-Sale
-  - Flooring
-  tags_raw:
-  - ERP
-  - Order Management
-  - Inventory
-  - Accounting
-  - Point of Sale
-  - Flooring
+  - Accounts Receivable
   properties:
   - type: OpenAPI
-    url: openapi/broadlume-bms-openapi.yml
+    url: openapi/broadlume-accounts-receivable-api-openapi.yml
   - type: Documentation
     url: https://developer.broadlume.com/bms
   - type: APIReference
@@ -98,8 +81,654 @@ apis:
     url: errors/broadlume-problem-types.yml
   - type: DataModel
     url: data-model/broadlume-data-model.yml
-  - type: Overlay
-    url: overlays/broadlume-bms-overlay.yaml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-audit-api
+  name: Broadlume Audit API
+  description: The Audit API from Broadlume — 2 operation(s) for audit.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Audit
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-audit-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-authentication-api
+  name: Broadlume Authentication API
+  description: The Authentication API from Broadlume — 4 operation(s) for authentication.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-build-order-api
+  name: Broadlume Build Order API
+  description: The Build Order API from Broadlume — 4 operation(s) for build order.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Build Order
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-build-order-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-bundle-api
+  name: Broadlume Bundle API
+  description: The Bundle API from Broadlume — 1 operation(s) for bundle.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Bundle
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-bundle-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-chargeitpro-api
+  name: Broadlume Charge It Pro API
+  description: The ChargeItPro API from Broadlume — 1 operation(s) for chargeitpro.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - ChargeItPro
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-chargeitpro-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-committed-api
+  name: Broadlume Committed API
+  description: The Committed API from Broadlume — 1 operation(s) for committed.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Committed
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-committed-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-company-api
+  name: Broadlume Company API
+  description: The Company API from Broadlume — 7 operation(s) for company.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-company-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-customer-api
+  name: Broadlume Customer API
+  description: The Customer API from Broadlume — 26 operation(s) for customer.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Customer
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-customer-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-dashboard-api
+  name: Broadlume Dashboard API
+  description: The Dashboard API from Broadlume — 6 operation(s) for dashboard.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-edocs-api
+  name: Broadlume Edocs API
+  description: The Edocs API from Broadlume — 3 operation(s) for edocs.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Edocs
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-edocs-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-general-api
+  name: Broadlume General API
+  description: The General API from Broadlume — 4 operation(s) for general.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - General
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-general-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-general-ledger-api
+  name: Broadlume General Ledger API
+  description: The General Ledger API from Broadlume — 4 operation(s) for general ledger.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - General Ledger
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-general-ledger-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-handheld-api
+  name: Broadlume Handheld API
+  description: The Handheld API from Broadlume — 18 operation(s) for handheld.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Handheld
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-handheld-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-install-api
+  name: Broadlume Install API
+  description: The Install API from Broadlume — 9 operation(s) for install.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Install
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-install-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-inventory-api
+  name: Broadlume Inventory API
+  description: The Inventory API from Broadlume — 5 operation(s) for inventory.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-invoice-api
+  name: Broadlume Invoice API
+  description: The Invoice API from Broadlume — 5 operation(s) for invoice.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Invoice
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-invoice-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-lead-api
+  name: Broadlume Lead API
+  description: The Lead API from Broadlume — 22 operation(s) for lead.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Lead
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-lead-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-logo-api
+  name: Broadlume Logo API
+  description: The Logo API from Broadlume — 3 operation(s) for logo.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Logo
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-logo-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-order-api
+  name: Broadlume Order API
+  description: The Order API from Broadlume — 17 operation(s) for order.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-order-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-pivot-api
+  name: Broadlume Pivot API
+  description: The Pivot API from Broadlume — 6 operation(s) for pivot.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Pivot
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-pivot-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-product-api
+  name: Broadlume Product API
+  description: The Product API from Broadlume — 22 operation(s) for product.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-product-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-purchase-order-api
+  name: Broadlume Purchase Order API
+  description: The Purchase Order API from Broadlume — 13 operation(s) for purchase order.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Purchase Order
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-purchase-order-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-quote-api
+  name: Broadlume Quote API
+  description: The Quote API from Broadlume — 6 operation(s) for quote.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Quote
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-quote-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-reports-api
+  name: Broadlume Reports API
+  description: The Reports API from Broadlume — 3 operation(s) for reports.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-retail-pricing-api
+  name: Broadlume Retail Pricing API
+  description: The Retail Pricing API from Broadlume — 1 operation(s) for retail pricing.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Retail Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-retail-pricing-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-vendor-api
+  name: Broadlume Vendor API
+  description: The Vendor API from Broadlume — 2 operation(s) for vendor.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Vendor
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-vendor-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-version-api
+  name: Broadlume Version API
+  description: The Version API from Broadlume — 1 operation(s) for version.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-version-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
   - type: Console
     url: https://developer.broadlume.com/api-runner/broadlume/bms
 maintainers:
