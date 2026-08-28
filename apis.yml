@@ -10,6 +10,18 @@ description: Broadlume is an all-in-one business platform for the flooring indus
   leads, customers, products, inventory, purchase orders, invoicing, accounts receivable, general ledger,
   installation scheduling and handheld barcode operations. Broadlume is owned by Cyncly.
 url: https://raw.githubusercontent.com/api-evangelist/broadlume/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: contact
