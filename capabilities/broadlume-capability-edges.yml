@@ -1,0 +1,118 @@
+slug: broadlume
+provider: Broadlume
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 10
+edges:
+- tag: General Ledger
+  spec_file: broadlume-general-ledger-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.95
+  evidence: GET /{alias}/glchartofaccounts  getGlChartOfAccounts  Get GL Chart of Accounts; GET /{alias}/gldetailbyperiod  getGlDetailByPeriod
+  reason: Operations expose the general ledger chart of accounts, GL period tables and GL detail by period
+    — plainly general ledger accounting.
+- tag: Accounts Receivable
+  spec_file: broadlume-accounts-receivable-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.92
+  evidence: GET /{alias}/arcustomerregister  AR Customer Register; GET /{alias}/paytypecodes  Payment
+    Type Codes; GET /{alias}/ARNotes  AR Notes by Bucket
+  reason: Customer AR registers, aging buckets and payment type codes are plainly accounts receivable
+    accounting operations.
+- tag: Purchase Order
+  spec_file: broadlume-purchase-order-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.9
+  evidence: GET /{alias}/purchaseorderheader purchaseOrderDetail Purchase order detail; PATCH /{alias}/po
+    updatePo Update PO; GET /{alias}/purchaseorderlines readPurchaseOrderLinesThatAreOpen
+  reason: Operations create, read and update purchase orders, PO lines, freight terms and PO notes — plainly
+    Purchase Order Management within procurement.
+- tag: Customer
+  spec_file: broadlume-customer-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.85
+  evidence: GET /{alias}/customers  customerList  Customer List; GET /{alias}/customersearchbyphone  customerSearch  Customer
+    Search; POST /{alias}/customercontact  createsCustomerContact
+  reason: CRUD and search over customer master records, contacts, properties and AR contacts — customer
+    data maintenance and identity lookup. Some operations (customer invoices, 5-year sales) touch receivables/analytics,
+    but the core of the tag is customer master data.
+- tag: Lead
+  spec_file: broadlume-lead-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.85
+  evidence: POST /{alias}/lead createsLead Creates Lead; PATCH /{alias}/lead updateLead; POST /{alias}/leaddispo
+    updatesLeadDispoNotes; GET /{alias}/leadnonq leadNonqualifiedCategories
+  reason: Full sales lead lifecycle — creation, update, notes, dispositions, qualification/non-qualification
+    categories — matches Lead/opportunity lifecycle management in Sales Management.
+- tag: Quote
+  spec_file: broadlume-quote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.85
+  evidence: POST /{alias}/quote createQuote Create Quote; POST /{alias}/quoteline createQuoteLine; GET
+    /{alias}/quotes quotesByFollowUpDateRange
+  reason: Customer quote and quote-line lifecycle with follow-up tracking corresponds to quote management
+    in the sales lead-to-order process.
+- tag: Inventory
+  spec_file: broadlume-inventory-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.8
+  evidence: GET /{alias}/lowstock  getCatalogItemsBelowSafetyStockLimit  Get Catalog Items below Safety
+    Stock Limit; POST /{alias}/assignedinventory  assignInventoryToJob
+  reason: Operations cover safety-stock threshold reporting, inventory file/pointer records and assignment
+    of inventory to jobs — stock level and allocation management. Spans both stock-level and allocation
+    sub-capabilities, so the L1 is asserted.
+- tag: Invoice
+  spec_file: broadlume-invoice-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.72
+  evidence: GET /{alias}/invoice invoiceHeader Invoice Header; GET /{alias}/salesinvoice invoiceDownload
+    Invoice download
+  reason: Operations read sales invoice headers, lines and downloadable sales invoices for the retailer's
+    customers, which is customer invoicing under Accounts Receivable Management. The presence of job cost
+    and commission lookups adds some ambiguity, hence not top confidence.
+- tag: Committed
+  spec_file: broadlume-committed-api-openapi.yml
+  capability_id: BC-530.30
+  capability_id_l1: BC-530
+  capability_name: Inventory Allocation Management
+  confidence: 0.7
+  evidence: GET /{alias}/committed  committedInventory  Committed Inventory
+  reason: Single operation returning 'Committed Inventory', i.e. stock reserved/allocated against jobs,
+    which is inventory allocation and reservation. Thin surface so moderate confidence, but the reading
+    is unambiguous within an inventory-management system.
+- tag: Dashboard
+  spec_file: broadlume-dashboard-api-openapi.yml
+  capability_id: BC-230.30
+  capability_id_l1: BC-230
+  capability_name: Management Reporting
+  confidence: 0.7
+  evidence: GET /{alias}/dashboardar  arQuicklist  AR Quicklist; GET /{alias}/dashboardinventory  inventoryValuationQuicklist;
+    GET /{alias}/dashboardfiscal  fiscalYearQuicklist
+  reason: Read-only aggregate 'quicklist' figures for sales, AR, AP, inventory valuation, work-in-process
+    and fiscal year — management KPI reporting for the retailer. Generic dashboard surface, hence moderate
+    confidence.
