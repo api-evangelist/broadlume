@@ -1,0 +1,1932 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Product API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Product
+paths:
+  /{alias}/producttypes:
+    get:
+      operationId: productTypes
+      summary: Product types
+      tags:
+      - Product
+      description: Product types list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/productcodes:
+    get:
+      operationId: productCodes
+      summary: Product codes
+      tags:
+      - Product
+      description: Product codes list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/productstyles:
+    get:
+      operationId: productStyles
+      summary: Product styles
+      tags:
+      - Product
+      description: Product styles list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional product type to narrow results
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/productstylessearch:
+    get:
+      operationId: productStyles1
+      summary: Product styles
+      tags:
+      - Product
+      description: Product styles list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: catstatus
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Optional status to narrow results - can be Y or N.
+      - name: prodcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional product code to narrow results
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional product type to narrow results
+      - name: term
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 80
+        description: Used to match possibly styles. Partial text search in all characters of style field used. The more precise the name is, the quicker the return will usually complete. Searching wildcard or low character count terms can take longer.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/productcolors:
+    get:
+      operationId: productColors
+      summary: Product colors
+      tags:
+      - Product
+      description: Product colors list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+      - name: prodstyle
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 80
+        description: Used to match possibly styles. Partial text search in all characters of style field used. The more precise the name is, the quicker the return will usually complete. Searching wildcard or low character count terms can take longer.
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Catseq is not required .If all fields provided, only catseq is used.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/productstock:
+    get:
+      operationId: productStock
+      summary: Product stock
+      tags:
+      - Product
+      description: Product stock list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+        description: Barcode or Catseq required.
+      - name: catseq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 13
+        description: Barcode or Catseq required.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/productprice:
+    get:
+      operationId: productPrice
+      summary: Product price
+      tags:
+      - Product
+      description: Product price
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch specific pricing when applicable.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+      - name: catseq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 13
+        description: Barcode or Catseq required to return stock. If both are provided, only catseq is used.
+      - name: customer
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional, gets customer/property mgr specific special pricing when applicable.
+      - name: customertype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional, gets customer type specific special pricing when applicable.
+      - name: shipto
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+        description: Optional, gets property mgr specific special pricing when applicable, customer is required when using shipto.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BARCODE:
+                    type: string
+                  BRANCH:
+                    type: string
+                  PRODCODE:
+                    type: string
+                  STYLE:
+                    type: string
+                  STYLENUM:
+                    type: string
+                  COLOR:
+                    type: string
+                  COLORNUM:
+                    type: string
+                  BYBOX:
+                    type: string
+                  UNITPERBOX:
+                    type: string
+                  PRICEANAME:
+                    type: string
+                  PRICEAC:
+                    type: string
+                  PRICEAR:
+                    type: string
+                  PRICEBNAME:
+                    type: string
+                  PRICEBC:
+                    type: string
+                  PRICEBR:
+                    type: string
+                  PRICECNAME:
+                    type: string
+                  PRICECC:
+                    type: string
+                  PRICECR:
+                    type: string
+                  PRICEDNAME:
+                    type: string
+                  PRICEDC:
+                    type: string
+                  PRICEDR:
+                    type: string
+                  PRICEENAME:
+                    type: string
+                  PRICEEC:
+                    type: string
+                  PRICEER:
+                    type: string
+                  PRICEFNAME:
+                    type: string
+                  PRICEFC:
+                    type: string
+                  PRICEFR:
+                    type: string
+                  PRICEGNAME:
+                    type: string
+                  PRICEGC:
+                    type: string
+                  PRICEGR:
+                    type: string
+                  PRICEHNAME:
+                    type: string
+                  PRICEHC:
+                    type: string
+                  PRICEHR:
+                    type: string
+                  PRICEINAME:
+                    type: string
+                  PRICEIC:
+                    type: string
+                  PRICEIR:
+                    type: string
+                  PRICEJNAME:
+                    type: string
+                  PRICEJC:
+                    type: string
+                  PRICEJR:
+                    type: string
+                  SPECIALPRICEC:
+                    type: string
+                  SPECIALPRICER:
+                    type: string
+                  FLOAT_UNITPERBOX:
+                    type: string
+                  FLOAT_PRICENAMEA:
+                    type: string
+                  FLOAT_PRICEAC:
+                    type: string
+                  FLOAT_PRICEAR:
+                    type: string
+                  FLOAT_PRICENAMEB:
+                    type: string
+                  FLOAT_PRICEBC:
+                    type: string
+                  FLOAT_PRICEBR:
+                    type: string
+                  FLOAT_PRICENAMEC:
+                    type: string
+                  FLOAT_PRICECC:
+                    type: string
+                  FLOAT_PRICECR:
+                    type: string
+                  FLOAT_PRICENAMED:
+                    type: string
+                  FLOAT_PRICEDC:
+                    type: string
+                  FLOAT_PRICEDR:
+                    type: string
+                  FLOAT_PRICENAMEE:
+                    type: string
+                  FLOAT_PRICEEC:
+                    type: string
+                  FLOAT_PRICEER:
+                    type: string
+                  FLOAT_PRICENAMEF:
+                    type: string
+                  FLOAT_PRICEFC:
+                    type: string
+                  FLOAT_PRICEFR:
+                    type: string
+                  FLOAT_PRICENAMEG:
+                    type: string
+                  FLOAT_PRICEGC:
+                    type: string
+                  FLOAT_PRICEGR:
+                    type: string
+                  FLOAT_PRICENAMEH:
+                    type: string
+                  FLOAT_PRICEHC:
+                    type: string
+                  FLOAT_PRICEHR:
+                    type: string
+                  FLOAT_PRICENAMEI:
+                    type: string
+                  FLOAT_PRICEIC:
+                    type: string
+                  FLOAT_PRICEIR:
+                    type: string
+                  FLOAT_PRICENAMEJ:
+                    type: string
+                  FLOAT_PRICEJC:
+                    type: string
+                  FLOAT_PRICEJR:
+                    type: string
+                  FLOAT_SPECIALPRICEC:
+                    type: string
+                  FLOAT_SPECIALPRICER:
+                    type: string
+                  UOM:
+                    type: string
+                  WIDTH:
+                    type: string
+                  SIMPLE_TAXABLE:
+                    type: string
+  /{alias}/catalogattributes:
+    get:
+      operationId: productAttributes
+      summary: Product Attributes
+      tags:
+      - Product
+      description: Product Attributes for Catalog Sequence
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: catseq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 13
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATR1_WEBNAME:
+                    type: string
+                  CATR1_SHOWWEB:
+                    type: string
+                  CATR1_INTEGER_1:
+                    type: string
+                  CATR1_INTEGER_2:
+                    type: string
+                  CATR1_INTEGER_3:
+                    type: string
+                  CATR1_INTEGER_4:
+                    type: string
+                  CATR1_NUM3DEC_1:
+                    type: string
+                  CATR1_NUM3DEC_2:
+                    type: string
+                  CATR1_NUM3DEC_3:
+                    type: string
+                  CATR1_NUM3DEC_4:
+                    type: string
+                  CATR1_NUM3DEC_5:
+                    type: string
+                  CATR1_NUM3DEC_6:
+                    type: string
+                  CATR1_NUM3DEC_7:
+                    type: string
+                  CATR1_NUM3DEC_8:
+                    type: string
+                  CATR1_NUM3DEC_9:
+                    type: string
+                  CATR1_NUM3DEC_10:
+                    type: string
+                  CATR1_NUM3DEC_11:
+                    type: string
+                  CATR1_NUM3DEC_12:
+                    type: string
+                  CATR1_NUM3DEC_13:
+                    type: string
+                  CATR1_NUM3DEC_14:
+                    type: string
+                  CATR1_NOTE_SHORT:
+                    type: string
+                  CATR1_NOTE_LONG:
+                    type: string
+                  CATR1_BULLET_POINT1:
+                    type: string
+                  CATR1_BULLET_POINT2:
+                    type: string
+                  CATR1_BULLET_POINT3:
+                    type: string
+                  CATR1_BULLET_POINT4:
+                    type: string
+                  CATR1_BULLET_POINT5:
+                    type: string
+                  CATR1_BULLET_POINT6:
+                    type: string
+                  CATR1_BULLET_POINT7:
+                    type: string
+                  CATR1_BULLET_POINT8:
+                    type: string
+                  CATR1_BULLET_POINT9:
+                    type: string
+                  CATR1_BULLET_POINT10:
+                    type: string
+                  CATR2_DROPLIST_1:
+                    type: string
+                  CATR2_DROPLIST_2:
+                    type: string
+                  CATR2_DROPLIST_3:
+                    type: string
+                  CATR2_DROPLIST_4:
+                    type: string
+                  CATR2_DROPLIST_5:
+                    type: string
+                  CATR2_DROPLIST_6:
+                    type: string
+                  CATR2_DROPLIST_7:
+                    type: string
+                  CATR2_DROPLIST_8:
+                    type: string
+                  CATR2_DROPLIST_9:
+                    type: string
+                  CATR2_DROPLIST_10:
+                    type: string
+                  CATR2_DROPLIST_11:
+                    type: string
+                  CATR2_DROPLIST_12:
+                    type: string
+                  CATR2_DROPLIST_13:
+                    type: string
+                  CATR2_DROPLIST_14:
+                    type: string
+                  CATR2_DROPLIST_15:
+                    type: string
+                  CATR2_DROPLIST_16:
+                    type: string
+                  CATR2_DROPLIST_17:
+                    type: string
+                  CATR2_DROPLIST_18:
+                    type: string
+                  CATR2_DROPLIST_19:
+                    type: string
+                  CATR2_DROPLIST_20:
+                    type: string
+                  CATR2_DROPLIST_21:
+                    type: string
+                  CATR2_DROPLIST_22:
+                    type: string
+                  CATR2_DROPLIST_23:
+                    type: string
+                  CATR2_DROPLIST_24:
+                    type: string
+                  CATR2_DROPLIST_25:
+                    type: string
+                  CATR2_DROPLIST_26:
+                    type: string
+                  CATR2_DROPLIST_27:
+                    type: string
+                  CATR2_DROPLIST_28:
+                    type: string
+                  CATR2_DROPLIST_29:
+                    type: string
+                  CATR2_DROPLIST_30:
+                    type: string
+                  CATR2_DROPLIST_31:
+                    type: string
+                  CATR2_DROPLIST_32:
+                    type: string
+                  CATR2_DROPLIST_33:
+                    type: string
+                  CATR2_DROPLIST_34:
+                    type: string
+                  CATR2_DROPLIST_35:
+                    type: string
+                  CATR2_DROPLIST_36:
+                    type: string
+                  CATR2_DROPLIST_37:
+                    type: string
+                  CATR2_DROPLIST_38:
+                    type: string
+                  CATR2_DROPLIST_39:
+                    type: string
+                  CATR2_DROPLIST_40:
+                    type: string
+                  MULTIPICKS:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                  CATR2_CUSTOM_1:
+                    type: string
+                  CATR2_CUSTOM_2:
+                    type: string
+                  CATR2_CUSTOM_3:
+                    type: string
+                  CATR2_CUSTOM_4:
+                    type: string
+                  CATR2_CUSTOM_5:
+                    type: string
+                  CATR2_CUSTOM_6:
+                    type: string
+                  CATR2_CUSTOM_7:
+                    type: string
+                  CATR2_CUSTOM_8:
+                    type: string
+                  CATR2_CUSTOM_9:
+                    type: string
+                  CATR2_CUSTOM_10:
+                    type: string
+                  CATR2_CUSTOM_11:
+                    type: string
+                  CATR2_CUSTOM_12:
+                    type: string
+                  CATR2_CUSTOM_13:
+                    type: string
+  /{alias}/attributelabels:
+    get:
+      operationId: attributesLabels
+      summary: Attributes Labels
+      tags:
+      - Product
+      description: Attributes Labels
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRD_FIELD_NAME_1:
+                    type: string
+                  CATRD_FIELD_NAME_2:
+                    type: string
+                  CATRD_FIELD_NAME_3:
+                    type: string
+                  CATRD_FIELD_NAME_4:
+                    type: string
+                  CATRD_FIELD_NAME_5:
+                    type: string
+                  CATRD_FIELD_NAME_6:
+                    type: string
+                  CATRD_FIELD_NAME_7:
+                    type: string
+                  CATRD_FIELD_NAME_8:
+                    type: string
+                  CATRD_FIELD_NAME_9:
+                    type: string
+                  CATRD_FIELD_NAME_10:
+                    type: string
+                  CATRD_FIELD_NAME_11:
+                    type: string
+                  CATRD_FIELD_NAME_12:
+                    type: string
+                  CATRD_FIELD_NAME_13:
+                    type: string
+                  CATRD_FIELD_NAME_14:
+                    type: string
+                  CATRD_FIELD_NAME_15:
+                    type: string
+                  CATRD_FIELD_NAME_16:
+                    type: string
+                  CATRD_FIELD_NAME_17:
+                    type: string
+                  CATRD_FIELD_NAME_18:
+                    type: string
+                  CATRD_FIELD_NAME_19:
+                    type: string
+                  CATRD_FIELD_NAME_20:
+                    type: string
+                  CATRD_FIELD_NAME_21:
+                    type: string
+                  CATRD_FIELD_NAME_22:
+                    type: string
+                  CATRD_FIELD_NAME_23:
+                    type: string
+                  CATRD_FIELD_NAME_24:
+                    type: string
+                  CATRD_FIELD_NAME_25:
+                    type: string
+                  CATRD_FIELD_NAME_26:
+                    type: string
+                  CATRD_FIELD_NAME_27:
+                    type: string
+                  CATRD_FIELD_NAME_28:
+                    type: string
+                  CATRD_FIELD_NAME_29:
+                    type: string
+                  CATRD_FIELD_NAME_30:
+                    type: string
+                  CATRD_FIELD_NAME_31:
+                    type: string
+                  CATRD_FIELD_NAME_32:
+                    type: string
+                  CATRD_FIELD_NAME_33:
+                    type: string
+                  CATRD_FIELD_NAME_34:
+                    type: string
+                  CATRD_FIELD_NAME_35:
+                    type: string
+                  CATRD_FIELD_NAME_36:
+                    type: string
+                  CATRD_FIELD_NAME_37:
+                    type: string
+                  CATRD_FIELD_NAME_38:
+                    type: string
+                  CATRD_FIELD_NAME_39:
+                    type: string
+                  CATRD_FIELD_NAME_40:
+                    type: string
+                  CATRD_FIELD_NAME_41:
+                    type: string
+                  CATRD_FIELD_NAME_42:
+                    type: string
+                  CATRD_FIELD_NAME_43:
+                    type: string
+                  CATRD_FIELD_NAME_44:
+                    type: string
+                  CATRD_FIELD_NAME_45:
+                    type: string
+                  CATRD_FIELD_NAME_46:
+                    type: string
+                  CATRD_FIELD_NAME_47:
+                    type: string
+                  CATRD_FIELD_NAME_48:
+                    type: string
+                  CATRD_FIELD_NAME_49:
+                    type: string
+                  CATRD_FIELD_NAME_50:
+                    type: string
+                  CATRD_FIELD_NAME_51:
+                    type: string
+                  CATRD_FIELD_NAME_52:
+                    type: string
+                  CATRD_FIELD_NAME_53:
+                    type: string
+                  CATRD_FIELD_NAME_54:
+                    type: string
+                  CATRD_FIELD_NAME_55:
+                    type: string
+                  CATRD_FIELD_NAME_56:
+                    type: string
+                  CATRD_FIELD_NAME_57:
+                    type: string
+                  CATRD_FIELD_NAME_58:
+                    type: string
+                  CATRD_FIELD_NAME_59:
+                    type: string
+                  CATRD_FIELD_NAME_60:
+                    type: string
+                  CATRD_FIELD_NAME_61:
+                    type: string
+                  CATRD_FIELD_NAME_62:
+                    type: string
+                  CATRD_FIELD_NAME_63:
+                    type: string
+                  CATRD_FIELD_NAME_64:
+                    type: string
+                  CATRD_FIELD_NAME_65:
+                    type: string
+                  CATRD_FIELD_NAME_66:
+                    type: string
+                  CATRD_FIELD_NAME_67:
+                    type: string
+                  CATRD_FIELD_NAME_68:
+                    type: string
+                  CATRD_FIELD_NAME_69:
+                    type: string
+                  CATRD_FIELD_NAME_70:
+                    type: string
+                  CATRD_FIELD_NAME_71:
+                    type: string
+                  CATRD_FIELD_NAME_72:
+                    type: string
+                  CATRD_FIELD_NAME_73:
+                    type: string
+                  CATRD_FIELD_NAME_74:
+                    type: string
+                  CATRD_FIELD_NAME_75:
+                    type: string
+                  CATRD_FIELD_NAME_76:
+                    type: string
+                  CATRD_FIELD_NAME_77:
+                    type: string
+                  CATRD_FIELD_NAME_78:
+                    type: string
+                  CATRD_FIELD_NAME_79:
+                    type: string
+                  CATRD_FIELD_NAME_80:
+                    type: string
+                  CATRD_FIELD_NAME_81:
+                    type: string
+                  CATRD_FIELD_NAME_82:
+                    type: string
+                  CATRD_FIELD_NAME_83:
+                    type: string
+                  CATRD_FIELD_NAME_84:
+                    type: string
+                  CATRD_FIELD_NAME_85:
+                    type: string
+                  CATRD_FIELD_NAME_86:
+                    type: string
+                  CATRD_FIELD_NAME_87:
+                    type: string
+                  CATRD_FIELD_NAME_88:
+                    type: string
+                  CATRD_FIELD_NAME_89:
+                    type: string
+                  CATRD_FIELD_NAME_90:
+                    type: string
+                  CATRD_FIELD_NAME_91:
+                    type: string
+                  CATRD_FIELD_NAME_92:
+                    type: string
+                  CATRD_FIELD_NAME_93:
+                    type: string
+                  CATRD_FIELD_NAME_94:
+                    type: string
+                  CATRD_FIELD_NAME_95:
+                    type: string
+                  CATRD_FIELD_NAME_96:
+                    type: string
+                  CATRD_FIELD_NAME_97:
+                    type: string
+                  CATRD_FIELD_NAME_98:
+                    type: string
+                  CATRD_FIELD_NAME_99:
+                    type: string
+                  CATRD_FIELD_NAME_100:
+                    type: string
+                  CATRD_FIELD_NAME_101:
+                    type: string
+                  CATRD_FIELD_NAME_102:
+                    type: string
+                  CATRD_FIELD_NAME_103:
+                    type: string
+                  CATRD_FIELD_NAME_104:
+                    type: string
+                  CATRD_FIELD_NAME_105:
+                    type: string
+                  CATRD_FIELD_NAME_106:
+                    type: string
+                  CATRD_FIELD_NAME_107:
+                    type: string
+                  CATRD_FIELD_NAME_108:
+                    type: string
+                  CATRD_FIELD_NAME_109:
+                    type: string
+                  CATRD_FIELD_NAME_110:
+                    type: string
+                  CATRD_FIELD_NAME_111:
+                    type: string
+                  CATRD_FIELD_NAME_112:
+                    type: string
+                  CATRD_FIELD_NAME_113:
+                    type: string
+                  CATRD_FIELD_NAME_114:
+                    type: string
+                  CATRD_FIELD_NAME_115:
+                    type: string
+                  CATRD_FIELD_NAME_116:
+                    type: string
+                  CATRD_FIELD_NAME_117:
+                    type: string
+                  CATRD_FIELD_NAME_118:
+                    type: string
+                  CATRD_FIELD_NAME_119:
+                    type: string
+                  CATRD_FIELD_NAME_120:
+                    type: string
+                  CATRD_FIELD_NAME_121:
+                    type: string
+                  CATRD_FIELD_NAME_122:
+                    type: string
+                  CATRD_FIELD_NAME_123:
+                    type: string
+                  CATRD_FIELD_NAME_124:
+                    type: string
+                  CATRD_FIELD_NAME_125:
+                    type: string
+                  CATRD_FIELD_NAME_126:
+                    type: string
+                  CATRD_FIELD_NAME_127:
+                    type: string
+                  CATRD_FIELD_NAME_128:
+                    type: string
+                  CATRD_FIELD_NAME_129:
+                    type: string
+                  CATRD_FIELD_NAME_130:
+                    type: string
+                  CATRD_FIELD_NAME_131:
+                    type: string
+                  CATRD_FIELD_NAME_132:
+                    type: string
+                  CATRD_FIELD_NAME_133:
+                    type: string
+                  CATRD_FIELD_NAME_134:
+                    type: string
+                  CATRD_FIELD_NAME_135:
+                    type: string
+                  CATRD_FIELD_NAME_136:
+                    type: string
+                  CATRD_FIELD_NAME_137:
+                    type: string
+                  CATRD_FIELD_NAME_138:
+                    type: string
+                  CATRD_FIELD_NAME_139:
+                    type: string
+                  CATRD_FIELD_NAME_140:
+                    type: string
+                  CATRD_FIELD_NAME_141:
+                    type: string
+                  CATRD_FIELD_NAME_142:
+                    type: string
+                  CATRD_FIELD_NAME_143:
+                    type: string
+                  CATRD_FIELD_NAME_144:
+                    type: string
+                  CATRD_FIELD_NAME_145:
+                    type: string
+                  CATRD_FIELD_NAME_146:
+                    type: string
+                  CATRD_FIELD_NAME_147:
+                    type: string
+                  CATRD_FIELD_NAME_148:
+                    type: string
+                  CATRD_FIELD_NAME_149:
+                    type: string
+                  CATRD_FIELD_NAME_150:
+                    type: string
+  /{alias}/webproducts:
+    get:
+      operationId: webProducts
+      summary: Web Products
+      tags:
+      - Product
+      description: Web Products
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 returns active web products
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks for last catalog record update date.
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks for last catalog record update date.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/catalogdetails:
+    get:
+      operationId: productDetails
+      summary: Product details
+      tags:
+      - Product
+      description: Product details
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 14
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Barcode or Catseq required.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CAT_SEQUENCE:
+                    type: string
+                  CAT_PRODUCT_ID:
+                    type: string
+                  CAT_PRODCODE:
+                    type: string
+                  CAT_STYLE:
+                    type: string
+                  CAT_STYNUM:
+                    type: string
+                  CAT_COLOR:
+                    type: string
+                  CAT_COLNUM:
+                    type: string
+                  CAT_ITEMDESC:
+                    type: string
+                  CAT_VENDORID:
+                    type: string
+                  CAT_VENDSTYLE:
+                    type: string
+                  CAT_VENDCOLOR:
+                    type: string
+                  CAT_VENDSTYNUM:
+                    type: string
+                  CAT_VENDCOLNUM:
+                    type: string
+                  CAT_MANUFACT:
+                    type: string
+                  CAT_SERIALNUMBER:
+                    type: string
+                  CAT_URL:
+                    type: string
+                  CAT_YARNTYP:
+                    type: string
+                  CAT_USERDEFINED1:
+                    type: string
+                  CAT_USERDEFINED2:
+                    type: string
+                  CAT_USERDEFINED3:
+                    type: string
+                  CAT_USERDEFINED4:
+                    type: string
+                  CAT_USERID:
+                    type: string
+                  CAT_BYBOX:
+                    type: string
+                  CAT_UNIT_PER_BOX:
+                    type: string
+                  CAT_STOCK:
+                    type: string
+                  CAT_WIDTH:
+                    type: string
+                  CAT_BACKING:
+                    type: string
+                  CAT_FIBER:
+                    type: string
+                  CAT_WEIGHT:
+                    type: string
+                  CAT_WEIGHT_TYPE:
+                    type: string
+                  CAT_PATTERNMATCH:
+                    type: string
+                  CAT_SAMPLE:
+                    type: string
+                  CAT_SAMPLE_SIZE:
+                    type: string
+                  CAT_ORDER_PO:
+                    type: string
+                  CAT_UNITCOST:
+                    type: string
+                  CAT_FREIGHT:
+                    type: string
+                  CAT_ROLL_COST:
+                    type: string
+                  CAT_COVERBILL:
+                    type: string
+                  CAT_LAST_PRICE_SALE:
+                    type: string
+                  CAT_BOM:
+                    type: string
+                  CAT_DIM_LENGTH:
+                    type: string
+                  CAT_DIM_WIDTH:
+                    type: string
+                  CAT_NO_RETURNS:
+                    type: string
+                  CAT_CONSIGNMENT:
+                    type: string
+                  CAT_PROGRAMMED:
+                    type: string
+                  CAT_PROMO_QTY_REQUIRED:
+                    type: string
+                  CAT_PROMO_QTY_COST:
+                    type: string
+                  CAT_PROMO_UNIT_COST:
+                    type: string
+                  CAT_PROMO_ROLL_COST:
+                    type: string
+                  CAT_PROMO_START_DATE:
+                    type: string
+                  CAT_PROMO_END_DATE:
+                    type: string
+                  CAT_LAST_PRICE_QTY:
+                    type: string
+                  CAT_LPR_RC_PRICE:
+                    type: string
+                  CAT_LAST_PRICE_RL:
+                    type: string
+                  CAT_LAST_PRICE_ROLL:
+                    type: string
+                  CAT_LAST_PRICE_COST:
+                    type: string
+                  CAT_LASTPRICE:
+                    type: string
+                  CAT_LASTRC:
+                    type: string
+                  CAT_PRICE_CHG_DATE:
+                    type: string
+                  CAT_LABOR_OVERBILL_UOM:
+                    type: string
+                  CAT_B2B_SKU:
+                    type: string
+                  CAT_MAP_PRICE_REQUIRED:
+                    type: string
+                  CAT_MAP_PRICE:
+                    type: string
+                  CAT_UOM:
+                    type: string
+                  CAT_CROSSREF:
+                    type: string
+  /{alias}/associatedproducts:
+    get:
+      operationId: getAssociatedProducts
+      summary: Get Associated Products
+      tags:
+      - Product
+      description: Associated Products List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/catalogitems:
+    get:
+      operationId: catalogItems
+      summary: Catalog Items
+      tags:
+      - Product
+      description: Gets all catalog items
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: lastdays
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+        description: Optional - Last X days of data to call for. Same as calling for startdate through enddate of X days ago to today. Call for either startdate/enddate OR lastdays. Lastdays WILL OVERRIDE startdate/enddate.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/getcatatrcollection:
+    get:
+      operationId: getCatalogAttributeCollections
+      summary: Get Catalog Attribute Collections
+      tags:
+      - Product
+      description: Get Catalog Attribute Collections
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional - returns collection by product type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRCL_KEY:
+                    type: string
+                  CATRCL_CODIV:
+                    type: string
+                  CATRCL_PCTYPE:
+                    type: string
+                  CATRCL_BRAND:
+                    type: string
+                  CATRCL_COLLECTION:
+                    type: string
+  /{alias}/getcatatrbrands:
+    get:
+      operationId: getCatalogAttributeBrands
+      summary: Get Catalog Attribute Brands
+      tags:
+      - Product
+      description: Get Catalog Attribute Brands
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional - returns brands by product type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRBR_KEY:
+                    type: string
+                  CATRBR_CODIV:
+                    type: string
+                  CATRBR_PCTYPE:
+                    type: string
+                  CATRBR_BRAND:
+                    type: string
+                  CATRBR_COLLECTION:
+                    type: string
+  /{alias}/getcatatrsalesrep:
+    get:
+      operationId: getCatalogAttributeSalesRep
+      summary: Get Catalog Attribute Sales Rep
+      tags:
+      - Product
+      description: Get Catalog Attribute Sales Rep
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch-specific info when applicable
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRREP_KEY:
+                    type: string
+                  CATRREP_CODIV:
+                    type: string
+                  CATRREP_WHSE:
+                    type: string
+                  CATRREP_SEQUENCE:
+                    type: string
+                  CATRREP_SLSREP:
+                    type: string
+  /{alias}/getcatatrinventory:
+    get:
+      operationId: getCatalogAttributeInventoryTypes
+      summary: Get Catalog Attribute Inventory Types
+      tags:
+      - Product
+      description: Get Catalog Attribute Inventory Types
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch-specific info when applicable
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRINV_KEY:
+                    type: string
+                  CATRINV_CODIV:
+                    type: string
+                  CATRINV_WHSE:
+                    type: string
+                  CATRINV_SEQUENCE:
+                    type: string
+                  CATRINV_TYPE_1:
+                    type: string
+                  CATRINV_TYPE_2:
+                    type: string
+  /{alias}/getcatatrcustomer:
+    get:
+      operationId: getCatalogAttributeCustomer
+      summary: Get Catalog Attribute Customer
+      tags:
+      - Product
+      description: Get Catalog Attribute Customers
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch-specific info when applicable
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRCUST_KEY:
+                    type: string
+                  CATRCUST_CODIV:
+                    type: string
+                  CATRCUST_WHSE:
+                    type: string
+                  CATRCUST_SEQUENCE:
+                    type: string
+                  CATRCUST_CUSTOMER:
+                    type: string
+  /{alias}/getcatatrdate:
+    get:
+      operationId: getCatalogAttributeDates
+      summary: Get Catalog Attribute Dates
+      tags:
+      - Product
+      description: Get Catalog Attribute Dates
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch-specific info when applicable
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRDT_KEY:
+                    type: string
+                  CATRDT_CODIV:
+                    type: string
+                  CATRDT_WHSE:
+                    type: string
+                  CATRDT_SEQUENCE:
+                    type: string
+                  CATRDT_DATE_1:
+                    type: string
+                  CATRDT_DATE_2:
+                    type: string
+                  CATRDT_DATE_3:
+                    type: string
+                  CATRDT_DATE_4:
+                    type: string
+                  CATRDT_DATE_5:
+                    type: string
+                  CATRDT_BRAND:
+                    type: string
+                  CATRDT_COLLECTION:
+                    type: string
+  /{alias}/getcatatrselinv:
+    get:
+      operationId: getSelectedInventoryCatalogAttribute
+      summary: Get Selected Inventory Catalog Attribute
+      tags:
+      - Product
+      description: Get Selected Inventory Catalog Attribute
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRSINV_KEY:
+                    type: string
+                  CATRSINV_CODIV:
+                    type: string
+                  CATRSINV_PCTYPE:
+                    type: string
+                  CATRSINV_FIELD:
+                    type: string
+                  CATRSINV_SEQ:
+                    type: string
+                  CATRSINV_VALUE:
+                    type: string
+                  CATRSINV_USER:
+                    type: string
+                  CATRSINV_DATE:
+                    type: string
+                  CATRSINV_TIME:
+                    type: string
+  /{alias}/getcatatrsel2:
+    get:
+      operationId: getSelectedCatalogAttributeFile2
+      summary: Get Selected Catalog Attribute File 2
+      tags:
+      - Product
+      description: Get Selected Catalog Attribute File 2
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRS2_KEY:
+                    type: string
+                  CATRS2_CODIV:
+                    type: string
+                  CATRS2_PCTYPE:
+                    type: string
+                  CATRS2_FIELD:
+                    type: string
+                  CATRS2V_SEQ:
+                    type: string
+                  CATRS2_VALUE:
+                    type: string
+                  CATRS2_USER:
+                    type: string
+                  CATRS2_DATE:
+                    type: string
+                  CATRS2_TIME:
+                    type: string
+  /{alias}/getcatatrsel3:
+    get:
+      operationId: getSelectedCatalogAttributeFile3
+      summary: Get Selected Catalog Attribute File 3
+      tags:
+      - Product
+      description: Get Selected Catalog Attribute File 3
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: prodtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CATRS3_KEY:
+                    type: string
+                  CATRS3_CODIV:
+                    type: string
+                  CATRS3_PCTYPE:
+                    type: string
+                  CATRS3_FIELD:
+                    type: string
+                  CATRS23_SEQ:
+                    type: string
+                  CATRS3_VALUE:
+                    type: string
+                  CATRS3_USER:
+                    type: string
+                  CATRS3_DATE:
+                    type: string
+                  CATRS3_TIME:
+                    type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

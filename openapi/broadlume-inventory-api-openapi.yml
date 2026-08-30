@@ -1,0 +1,434 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Inventory API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Inventory
+paths:
+  /{alias}/lowstock:
+    get:
+      operationId: getCatalogItemsBelowSafetyStockLimit
+      summary: Get Catalog Items below Safety Stock Limit
+      tags:
+      - Inventory
+      description: Get Catalog Items below Safety Stock Limit
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/received:
+    get:
+      operationId: assignedInventoryReceived
+      summary: Assigned Inventory Received
+      tags:
+      - Inventory
+      description: Assigned Inventory Received
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/inventorypointers:
+    get:
+      operationId: getInventoryPointRecords
+      summary: Get Inventory Point records
+      tags:
+      - Inventory
+      description: Get all inventory point records for open POs with open PO lines
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional - Format - YYYYMMDD - Use to return records with an audit within specific date range
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional - Format - YYYYMMDD - Use to return records with an audit within specific date range
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/inventorybyauditdate:
+    get:
+      operationId: getInventoryFileRecords
+      summary: Get Inventory File Records
+      tags:
+      - Inventory
+      description: Returns all inventory file records by company, branch, and/or audit date
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Optional
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks Audit Date in Range.
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - - Looks Audit Date in Range.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/assignedinventory:
+    get:
+      operationId: getInventoryAssignedOnJob
+      summary: Get Inventory Assigned on Job
+      tags:
+      - Inventory
+      description: Get Inventory Assigned on Job
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job:
+                  type: string
+                  maxLength: 6
+              required:
+              - job
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    patch:
+      operationId: unassignInventoryOnJob
+      summary: Unassign Inventory on Job
+      tags:
+      - Inventory
+      description: Unassign Inventory on Job
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+      - name: invpoint
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+        description: Full inventory pointer key
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: assignInventoryToJob
+      summary: Assign Inventory to Job
+      tags:
+      - Inventory
+      description: Assign Inventory to Job
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                job:
+                  type: string
+                  maxLength: 6
+                lnnum:
+                  type: string
+                  maxLength: 3
+                barcode:
+                  type: string
+                  maxLength: 36
+                  description: Item barcode / Inventory Serialnumber.
+                box:
+                  type: string
+                  maxLength: 1
+                  description: Required when by box.
+                quantity:
+                  type: string
+                  maxLength: 15
+                  description: Used when specifying a quantity other than full quantity available.
+              required:
+              - company
+              - branch
+              - job
+              - lnnum
+              - barcode
+              - box
+              - quantity
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

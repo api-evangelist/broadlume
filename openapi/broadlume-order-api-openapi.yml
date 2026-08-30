@@ -1,0 +1,1892 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Order API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Order
+paths:
+  /{alias}/order:
+    post:
+      operationId: createOrder
+      summary: Create Order
+      tags:
+      - Order
+      description: Creates an order. Returns the successfully created order.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                custpo:
+                  type: string
+                  maxLength: 15
+                  description: Required when customer ship to requires.
+                ordcustid:
+                  type: string
+                  maxLength: 8
+                ordsalesrep1:
+                  type: string
+                  maxLength: 3
+                  description: Note - assumes user salesperson initials if not sent and if user is salesperson.
+                ordsalesrep2:
+                  type: string
+                  maxLength: 3
+                ordjobtype:
+                  type: string
+                  maxLength: 2
+                ordstatuscode:
+                  type: string
+                  maxLength: 10
+                shcode:
+                  type: string
+                  maxLength: 4
+                  description: Ship to code of 0000 is assumed when not sent.
+                shname:
+                  type: string
+                  maxLength: 30
+                  description: Ship to information is assumed when not sent.
+                shaddr1:
+                  type: string
+                  maxLength: 30
+                  description: Ship to information is assumed when not sent.
+                shaddr2:
+                  type: string
+                  maxLength: 30
+                  description: Ship to information is assumed when not sent.
+                shctyst:
+                  type: string
+                  maxLength: 30
+                  description: Ship to information is assumed when not sent.
+                shcity:
+                  type: string
+                  maxLength: 30
+                  description: Ship to information is assumed when not sent.
+                shstate:
+                  type: string
+                  maxLength: 30
+                  description: Ship to information is assumed when not sent.
+                shzip:
+                  type: string
+                  maxLength: 10
+                  description: Ship to information is assumed when not sent.
+                shbuilding:
+                  type: string
+                  maxLength: 23
+                  description: When used, will override first section of shaddr2 field
+                shunit:
+                  type: string
+                  maxLength: 6
+                  description: When used, will override last section of shaddr2 field
+                insdate:
+                  type: string
+                  maxLength: 8
+                  description: Format - YYYYMMDD - Changes the single install date for a job (does not function with multi-date records) or when capacities are turned on.
+                time:
+                  type: string
+                  maxLength: 8
+                  description: Changes the install time for a job (does not function with multi-date records) or when capacities are turned on.
+                initials:
+                  type: string
+                  maxLength: 1
+                  description: Required when company control is turned on and install date is sent.
+                phone1:
+                  type: string
+                  maxLength: 30
+                  description: Ship to Phone
+                phone2:
+                  type: string
+                  maxLength: 30
+                  description: Ship to Fax
+                email:
+                  type: string
+                  maxLength: 100
+                  description: Ship to Email
+                typedesc:
+                  type: string
+                  maxLength: 10
+                  description: Ship to Type Description
+              required:
+              - company
+              - branch
+              - ordcustid
+              - ordsalesrep1
+              - ordjobtype
+              - ordstatuscode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  DMO_CODIV:
+                    type: string
+                  DMO_WHSE:
+                    type: string
+                  DMH_CUSTID:
+                    type: string
+                  DMH_SHNAME:
+                    type: string
+                  DMH_SHCODE:
+                    type: string
+                  DMH_SHADDR1:
+                    type: string
+                  DMH_SHADDR2:
+                    type: string
+                  DMH_SHCTYST:
+                    type: string
+                  DMH_SHZIP:
+                    type: string
+                  DMH_SALESREP1:
+                    type: string
+                  DMH_SALESREP2:
+                    type: string
+                  DMH_SPECIAL1:
+                    type: string
+                  DMH_CUSTPO:
+                    type: string
+                  DMH_QRDNO:
+                    type: string
+                  DMH_STATUSCODE:
+                    type: string
+                  DMH_DATE:
+                    type: string
+                  DMH_INSTALLDATE:
+                    type: string
+                  DMH_SHPHONE1:
+                    type: string
+                  DMH_SHFAX:
+                    type: string
+                  DMH_SHCONTACT:
+                    type: string
+                  DMH_ORDEREDBY:
+                    type: string
+                  DMH_INSTALL_TIME:
+                    type: string
+                  SAL_NAME:
+                    type: string
+                  PODMO_WEB_USER:
+                    type: string
+                  DMH_JOBTOTAL:
+                    type: string
+                  DMH_BLDG:
+                    type: string
+                  DMH_UNIT:
+                    type: string
+                  DMH_SHCITY:
+                    type: string
+                  DMH_SHSTATE:
+                    type: string
+    patch:
+      operationId: updateOrder
+      summary: Update Order
+      tags:
+      - Order
+      description: Updates an existing order. Returns the key (header info) of the order updated. Only fields sent will update.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: custpo
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 15
+        description: Required when customer ship to requires and not already filled for existing ship to code.
+      - name: ordcustid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: ordsalesrep1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Required when not already filled ship to requires and not already filled for existing ship to code. Assumes user salesperson initials if not sent and if user is salesperson.
+      - name: ordsalesrep2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: ordjobtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Required when not already filled.
+      - name: ordstatuscode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+        description: Required when not already filled.
+      - name: shcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+        description: Ship to code of 0000 is assumed when not sent and info has not been filled or when changing customer.
+      - name: shname
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shaddr1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shaddr2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shctyst
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shcity
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shstate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shzip
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+        description: Ship to information is assumed when changing ship to code or customer and info has not been sent.
+      - name: shbuilding
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 23
+        description: When used, will override first section of shaddr2 field
+      - name: shunit
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: When used, will override last section of shaddr2 field
+      - name: insdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Changes the single install date for a job (does not function with multi-date records) or when capacities are turned on.
+      - name: time
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Changes the install time for a job (does not function with multi-date records) or when capacities are turned on.
+      - name: initials
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Required when company control is turned on and install date is sent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone1:
+                  type: string
+                  maxLength: 30
+                  description: Ship to Phone
+                phone2:
+                  type: string
+                  maxLength: 30
+                  description: Ship to Fax
+                email:
+                  type: string
+                  maxLength: 100
+                  description: Ship to Email
+                typedesc:
+                  type: string
+                  maxLength: 10
+                  description: Ship to Type Description
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  DMO_CODIV:
+                    type: string
+                  DMO_WHSE:
+                    type: string
+                  DMH_CUSTID:
+                    type: string
+                  DMH_SHNAME:
+                    type: string
+                  DMH_SHCODE:
+                    type: string
+                  DMH_SHADDR1:
+                    type: string
+                  DMH_SHADDR2:
+                    type: string
+                  DMH_SHCTYST:
+                    type: string
+                  DMH_SHZIP:
+                    type: string
+                  DMH_SALESREP1:
+                    type: string
+                  DMH_SALESREP2:
+                    type: string
+                  DMH_SPECIAL1:
+                    type: string
+                  DMH_CUSTPO:
+                    type: string
+                  DMH_QRDNO:
+                    type: string
+                  DMH_STATUSCODE:
+                    type: string
+                  DMH_DATE:
+                    type: string
+                  DMH_INSTALLDATE:
+                    type: string
+                  DMH_SHPHONE1:
+                    type: string
+                  DMH_SHFAX:
+                    type: string
+                  DMH_SHCONTACT:
+                    type: string
+                  DMH_ORDEREDBY:
+                    type: string
+                  DMH_INSTALL_TIME:
+                    type: string
+                  SAL_NAME:
+                    type: string
+                  PODMO_WEB_USER:
+                    type: string
+                  DMH_JOBTOTAL:
+                    type: string
+                  DMH_BLDG:
+                    type: string
+                  DMH_UNIT:
+                    type: string
+                  DMH_SHCITY:
+                    type: string
+                  DMH_SHSTATE:
+                    type: string
+    get:
+      operationId: getOrder
+      summary: Get Order
+      tags:
+      - Order
+      description: Get order header information
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  DMO_CODIV:
+                    type: string
+                  DMO_WHSE:
+                    type: string
+                  DMH_CUSTID:
+                    type: string
+                  DMH_SHNAME:
+                    type: string
+                  DMH_SHCODE:
+                    type: string
+                  DMH_SHADDR1:
+                    type: string
+                  DMH_SHADDR2:
+                    type: string
+                  DMH_SHCTYST:
+                    type: string
+                  DMH_SHZIP:
+                    type: string
+                  DMH_SALESREP1:
+                    type: string
+                  DMH_SALESREP2:
+                    type: string
+                  DMH_SPECIAL1:
+                    type: string
+                  DMH_CUSTPO:
+                    type: string
+                  DMH_QRDNO:
+                    type: string
+                  DMH_STATUSCODE:
+                    type: string
+                  DMH_DATE:
+                    type: string
+                  DMH_INSTALLDATE:
+                    type: string
+                  DMH_SHPHONE1:
+                    type: string
+                  DMH_SHFAX:
+                    type: string
+                  DMH_SHCONTACT:
+                    type: string
+                  DMH_ORDEREDBY:
+                    type: string
+                  DMH_INSTALL_TIME:
+                    type: string
+                  SAL_NAME:
+                    type: string
+                  PODMO_WEB_USER:
+                    type: string
+                  DMH_JOBTOTAL:
+                    type: string
+                  DMH_BLDG:
+                    type: string
+                  DMH_UNIT:
+                    type: string
+                  DMH_SHCITY:
+                    type: string
+                  DMH_SHSTATE:
+                    type: string
+  /{alias}/orderlineinstaller:
+    patch:
+      operationId: updateOrderLineInstallerSingleDateOnly
+      summary: Update Order Line Installer (Single Date Only)
+      tags:
+      - Order
+      description: Sets/updates the installer for a single labor line <br> <b>Single Intall Date Only </b>
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+      - name: installer
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: taxable
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Y or N
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  RETURN:
+                    type: string
+  /{alias}/orderline:
+    get:
+      operationId: getOrderLinesInactiveUntil2102Release
+      summary: Get Order Lines - Inactive until 2102 Release
+      tags:
+      - Order
+      description: Get Order Lines - Inactive until 2102 Release
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Required When Audit Date Is Not Sent.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          default: open
+          enum:
+          - open
+          - closed
+          - both
+        description: Job Status.
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks at Job Audit Date in Range.
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - - Looks at Job Audit Date in Range.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: createOrderLine
+      summary: Create Order Line
+      tags:
+      - Order
+      description: Creates a line on an existing order. Returns the key (header info) of the order updated. <br><br> Only one of these parameters (ordlseq, ordlb2bsku, ordlbarcode) is required. If more than one is passed they execute in the precedence of  ordlseq > ordlb2bsku > ordlbarcode
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                order:
+                  type: string
+                  maxLength: 6
+                ordlseq:
+                  type: string
+                  maxLength: 13
+                  description: Catalog sequence
+                ordlb2bsku:
+                  type: string
+                  maxLength: 30
+                ordlbarcode:
+                  type: string
+                  maxLength: 30
+                ordlwqty:
+                  type: string
+                  maxLength: 9
+                ordlsqty:
+                  type: string
+                  maxLength: 9
+                ordlprice:
+                  type: string
+                  maxLength: 9
+                laborunitcost:
+                  type: string
+                  maxLength: 9
+                taxable:
+                  type: string
+                  maxLength: 1
+                  description: Y or N
+              required:
+              - company
+              - branch
+              - order
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/salesreps:
+    get:
+      operationId: salesReps
+      summary: Sales Reps
+      tags:
+      - Order
+      description: Sales Rep list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/ordertype:
+    get:
+      operationId: orderTypeList
+      summary: Order Type List
+      tags:
+      - Order
+      description: Order Type list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/accumcode:
+    get:
+      operationId: accumulatorCodeList
+      summary: Accumulator Code List
+      tags:
+      - Order
+      description: Accumulator Code List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/ordertimeslots:
+    get:
+      operationId: orderTimeSlotList
+      summary: Order Time Slot List
+      tags:
+      - Order
+      description: Order Time Slot List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/orders:
+    get:
+      operationId: ordersByDateRange
+      summary: Orders by date range
+      tags:
+      - Order
+      description: Orders by date range
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: custid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: ordstatus
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Appending and using I returns closed orders, using A returns open and closed orders.
+      - name: shaddr1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Searches shipto address 1 and 2, used only when startswith is not sent.
+      - name: startswith
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Searches shipto address 1 and 2, used only when shaddr1 is not sent.
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD, required when searching with shaddr1, or when startswith is not sent.
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD, required when searching with shaddr1, or when startswith is not sent.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/invoicedue:
+    get:
+      operationId: agingInvoices
+      summary: Aging Invoices
+      tags:
+      - Order
+      description: Aging Invoices
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: days
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Days Old
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/linecomments:
+    post:
+      operationId: createOrderLineComment
+      summary: Create Order Line Comment
+      tags:
+      - Order
+      description: Creates an order line comment.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                job:
+                  type: string
+                  maxLength: 6
+                lnnum:
+                  type: string
+                  maxLength: 3
+                linenote:
+                  type: string
+                  maxLength: 70
+                commenttype:
+                  type: string
+                  maxLength: 1
+                  description: W = work order, C = customer, B= both, N = none
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  OLC_CODIV:
+                    type: string
+                  OLC_WHSE:
+                    type: string
+                  OLC_ORDNO:
+                    type: string
+                  OLC_LNNUM:
+                    type: string
+                  OLC_SEQ:
+                    type: string
+                  OLC_TYPE:
+                    type: string
+                  OLC_COMMENT:
+                    type: string
+                  OLC_WEBNAME:
+                    type: string
+                  OLC_DATE:
+                    type: string
+                  OLC_TIME:
+                    type: string
+                  OLC_REQUIRED:
+                    type: string
+                  OLC_NOTE_NUM:
+                    type: string
+    patch:
+      operationId: updateOrderLineComment
+      summary: Update Order Line Comment
+      tags:
+      - Order
+      description: Updates an existing order line comment.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: commseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: linenote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 53
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  OLC_CODIV:
+                    type: string
+                  OLC_WHSE:
+                    type: string
+                  OLC_ORDNO:
+                    type: string
+                  OLC_LNNUM:
+                    type: string
+                  OLC_SEQ:
+                    type: string
+                  OLC_TYPE:
+                    type: string
+                  OLC_COMMENT:
+                    type: string
+                  OLC_WEBNAME:
+                    type: string
+                  OLC_DATE:
+                    type: string
+                  OLC_TIME:
+                    type: string
+                  OLC_REQUIRED:
+                    type: string
+                  OLC_NOTE_NUM:
+                    type: string
+    get:
+      operationId: getOrderLineCommments
+      summary: Get order line commments
+      tags:
+      - Order
+      description: Get all order line commments
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+    delete:
+      operationId: deleteOrderLineCommment
+      summary: Delete order line commment
+      tags:
+      - Order
+      description: Delete order line comment
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: commseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/jobnote:
+    post:
+      operationId: createsAJobNote
+      summary: Creates a Job Note
+      tags:
+      - Order
+      description: Creates a Job Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                order:
+                  type: string
+                  maxLength: 6
+                note:
+                  type: string
+                  maxLength: 59
+              required:
+              - company
+              - branch
+              - order
+              - note
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  ORDNO:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+    patch:
+      operationId: editsAJobNote
+      summary: Edits a Job Note
+      tags:
+      - Order
+      description: Edits a Job Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: note
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 59
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  ORDNO:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+    get:
+      operationId: readsAJobNote
+      summary: Reads a Job Note
+      tags:
+      - Order
+      description: Reads a Job Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: jobpage
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  ORDNO:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+    delete:
+      operationId: erasesAJobNote
+      summary: Erases a Job Note
+      tags:
+      - Order
+      description: Erases a Job Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BRANCH:
+                    type: string
+                  ORDER:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+  /{alias}/initials:
+    get:
+      operationId: listOfInitials
+      summary: List of Initials
+      tags:
+      - Order
+      description: List of Initials
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/jobstats:
+    get:
+      operationId: jobStatusList
+      summary: Job Status List
+      tags:
+      - Order
+      description: Job Status List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: jobstat
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: jstattype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+        description: Job Status types - order, quote, lead, spaces returns all
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/regiontax:
+    get:
+      operationId: getRegionTaxCodes
+      summary: Get Region Tax Codes
+      tags:
+      - Order
+      description: Get Region tax codes by company and/or region
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: region
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 20
+        description: Optional - use to return tax details for a single region
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/commissiondetails:
+    get:
+      operationId: getSalesRepCommissionDetails
+      summary: Get Sales Rep Commission Details
+      tags:
+      - Order
+      description: Get Sales Rep Commission Details
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch specific commission info when applicable.
+      - name: salesid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Optional
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/taxcode:
+    get:
+      operationId: taxCodeDetails
+      summary: Tax Code Details
+      tags:
+      - Order
+      description: Get tax code details by company
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: taxcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Last Edit Date - Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Last Edit Date - Format - YYYYMMDD
+      - name: alphanumericstart
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+      - name: alphanumericend
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/orderlinesub:
+    get:
+      operationId: getOrdlsubRecords
+      summary: Get ORDLSUB Records
+      tags:
+      - Order
+      description: Get ORDLSUB Records
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: jobstatus
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 7
+        description: Optional, open/closed. When not sent open and closed jobs are returned.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: job
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

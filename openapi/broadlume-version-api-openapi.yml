@@ -1,0 +1,60 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Version API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Version
+paths:
+  /{alias}/version:
+    get:
+      operationId: apiVersion
+      summary: API Version
+      tags:
+      - Version
+      description: API version
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  VERSION:
+                    type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

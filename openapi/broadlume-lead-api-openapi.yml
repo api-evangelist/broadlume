@@ -1,0 +1,2235 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Lead API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Lead
+paths:
+  /{alias}/leadtimeslots:
+    get:
+      operationId: leadTimeSlots
+      summary: Lead Time Slots
+      tags:
+      - Lead
+      description: Get lead time slot list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadsbydate:
+    get:
+      operationId: leadsList
+      summary: Leads list
+      tags:
+      - Lead
+      description: Leads list by date range
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          default: both
+          enum:
+          - open
+          - closed
+          - both
+        description: Optional Lead status
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Optional Appointment Date
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Optional Appointment Date
+      - name: startdate2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Optional Last Edited Date
+      - name: enddate2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Optional Last Edited Date
+      - name: startdate3
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Optional Created Date
+      - name: enddate3
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Optional Created Date
+      - name: term
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+        description: Optional Search term for customer name
+      - name: ordstatuscode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+        description: Optional
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/lead:
+    post:
+      operationId: createsLead
+      summary: Creates Lead
+      tags:
+      - Lead
+      description: Creates Lead
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: rooms[]
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Selected Rooms
+      - name: pctypes[]
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Selected Product Types
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                jobstat:
+                  type: string
+                  maxLength: 10
+                  description: Lead status
+                leadfirstname:
+                  type: string
+                  maxLength: 20
+                leadlastname:
+                  type: string
+                  maxLength: 20
+                shaddr1:
+                  type: string
+                  maxLength: 30
+                shaddr2:
+                  type: string
+                  maxLength: 30
+                shcity:
+                  type: string
+                  maxLength: 30
+                shstate:
+                  type: string
+                  maxLength: 30
+                shzip:
+                  type: string
+                  maxLength: 30
+                  description: Required when company control is on.
+                leadphone1:
+                  type: string
+                  maxLength: 12
+                  description: Format - 111-111-1111.
+                text1:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                leadphone2:
+                  type: string
+                  maxLength: 12
+                  description: Format - 111-111-1111
+                text2:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                leadphone3:
+                  type: string
+                  maxLength: 12
+                  description: Format - 111-111-1111
+                text3:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                leademail:
+                  type: string
+                  maxLength: 120
+                  description: Required when company control is on.
+                date:
+                  type: string
+                  maxLength: 8
+                  description: Format - YYYYMMDD
+                leadtime:
+                  type: string
+                  maxLength: 8
+                ordsalesrep1:
+                  type: string
+                  maxLength: 3
+                special:
+                  type: string
+                  maxLength: 20
+                territory:
+                  type: string
+                  maxLength: 8
+                quicknote:
+                  type: string
+                  maxLength: 30
+                po:
+                  type: string
+                  maxLength: 13
+                canceled:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                duplicate:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                otherfirst:
+                  type: string
+                  maxLength: 20
+                otherlast:
+                  type: string
+                  maxLength: 20
+                crossstreets:
+                  type: string
+                  maxLength: 20
+                commcode:
+                  type: string
+                  maxLength: 2
+                zone:
+                  type: string
+                  maxLength: 10
+                married:
+                  type: string
+                  maxLength: 1
+                  description: Y for Yes N for No
+                homeowner:
+                  type: string
+                  maxLength: 1
+                  description: Y for Yes N for No
+                subterritory:
+                  type: string
+                  maxLength: 10
+                budget:
+                  type: string
+                  maxLength: 8
+                gclid:
+                  type: string
+              required:
+              - company
+              - branch
+              - leadfirstname
+              - leadlastname
+              - shaddr1
+              - shcity
+              - shstate
+              - leadphone1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEAD_UPDATED:
+                    type: string
+    patch:
+      operationId: updateLead
+      summary: Update lead
+      tags:
+      - Lead
+      description: Update lead
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: rooms[]
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Selected Rooms
+      - name: pctypes[]
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Selected Product Types
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                jobstat:
+                  type: string
+                  maxLength: 10
+                  description: Lead status
+                leadfirstname:
+                  type: string
+                  maxLength: 20
+                leadlastname:
+                  type: string
+                  maxLength: 20
+                shaddr1:
+                  type: string
+                  maxLength: 30
+                shaddr2:
+                  type: string
+                  maxLength: 30
+                shcity:
+                  type: string
+                  maxLength: 30
+                shstate:
+                  type: string
+                  maxLength: 30
+                shzip:
+                  type: string
+                  maxLength: 30
+                  description: Required when company control is on.
+                leadphone1:
+                  type: string
+                  maxLength: 12
+                  description: Format - 111-111-1111.
+                text1:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                leadphone2:
+                  type: string
+                  maxLength: 12
+                  description: Format - 111-111-1111
+                text2:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                leadphone3:
+                  type: string
+                  maxLength: 12
+                  description: Format - 111-111-1111
+                text3:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                leademail:
+                  type: string
+                  maxLength: 120
+                  description: Required when company control is on.
+                date:
+                  type: string
+                  maxLength: 8
+                  description: Format - YYYYMMDD
+                leadtime:
+                  type: string
+                  maxLength: 8
+                ordsalesrep1:
+                  type: string
+                  maxLength: 3
+                special:
+                  type: string
+                  maxLength: 20
+                territory:
+                  type: string
+                  maxLength: 8
+                quicknote:
+                  type: string
+                  maxLength: 30
+                po:
+                  type: string
+                  maxLength: 13
+                canceled:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                duplicate:
+                  type: string
+                  maxLength: 1
+                  description: 1 for Yes 0 for No
+                otherfirst:
+                  type: string
+                  maxLength: 20
+                otherlast:
+                  type: string
+                  maxLength: 20
+                crossstreets:
+                  type: string
+                  maxLength: 20
+                commcode:
+                  type: string
+                  maxLength: 2
+                zone:
+                  type: string
+                  maxLength: 10
+                married:
+                  type: string
+                  maxLength: 1
+                  description: Y for Yes N for No
+                homeowner:
+                  type: string
+                  maxLength: 1
+                  description: Y for Yes N for No
+                subterritory:
+                  type: string
+                  maxLength: 10
+                budget:
+                  type: string
+                  maxLength: 8
+                gclid:
+                  type: string
+              required:
+              - company
+              - branch
+              - leadfirstname
+              - leadlastname
+              - shaddr1
+              - shcity
+              - shstate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEAD_CODIV:
+                    type: string
+                  LEAD_WHSE:
+                    type: string
+                  LEAD_NUMBER:
+                    type: string
+                  LEAD_STATUS:
+                    type: string
+                  LEAD_STATUS_CODE:
+                    type: string
+                  LEAD_DATE:
+                    type: string
+                  LEAD_CUST_FIRST_NAME:
+                    type: string
+                  LEAD_CUST_LAST_NAME:
+                    type: string
+                  LEAD_CUST_ADDR1:
+                    type: string
+                  LEAD_CUST_ADDR2:
+                    type: string
+                  LEAD_CUST_CITY:
+                    type: string
+                  LEAD_CUST_STATE:
+                    type: string
+                  LEAD_CUST_ZIPCD:
+                    type: string
+                  LEAD_CUST_PHONE1:
+                    type: string
+                  LEAD_CUST_PHONE2:
+                    type: string
+                  LEAD_CUST_PHONE3:
+                    type: string
+                  LEAD_CUST_EMAIL:
+                    type: string
+                  LEAD_SCHEDULE_DATE:
+                    type: string
+                  LEAD_SCHEDULE_TIME:
+                    type: string
+                  LEAD_SCHEDULE_SLSREP:
+                    type: string
+                  LEAD_SPECIAL_CODE:
+                    type: string
+                  LEAD_TERRITORY:
+                    type: string
+                  LEAD_NOTE:
+                    type: string
+                  LEAD_USER:
+                    type: string
+                  LEAD_PONO:
+                    type: string
+                  LEAD_DMO_ORDNO:
+                    type: string
+                  LEAD_QMO_ORDNO:
+                    type: string
+                  LEAD_REOPEN:
+                    type: string
+                  LEAD_CANCELLED:
+                    type: string
+                  LEAD_DUPLICATE:
+                    type: string
+    get:
+      operationId: leadDetail
+      summary: Lead detail
+      tags:
+      - Lead
+      description: Specific Lead information
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadnotes:
+    post:
+      operationId: updatesLeadNotes
+      summary: Updates Lead Notes
+      tags:
+      - Lead
+      description: Updates Lead Notes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                  description: Format - lead number
+                noteslist:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required:
+              - company
+              - branch
+              - leadno
+              - noteslist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEAD_UPDATED:
+                    type: string
+  /{alias}/leadquicknote:
+    post:
+      operationId: updatesLeadQuickNote
+      summary: Updates Lead Quick Note
+      tags:
+      - Lead
+      description: Updates Lead Quick Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                  description: Format - lead number
+                noteslist:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required:
+              - company
+              - branch
+              - leadno
+              - noteslist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEAD_UPDATED:
+                    type: string
+  /{alias}/leaddispoqty:
+    post:
+      operationId: updatesLeadDispStyleQuantityNotes
+      summary: Updates Lead Disp Style/Quantity Notes
+      tags:
+      - Lead
+      description: Updates Lead Disp Style/Quantity Notes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                  description: Format - lead number
+                noteslist:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required:
+              - company
+              - branch
+              - leadno
+              - noteslist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEAD_UPDATED:
+                    type: string
+  /{alias}/leaddispo:
+    post:
+      operationId: updatesLeadDispoNotes
+      summary: Updates Lead Dispo Notes
+      tags:
+      - Lead
+      description: Updates Lead Dispo Notes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                  description: Format - lead number
+                noteslist:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required:
+              - company
+              - branch
+              - leadno
+              - noteslist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEAD_UPDATED:
+                    type: string
+  /{alias}/leadnonq:
+    get:
+      operationId: leadNonqualifiedCategories
+      summary: Lead Nonqualified Categories
+      tags:
+      - Lead
+      description: Lead Nonqualified Categories - Alert Codes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: leadno
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    patch:
+      operationId: updatesNonqualifiersOnALeadSendingExistingDescriptionWillRemoveFromALead
+      summary: Updates Nonqualifiers on a Lead. Sending existing description will remove from a lead.
+      tags:
+      - Lead
+      description: Updates an existing Lead Office Note. Returns success message.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: nonqdesc
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 20
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadzone:
+    get:
+      operationId: leadZoneCategories
+      summary: Lead Zone Categories
+      tags:
+      - Lead
+      description: Lead zones
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch specific lead zone info when applicable.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/terrsub:
+    get:
+      operationId: subterritoryCategories
+      summary: Subterritory Categories
+      tags:
+      - Lead
+      description: Subterritories
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: territory
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional - enter to return details about one territory
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadexceptions:
+    get:
+      operationId: leadExceptionCategories
+      summary: Lead Exception Categories
+      tags:
+      - Lead
+      description: Scheduling slot exceptions for lead sales reps
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: zone
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+        description: Optional
+      - name: salesid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Optional
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional. Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional. Format - YYYYMMDD
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadofficenotes:
+    get:
+      operationId: leadOfficeNotesCategories
+      summary: Lead Office Notes Categories
+      tags:
+      - Lead
+      description: Get Lead Office Notes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: leadpage
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional - Lead Office Note Page Number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: createLeadOfficeNotes
+      summary: Create Lead Office Notes
+      tags:
+      - Lead
+      description: Creates a new Lead Office Note. Returns success message.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                noteslist:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required:
+              - company
+              - branch
+              - leadno
+              - noteslist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Success:
+                    type: string
+    patch:
+      operationId: updateLeadOfficeNotes
+      summary: Update Lead Office Notes
+      tags:
+      - Lead
+      description: Updates an existing Lead Office Note. Returns success message.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 4
+      - name: noteslist
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Success:
+                    type: string
+  /{alias}/leadsched:
+    get:
+      operationId: leadSchedulingCategories
+      summary: Lead Scheduling Categories
+      tags:
+      - Lead
+      description: Scheduling slots for lead sales reps
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: zone
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: salesid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/nonqualified:
+    get:
+      operationId: nonqualifiedCategories
+      summary: Nonqualified Categories
+      tags:
+      - Lead
+      description: Nonqualified Categories
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadmattype:
+    get:
+      operationId: leadMatTypeCategories
+      summary: Lead Mat Type Categories
+      tags:
+      - Lead
+      description: Material Type for Leads Product Notes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadappt:
+    get:
+      operationId: leadAppointments
+      summary: Lead Appointments
+      tags:
+      - Lead
+      description: Scheduled Lead Appointments
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: salesid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Optional
+      - name: leadno
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      - name: leadtime
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadproductnotes:
+    post:
+      operationId: createLeadProductNotes
+      summary: Create Lead Product Notes
+      tags:
+      - Lead
+      description: Creates & returns a new lead product note.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                pctype:
+                  type: string
+                  maxLength: 20
+                materialtype:
+                  type: string
+                  maxLength: 20
+                room:
+                  type: string
+                  maxLength: 20
+                matnote:
+                  type: string
+                  maxLength: 20
+              required:
+              - company
+              - branch
+              - leadno
+              - pctype
+              - materialtype
+              - room
+              - matnote
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    patch:
+      operationId: updatesLeadProductNotes
+      summary: Updates Lead Product Notes
+      tags:
+      - Lead
+      description: Updates an existing lead product note.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: seq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 4
+        description: Format - 0001.
+      - name: pctype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      - name: mattype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 20
+        description: Optional
+      - name: room
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 20
+        description: Optional
+      - name: leadmatnote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 20
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Success:
+                    type: string
+    get:
+      operationId: getsLeadProductNotes
+      summary: Gets Lead Product Notes
+      tags:
+      - Lead
+      description: Returns all lead product notes based on either branch or specific lead number
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: leadno
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    delete:
+      operationId: deletesLeadProductNotes
+      summary: Deletes Lead Product Notes
+      tags:
+      - Lead
+      description: Deletes an existing lead product note by sequence
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: seq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 4
+        description: Format - 0001.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Success:
+                    type: string
+  /{alias}/leadroom:
+    get:
+      operationId: getLeadRoom
+      summary: Get Lead Room
+      tags:
+      - Lead
+      description: Returns lead rooms by branch or specific lead number
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: leadno
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: createLeadRoom
+      summary: Create Lead Room
+      tags:
+      - Lead
+      description: Creates a new lead room for a specific lead number
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                room:
+                  type: string
+                  maxLength: 20
+              required:
+              - company
+              - branch
+              - leadno
+              - room
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    patch:
+      operationId: updateLeadRoom
+      summary: Update Lead Room
+      tags:
+      - Lead
+      description: Update Existing Lead Room by Lead Number
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: room
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 20
+        description: This is the existing room to be replaced
+      - name: newroom
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 20
+        description: The new room replacing the existing room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    delete:
+      operationId: removeLeadRoom
+      summary: Remove Lead Room
+      tags:
+      - Lead
+      description: Deletes Existing Lead Room by Lead Number
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: leadno
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: room
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 20
+        description: This is the existing room to be deleted
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  LEADROOM_CODIV:
+                    type: string
+                  LEADROOM_WHSE:
+                    type: string
+                  LEADROOM_LEADNO:
+                    type: string
+                  LEADROOM_ROOM:
+                    type: string
+  /{alias}/roomfile:
+    get:
+      operationId: roomFile
+      summary: Room File
+      tags:
+      - Lead
+      description: Returns all rooms by company
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: room
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 20
+        description: Optional
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+              required:
+              - company
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/allavailability:
+    get:
+      operationId: getAllAvailability
+      summary: Get All Availability
+      tags:
+      - Lead
+      description: Get all available time slots for a specific sales id
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      - name: salesid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Optional
+      - name: zone
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+        description: optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/leadspecials:
+    get:
+      operationId: getLeadSpecials
+      summary: Get Lead Specials
+      tags:
+      - Lead
+      description: Get Lead Specials
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/convertleadtoquote:
+    post:
+      operationId: convertsAnExistingLeadIntoAQuote
+      summary: Converts an existing lead into a quote
+      tags:
+      - Lead
+      description: Converts an existing lead into a quote
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                leadno:
+                  type: string
+                  maxLength: 8
+                ordcustid:
+                  type: string
+                  maxLength: 8
+                  description: Existing customer ID
+                closelead:
+                  type: string
+                  maxLength: 1
+                  description: Lead will close on convert if Y is sent or the user does not have permission to reopen leads
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QMO_CODIV:
+                    type: string
+                  QMO_WHSE:
+                    type: string
+                  QMO_ORDNO:
+                    type: string
+                  QMH_STATUS:
+                    type: string
+                  QMH_STATUSCODE:
+                    type: string
+                  QMH_CUSTID:
+                    type: string
+                  QMH_TYPE:
+                    type: string
+                  QMH_SHCODE:
+                    type: string
+                  QMH_SHNAME:
+                    type: string
+                  QMH_SHADDR1:
+                    type: string
+                  QMH_SHADDR2:
+                    type: string
+                  QMH_SHCITY:
+                    type: string
+                  QMH_SHSTATE:
+                    type: string
+                  QMH_SHZIP:
+                    type: string
+                  QMH_JOBTYPE:
+                    type: string
+                  QMH_JOBNUM:
+                    type: string
+                  QMH_TAXTYPE:
+                    type: string
+                  QMH_SPECIAL1:
+                    type: string
+                  QMH_JOBTOTAL:
+                    type: string
+                  QMH_WONUM:
+                    type: string
+                  QMH_CUSTPO:
+                    type: string
+                  QMH_ATTN:
+                    type: string
+                  QMH_QRDNO:
+                    type: string
+                  QMH_INSTALLDATE:
+                    type: string
+                  QMH_DATE:
+                    type: string
+                  QMH_SHPHONE1:
+                    type: string
+                  QMH_SHFAX:
+                    type: string
+                  QMH_SHCONTACT:
+                    type: string
+                  QMH_INSDATE_INITIALS:
+                    type: string
+                  QMH_TYPEDESC:
+                    type: string
+                  QMH_CARE:
+                    type: string
+                  QMH_ORDEREDBY:
+                    type: string
+                  QMH_SMOP:
+                    type: string
+                  QRDE_EMAIL:
+                    type: string
+                  QMH_SALESREP1:
+                    type: string
+                  QMH_SALESREP1_NAME:
+                    type: string
+                  QMH_SALESREP1_PHONE1:
+                    type: string
+                  QMH_SALESREP1_PHONE2:
+                    type: string
+                  QMH_SALESREP2:
+                    type: string
+                  QMH_SALESREP2_NAME:
+                    type: string
+                  QMH_SALESREP2_PHONE1:
+                    type: string
+                  QMH_SALESREP2_PHONE2:
+                    type: string
+                  C_NAME:
+                    type: string
+                  C_PHONE:
+                    type: string
+                  C_PHONE2:
+                    type: string
+                  C_FAX:
+                    type: string
+                  C_EMAIL:
+                    type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

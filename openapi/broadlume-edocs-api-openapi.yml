@@ -1,0 +1,412 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Edocs API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Edocs
+paths:
+  /{alias}/edocs:
+    get:
+      operationId: edocsList
+      summary: Edocs List
+      tags:
+      - Edocs
+      description: Get edocs for object record
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: edoctype
+        in: query
+        required: true
+        schema:
+          type: string
+          default: order
+          enum:
+          - order
+          - lead
+          - property
+          - po
+          - quote
+          - vendor
+          - customer
+          - apinvoice
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+        description: required when edoctype is 'order'
+      - name: leadno
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'lead'
+      - name: po
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'po'
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'quote'
+      - name: customer
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'property' or 'customer'
+      - name: shcode
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'property'
+      - name: property
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype = 'property'
+      - name: vendor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'vendor' or 'apinvoice'
+      - name: refnum
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'apinvoice'
+      - name: aptype
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'apinvoice'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/edoc:
+    post:
+      operationId: edocUpload
+      summary: Edoc upload
+      tags:
+      - Edocs
+      description: Upload edoc
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                edoctype:
+                  type: string
+                  default: order
+                  enum:
+                  - order
+                  - catalog
+                  - lead
+                  - po
+                  - quote
+                  - vendor
+                  - customer
+                  - apinvoice
+                desc:
+                  type: string
+                file_data:
+                  type: string
+                  description: Pass the base64 string of the file.
+                file_name:
+                  type: string
+                edocategory:
+                  type: string
+                  description: "Series of 'Y' or 'N' corresponding to category index(es) that the document should appear under.\n\nCategory names by index:\n  1.\t General\n  2.\t Diagrams\n  3.\t Invoices\n  4.\t Legal\n  5.\t Claims\n  6.\t User Defined\n  7.\t User Defined\n  8.\t User Defined\n  9.\t User Defined\n 10. User Defined\n 11. User Defined\n 12. User Defined\n 13. User Defined\n 14. User Defined\n 15. User Defined"
+                order:
+                  type: string
+                  description: Required for edoctype 'order'
+                catseq:
+                  type: string
+                  description: Required for edoctype 'catalog'
+                leadno:
+                  type: string
+                  description: Required for edoctype 'lead'
+                pono:
+                  type: string
+                  description: Required for edoctype 'po'
+                quote:
+                  type: string
+                  description: Required for edoctype 'quote'
+                vendor:
+                  type: string
+                  description: Required for edoctype 'vendor' or 'apinvoice'
+                customer:
+                  type: string
+                  description: Required for edoctype 'customer'
+                refnum:
+                  type: string
+                  description: Required for edoctype 'apinvoice'
+                aptype:
+                  type: string
+                  description: Required for edoctype 'apinvoice'
+              required:
+              - company
+              - branch
+              - edoctype
+              - file_data
+              - file_name
+              - edocategory
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  ORDER:
+                    type: string
+                  SEQ:
+                    type: string
+                  CATSEQUENCE:
+                    type: string
+                  PRODCODE:
+                    type: string
+                  PRODUCTID:
+                    type: string
+                  DATE:
+                    type: string
+                  TIME:
+                    type: string
+    get:
+      operationId: edocDownload
+      summary: Edoc download
+      tags:
+      - Edocs
+      description: Get edoc download
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: edoctype
+        in: query
+        required: true
+        schema:
+          type: string
+          default: order
+          enum:
+          - order
+          - lead
+          - property
+          - po
+          - quote
+          - vendor
+          - customer
+          - apinvoice
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'order'
+      - name: leadno
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'lead'
+      - name: po
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'po'
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'quote'
+      - name: seq
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: customer
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'property' or 'customer'
+      - name: shcode
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'property'
+      - name: property
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype = 'property'
+      - name: vendor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'vendor' or 'apinvoice'
+      - name: refnum
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'apinvoice'
+      - name: aptype
+        in: query
+        required: false
+        schema:
+          type: string
+        description: required when edoctype is 'apinvoice'
+      responses:
+        '200':
+          description: OK
+  /{alias}/edoctypes:
+    get:
+      operationId: getEdocTypesForUser
+      summary: Get Edoc types for user
+      tags:
+      - Edocs
+      description: Get Edoc types for user
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

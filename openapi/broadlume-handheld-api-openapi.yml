@@ -1,0 +1,1433 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Handheld API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Handheld
+paths:
+  /{alias}/hhgetinvpointers:
+    get:
+      operationId: inventoryFromBarcodeScan
+      summary: Inventory from barcode scan
+      tags:
+      - Handheld
+      description: Inventory from barcode scan
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/hhgetinvbylocation:
+    get:
+      operationId: inventoryByLocation
+      summary: Inventory by location
+      tags:
+      - Handheld
+      description: Inventory by location
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 5
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/hhgetpricing:
+    get:
+      operationId: viewAJPricing
+      summary: View A-J pricing
+      tags:
+      - Handheld
+      description: View A-J pricing
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional, gets branch specific pricing when applicable.
+      - name: barcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 14
+      - name: catseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+        description: Barcode or Catseq required to return stock. If both are provided, only catseq is used.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BARCODE:
+                    type: string
+                  BRANCH:
+                    type: string
+                  PRODCODE:
+                    type: string
+                  STYLE:
+                    type: string
+                  STYLENUM:
+                    type: string
+                  COLOR:
+                    type: string
+                  COLORNUM:
+                    type: string
+                  BYBOX:
+                    type: string
+                  UNITPERBOX:
+                    type: string
+                  PRICEANAME:
+                    type: string
+                  PRICEAC:
+                    type: string
+                  PRICEAR:
+                    type: string
+                  PRICEBNAME:
+                    type: string
+                  PRICEBC:
+                    type: string
+                  PRICEBR:
+                    type: string
+                  PRICECNAME:
+                    type: string
+                  PRICECC:
+                    type: string
+                  PRICECR:
+                    type: string
+                  PRICEDNAME:
+                    type: string
+                  PRICEDC:
+                    type: string
+                  PRICEDR:
+                    type: string
+                  PRICEENAME:
+                    type: string
+                  PRICEEC:
+                    type: string
+                  PRICEER:
+                    type: string
+                  PRICEFNAME:
+                    type: string
+                  PRICEFC:
+                    type: string
+                  PRICEFR:
+                    type: string
+                  PRICEGNAME:
+                    type: string
+                  PRICEGC:
+                    type: string
+                  PRICEGR:
+                    type: string
+                  PRICEHNAME:
+                    type: string
+                  PRICEHC:
+                    type: string
+                  PRICEHR:
+                    type: string
+                  PRICEINAME:
+                    type: string
+                  PRICEIC:
+                    type: string
+                  PRICEIR:
+                    type: string
+                  PRICEJNAME:
+                    type: string
+                  PRICEJC:
+                    type: string
+                  PRICEJR:
+                    type: string
+                  SPECIALPRICEC:
+                    type: string
+                  SPECIALPRICER:
+                    type: string
+                  FLOAT_UNITPERBOX:
+                    type: string
+                  FLOAT_PRICENAMEA:
+                    type: string
+                  FLOAT_PRICEAC:
+                    type: string
+                  FLOAT_PRICEAR:
+                    type: string
+                  FLOAT_PRICENAMEB:
+                    type: string
+                  FLOAT_PRICEBC:
+                    type: string
+                  FLOAT_PRICEBR:
+                    type: string
+                  FLOAT_PRICENAMEC:
+                    type: string
+                  FLOAT_PRICECC:
+                    type: string
+                  FLOAT_PRICECR:
+                    type: string
+                  FLOAT_PRICENAMED:
+                    type: string
+                  FLOAT_PRICEDC:
+                    type: string
+                  FLOAT_PRICEDR:
+                    type: string
+                  FLOAT_PRICENAMEE:
+                    type: string
+                  FLOAT_PRICEEC:
+                    type: string
+                  FLOAT_PRICEER:
+                    type: string
+                  FLOAT_PRICENAMEF:
+                    type: string
+                  FLOAT_PRICEFC:
+                    type: string
+                  FLOAT_PRICEFR:
+                    type: string
+                  FLOAT_PRICENAMEG:
+                    type: string
+                  FLOAT_PRICEGC:
+                    type: string
+                  FLOAT_PRICEGR:
+                    type: string
+                  FLOAT_PRICENAMEH:
+                    type: string
+                  FLOAT_PRICEHC:
+                    type: string
+                  FLOAT_PRICEHR:
+                    type: string
+                  FLOAT_PRICENAMEI:
+                    type: string
+                  FLOAT_PRICEIC:
+                    type: string
+                  FLOAT_PRICEIR:
+                    type: string
+                  FLOAT_PRICENAMEJ:
+                    type: string
+                  FLOAT_PRICEJC:
+                    type: string
+                  FLOAT_PRICEJR:
+                    type: string
+                  FLOAT_SPECIALPRICEC:
+                    type: string
+                  FLOAT_SPECIALPRICER:
+                    type: string
+                  UOM:
+                    type: string
+                  WIDTH:
+                    type: string
+                  SIMPLE_TAXABLE:
+                    type: string
+  /{alias}/getposbybarcode:
+    get:
+      operationId: findPoSByBarcode
+      summary: Find PO's by barcode
+      tags:
+      - Handheld
+      description: Find PO's by barcode
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+        description: Inventory or Catalog Barcode, Either Barcode, Vendor, or Referrence Numberis required.
+      - name: vendor
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Either Barcode, Vendor, or Referrence Numberis required.
+      - name: refnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 12
+        description: Either Barcode, Vendor, or Referrence Numberis required.
+      - name: createpo
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+        description: HH User is in Create PO.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/getposbyvendor:
+    get:
+      operationId: findPoSByVendorThatCanHaveAdditionalMaterialAdded
+      summary: Find PO's by vendor that can have additional material added
+      tags:
+      - Handheld
+      description: Find PO's by vendor that can have additional material added
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/po:
+    post:
+      operationId: createPo
+      summary: Create PO
+      tags:
+      - Handheld
+      description: Creates a PO. Returns the key (header info) of the po created.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                barcode:
+                  type: string
+                  maxLength: 14
+              required:
+              - company
+              - branch
+              - barcode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PO_KEY:
+                    type: string
+                  PO_PONO:
+                    type: string
+                  PO_DATE:
+                    type: string
+                  PO_CREATED_FROM_BC:
+                    type: string
+  /{alias}/poline:
+    post:
+      operationId: createPoLine
+      summary: Create PO Line
+      tags:
+      - Handheld
+      description: Creates a line on an existing PO. Returns the key (header info) of the po updated.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                pono:
+                  type: string
+                  maxLength: 6
+                barcode:
+                  type: string
+                  maxLength: 14
+                  description: Either barcode ro catalog sequence are required.
+                catseq:
+                  type: string
+                  maxLength: 14
+                  description: Either barcode ro catalog sequence are required.
+                ordlwqty:
+                  type: string
+                  maxLength: 15
+              required:
+              - company
+              - branch
+              - pono
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PO_KEY:
+                    type: string
+                  PO_PONO:
+                    type: string
+                  PO_DATE:
+                    type: string
+                  PO_CREATED_FROM_BC:
+                    type: string
+                  PO_LNNUM:
+                    type: string
+    get:
+      operationId: getPoLines
+      summary: Get PO lines
+      tags:
+      - Handheld
+      description: Get PO lines
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: pono
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PO_KEY:
+                    type: string
+                  PO_PONO:
+                    type: string
+                  PO_STATUS:
+                    type: string
+                  PO_VENDOR:
+                    type: string
+                  PO_COMMENT:
+                    type: string
+                  PO_REFNUM:
+                    type: string
+                  PO_DATE:
+                    type: string
+                  PO_TERMS:
+                    type: string
+                  PO_STOP_ORDER:
+                    type: string
+                  PO_CREATED_FROM_BC:
+                    type: string
+                  PO_LINES:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+    patch:
+      operationId: updatePoLine
+      summary: Update PO Line
+      tags:
+      - Handheld
+      description: Updates a line on an existing po. Returns the key (header info) of the po updated.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: pono
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+      - name: ordlwqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 15
+      - name: unitcost
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: unitfreight
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: overbill
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: memo
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 29
+      - name: refnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 12
+      - name: reservenum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 12
+      - name: smop
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      - name: freightterms
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: shipvia
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: minqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 15
+      - name: maxqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 15
+      - name: canceldays
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: shipdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: leaddays
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: arrivedate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: dye
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: ordsalesrep1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: rollcutqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PO_KEY:
+                    type: string
+                  PO_PONO:
+                    type: string
+                  PO_DATE:
+                    type: string
+                  PO_CREATED_FROM_BC:
+                    type: string
+                  PO_LNNUM:
+                    type: string
+  /{alias}/wolines:
+    get:
+      operationId: readWoLinesFromBarcode
+      summary: Read WO lines from barcode
+      tags:
+      - Handheld
+      description: Read WO lines from barcode
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+        description: Work Order barcode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/wo:
+    get:
+      operationId: readWoHeaderFromBarcode
+      summary: Read WO header from barcode
+      tags:
+      - Handheld
+      description: Read WO header from barcode
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+        description: Work Order barcode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  WOH_CODIV:
+                    type: string
+                  WOH_WHSE:
+                    type: string
+                  WOH_ORDNO:
+                    type: string
+                  WOH_NUMBER:
+                    type: string
+                  WOH_STATUS:
+                    type: string
+                  WOH_CREATED_USER:
+                    type: string
+                  WOH_CREATED_DATE:
+                    type: string
+                  WOH_CREATED_TIME:
+                    type: string
+                  WOH_CHG_USER:
+                    type: string
+                  WOH_CHG_DATE:
+                    type: string
+                  WOH_CHG_TIME:
+                    type: string
+                  WOH_INSTALL_SEQ:
+                    type: string
+                  WOH_INSTALL_LNNUM:
+                    type: string
+                  WOH_INSTALL_DATE:
+                    type: string
+                  WOH_MODE:
+                    type: string
+                  WOH_REVISION_NAME:
+                    type: string
+                  WOH_INSTALL_AMOUNT:
+                    type: string
+                  WOH_REVISION_NUMBER:
+                    type: string
+                  WOH_INSTALL_LABOR_CODE:
+                    type: string
+                  STATUS:
+                    type: string
+  /{alias}/assign:
+    patch:
+      operationId: unassignInventory
+      summary: Unassign Inventory
+      tags:
+      - Handheld
+      description: Unassign Inventory
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Job number - REQUIRED when bo is not sent. When both bo and job are filled job will be used.
+      - name: bo
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Build order number - REQUIRED when job is not sent. When both bo and job are filled job will be used.
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+        description: Line number being unassigned.
+      - name: invpoint
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 36
+        description: Full inventory pointer key
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: assignInventory
+      summary: Assign Inventory
+      tags:
+      - Handheld
+      description: Assign Inventory
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                job:
+                  type: string
+                  maxLength: 6
+                  description: REQUIRED when bo is not sent. When both bo and job are filled job will be used.
+                bo:
+                  type: string
+                  maxLength: 6
+                  description: REQUIRED when job is not sent. When both bo and job are filled job will be used.
+                lnnum:
+                  type: string
+                  maxLength: 3
+                  description: Line number being unassigned.
+                barcode:
+                  type: string
+                  maxLength: 36
+                  description: Item barcode.
+                box:
+                  type: string
+                  maxLength: 1
+                  description: Used when assigning by box.
+                quantity:
+                  type: string
+                  maxLength: 15
+                  description: Used when specifying a quantity other than full quantity available.
+              required:
+              - company
+              - branch
+              - lnnum
+              - barcode
+              - quantity
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/ship:
+    post:
+      operationId: shipsWorkOrder
+      summary: Ships Work Order
+      tags:
+      - Handheld
+      description: Ships Work Order and creates a shipped revision
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                barcode:
+                  type: string
+                  maxLength: 14
+                  description: Work order number with revision.
+                ordstatuscode:
+                  type: string
+                  maxLength: 10
+                  description: Optional
+              required:
+              - company
+              - branch
+              - barcode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  WOH_CODIV:
+                    type: string
+                  WOH_WHSE:
+                    type: string
+                  WOH_ORDNO:
+                    type: string
+                  WOH_NUMBER:
+                    type: string
+                  WOH_STATUS:
+                    type: string
+                  WOH_CREATED_USER:
+                    type: string
+                  WOH_CREATED_DATE:
+                    type: string
+                  WOH_CREATED_TIME:
+                    type: string
+                  WOH_CHG_USER:
+                    type: string
+                  WOH_CHG_DATE:
+                    type: string
+                  WOH_CHG_TIME:
+                    type: string
+                  WOH_INSTALL_SEQ:
+                    type: string
+                  WOH_INSTALL_LNNUM:
+                    type: string
+                  WOH_INSTALL_DATE:
+                    type: string
+                  WOH_MODE:
+                    type: string
+                  WOH_REVISION_NAME:
+                    type: string
+                  WOH_INSTALL_AMOUNT:
+                    type: string
+                  WOH_REVISION_NUMBER:
+                    type: string
+                  WOH_INSTALL_LABOR_CODE:
+                    type: string
+                  STATUS:
+                    type: string
+  /{alias}/hhgetlocations:
+    get:
+      operationId: inventoryLocationsFromBarcodeScan
+      summary: Inventory Locations from barcode scan
+      tags:
+      - Handheld
+      description: Inventory locations barcode scan
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/unpicked:
+    get:
+      operationId: getUnpickedInventory
+      summary: Get unpicked inventory
+      tags:
+      - Handheld
+      description: Get unpicked inventory
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: invkey
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 30
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/inventorycomments:
+    get:
+      operationId: getInventoryComments
+      summary: Get inventory comments
+      tags:
+      - Handheld
+      description: Get inventory comments
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/tempbarcode:
+    get:
+      operationId: findTemporaryInventoryBarcode
+      summary: Find temporary inventory barcode.
+      tags:
+      - Handheld
+      description: Find temporary inventory barcode.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 14
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANY:
+                    type: string
+                  TEMP_BARCODE:
+                    type: string
+  /{alias}/barcodesettings:
+    get:
+      operationId: getUserBarcodeSettings
+      summary: Get user barcode settings.
+      tags:
+      - Handheld
+      description: Get user barcode settings.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANY:
+                    type: string
+                  BRANCH:
+                    type: string
+                  USER:
+                    type: string
+                  USER_DEFAULT_BARCODE_BRANCH:
+                    type: string
+                  USER_WO_IGNORE_SHIP:
+                    type: string
+                  USER_ALLOW_CHG_INVENTORY:
+                    type: string
+                  COMPANY_NOT_BOX:
+                    type: string
+  /{alias}/stagedrevisions:
+    get:
+      operationId: getStagedRevisionsList
+      summary: Get staged revisions list
+      tags:
+      - Handheld
+      description: Get staged revisions list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: barcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 14
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/convertinvqty:
+    get:
+      operationId: convertInventoryQuantity
+      summary: Convert Inventory Quantity
+      tags:
+      - Handheld
+      description: Convert Inventory Quantity
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: barcode
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 14
+        description: Catalog or Inevntory barcode.
+      - name: ordlwqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 9
+      - name: box
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Send Y when converting box qty to invetory qty.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  INVENTORY_QTY:
+                    type: string
+                  INVENTORY_BOXQTY:
+                    type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

@@ -1,0 +1,257 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Authentication API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Authentication
+paths:
+  /{alias}/token:
+    post:
+      operationId: authenticateUserCreateSession
+      summary: Authenticate User / Create Session
+      tags:
+      - Authentication
+      description: Authenticate the user with the system and obtain the token. Token is used for all subsequent API calls. Sessions will expire based on a server specified timeout period. In order to use a session for long term use the token(keepalive) endpoint to keep the session token active. All calls will update and refresh the last active time of a token, so a keepalive call is only necessary when idle. Idle time is a default of 5 minutes.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  maxLength: 8
+                  description: User name
+                password:
+                  type: string
+                  maxLength: 8
+                  description: User password
+                granttype:
+                  type: string
+                  default: client
+                  enum:
+                  - application
+                  - client
+                  description: Token grant type (application or client). Client tokens will time out at a specified amount of minutes and need to have active calls made or a GET token endpoint called to keep it active. Once client tokens expire, they are invalid. Application tokens are long term token used for API to API transactions and do not time out if used within a year of creation.
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANIES:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                  TOKEN:
+                    type: string
+    get:
+      operationId: sessionKeepalive
+      summary: Session Keepalive
+      tags:
+      - Authentication
+      description: Sessions expire based on a server specified timeout period. Use this endpoint to verify that a token is still valid and to reset the last active time of a call.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  RETURN:
+                    type: string
+    delete:
+      operationId: removeSession
+      summary: Remove Session
+      tags:
+      - Authentication
+      description: Sessions expire based on a server specified timeout period. Use this endpoint to verify that a token is still valid and to reset the last active time of a call. In order to get a new application token, a DELETE token endpoint must be called to reset the key that is issued.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                granttype:
+                  type: string
+                  default: client
+                  enum:
+                  - application
+                  - client
+                  description: Token grant type (application or client). Client tokens will time out at a specified amount of minutes and need to have active calls made or a GET token endpoint called to keep it active. Once client tokens expire, they are invalid. Application tokens are long term token used for API to API transactions and do not time out if used within a year of creation.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  RETURN:
+                    type: string
+  /{alias}/sessioncount:
+    get:
+      operationId: sessionCount
+      summary: Session Count
+      tags:
+      - Authentication
+      description: Currently active session count and limit
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SESSIONCOUNT:
+                    type: string
+                  LIMIT:
+                    type: string
+  /{alias}/permissions:
+    get:
+      operationId: userPermissions
+      summary: User permissions
+      tags:
+      - Authentication
+      description: User web permissions
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/changebranch:
+    post:
+      operationId: changeBranches
+      summary: Change Branches
+      tags:
+      - Authentication
+      description: Change currently active branches
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+                  description: Collection of all arrays that are to be set 'active'. All branches not passed will be set to inactive by default. Subsequent queries will use the list of active branches to filter the returns.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

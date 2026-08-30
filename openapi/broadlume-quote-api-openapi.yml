@@ -1,0 +1,1367 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Quote API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Quote
+paths:
+  /{alias}/quotes:
+    get:
+      operationId: quotesByFollowUpDateRange
+      summary: Quotes by follow up date range
+      tags:
+      - Quote
+      description: Quotes by follow up date range
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks up Follow-Up Date.
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks up Follow-Up Date
+      - name: startdate2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks up Created Date.
+      - name: enddate2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Looks up Created Date.
+      - name: customer
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Optional
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 7
+        description: Optional, open/closed/both
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/quote:
+    post:
+      operationId: createQuote
+      summary: Create Quote
+      tags:
+      - Quote
+      description: Creates an Quote. Returns the key (header info) of the Quote updated. Only fields sent will update.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                ordstatus:
+                  type: string
+                  maxLength: 12
+                custpo:
+                  type: string
+                  maxLength: 15
+                ordcustid:
+                  type: string
+                  maxLength: 8
+                ordtype:
+                  type: string
+                  maxLength: 1
+                ordsalesrep1:
+                  type: string
+                  maxLength: 3
+                  description: Note - assumes user salesperson initials if not sent and if user is salesperson.
+                ordsalesrep2:
+                  type: string
+                  maxLength: 3
+                ordjobtype:
+                  type: string
+                  maxLength: 2
+                ordstatuscode:
+                  type: string
+                  maxLength: 10
+                shcode:
+                  type: string
+                  maxLength: 4
+                shname:
+                  type: string
+                  maxLength: 30
+                shaddr1:
+                  type: string
+                  maxLength: 30
+                shaddr2:
+                  type: string
+                  maxLength: 30
+                shctyst:
+                  type: string
+                  maxLength: 30
+                shcity:
+                  type: string
+                  maxLength: 30
+                shstate:
+                  type: string
+                  maxLength: 30
+                shzip:
+                  type: string
+                  maxLength: 10
+                shbuilding:
+                  type: string
+                  maxLength: 23
+                  description: When used, will override shaddr2 field
+                shunit:
+                  type: string
+                  maxLength: 6
+                  description: When used, will override shaddr2 field
+                insdate:
+                  type: string
+                  maxLength: 8
+                  description: YYYYMMDD Changes the followup date or quote.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QMO_CODIV:
+                    type: string
+                  QMO_WHSE:
+                    type: string
+                  QMO_ORDNO:
+                    type: string
+                  QMH_STATUS:
+                    type: string
+                  QMH_STATUSCODE:
+                    type: string
+                  QMH_CUSTID:
+                    type: string
+                  QMH_TYPE:
+                    type: string
+                  QMH_SHCODE:
+                    type: string
+                  QMH_SHNAME:
+                    type: string
+                  QMH_SHADDR1:
+                    type: string
+                  QMH_SHADDR2:
+                    type: string
+                  QMH_SHCITY:
+                    type: string
+                  QMH_SHSTATE:
+                    type: string
+                  QMH_SHZIP:
+                    type: string
+                  QMH_JOBTYPE:
+                    type: string
+                  QMH_JOBNUM:
+                    type: string
+                  QMH_TAXTYPE:
+                    type: string
+                  QMH_SPECIAL1:
+                    type: string
+                  QMH_JOBTOTAL:
+                    type: string
+                  QMH_WONUM:
+                    type: string
+                  QMH_CUSTPO:
+                    type: string
+                  QMH_ATTN:
+                    type: string
+                  QMH_QRDNO:
+                    type: string
+                  QMH_INSTALLDATE:
+                    type: string
+                  QMH_DATE:
+                    type: string
+                  QMH_SHPHONE1:
+                    type: string
+                  QMH_SHFAX:
+                    type: string
+                  QMH_SHCONTACT:
+                    type: string
+                  QMH_INSDATE_INITIALS:
+                    type: string
+                  QMH_TYPEDESC:
+                    type: string
+                  QMH_CARE:
+                    type: string
+                  QMH_ORDEREDBY:
+                    type: string
+                  QMH_SMOP:
+                    type: string
+                  QRDE_EMAIL:
+                    type: string
+                  QMH_SALESREP1:
+                    type: string
+                  QMH_SALESREP1_NAME:
+                    type: string
+                  QMH_SALESREP1_PHONE1:
+                    type: string
+                  QMH_SALESREP1_PHONE2:
+                    type: string
+                  QMH_SALESREP2:
+                    type: string
+                  QMH_SALESREP2_NAME:
+                    type: string
+                  QMH_SALESREP2_PHONE1:
+                    type: string
+                  QMH_SALESREP2_PHONE2:
+                    type: string
+                  C_NAME:
+                    type: string
+                  C_PHONE:
+                    type: string
+                  C_PHONE2:
+                    type: string
+                  C_FAX:
+                    type: string
+                  C_EMAIL:
+                    type: string
+    patch:
+      operationId: updateQuote
+      summary: Update Quote
+      tags:
+      - Quote
+      description: Updates an existing Quote. Returns the key (header info) of the Quote updated. Only fields sent will update.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: ordstatus
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 12
+      - name: custpo
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 15
+      - name: ordcustid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: ordtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+      - name: ordsalesrep1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: ordsalesrep2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: ordjobtype
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      - name: ordstatuscode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: shcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+      - name: shname
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+      - name: shaddr1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+      - name: shaddr2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+      - name: shctyst
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+      - name: shcity
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+      - name: shstate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 30
+      - name: shzip
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: shbuilding
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 23
+        description: When used, will override shaddr2 field
+      - name: shunit
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: When used, will override shaddr2 field
+      - name: insdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: YYYYMMDD Changes the follow up date for quote
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QMO_CODIV:
+                    type: string
+                  QMO_WHSE:
+                    type: string
+                  QMO_ORDNO:
+                    type: string
+                  QMH_STATUS:
+                    type: string
+                  QMH_STATUSCODE:
+                    type: string
+                  QMH_CUSTID:
+                    type: string
+                  QMH_TYPE:
+                    type: string
+                  QMH_SHCODE:
+                    type: string
+                  QMH_SHNAME:
+                    type: string
+                  QMH_SHADDR1:
+                    type: string
+                  QMH_SHADDR2:
+                    type: string
+                  QMH_SHCITY:
+                    type: string
+                  QMH_SHSTATE:
+                    type: string
+                  QMH_SHZIP:
+                    type: string
+                  QMH_JOBTYPE:
+                    type: string
+                  QMH_JOBNUM:
+                    type: string
+                  QMH_TAXTYPE:
+                    type: string
+                  QMH_SPECIAL1:
+                    type: string
+                  QMH_JOBTOTAL:
+                    type: string
+                  QMH_WONUM:
+                    type: string
+                  QMH_CUSTPO:
+                    type: string
+                  QMH_ATTN:
+                    type: string
+                  QMH_QRDNO:
+                    type: string
+                  QMH_INSTALLDATE:
+                    type: string
+                  QMH_DATE:
+                    type: string
+                  QMH_SHPHONE1:
+                    type: string
+                  QMH_SHFAX:
+                    type: string
+                  QMH_SHCONTACT:
+                    type: string
+                  QMH_INSDATE_INITIALS:
+                    type: string
+                  QMH_TYPEDESC:
+                    type: string
+                  QMH_CARE:
+                    type: string
+                  QMH_ORDEREDBY:
+                    type: string
+                  QMH_SMOP:
+                    type: string
+                  QRDE_EMAIL:
+                    type: string
+                  QMH_SALESREP1:
+                    type: string
+                  QMH_SALESREP1_NAME:
+                    type: string
+                  QMH_SALESREP1_PHONE1:
+                    type: string
+                  QMH_SALESREP1_PHONE2:
+                    type: string
+                  QMH_SALESREP2:
+                    type: string
+                  QMH_SALESREP2_NAME:
+                    type: string
+                  QMH_SALESREP2_PHONE1:
+                    type: string
+                  QMH_SALESREP2_PHONE2:
+                    type: string
+                  C_NAME:
+                    type: string
+                  C_PHONE:
+                    type: string
+                  C_PHONE2:
+                    type: string
+                  C_FAX:
+                    type: string
+                  C_EMAIL:
+                    type: string
+    get:
+      operationId: getQuote
+      summary: Get Quote
+      tags:
+      - Quote
+      description: Get Quote header information
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QMO_CODIV:
+                    type: string
+                  QMO_WHSE:
+                    type: string
+                  QMO_ORDNO:
+                    type: string
+                  QMH_STATUS:
+                    type: string
+                  QMH_STATUSCODE:
+                    type: string
+                  QMH_CUSTID:
+                    type: string
+                  QMH_TYPE:
+                    type: string
+                  QMH_SHCODE:
+                    type: string
+                  QMH_SHNAME:
+                    type: string
+                  QMH_SHADDR1:
+                    type: string
+                  QMH_SHADDR2:
+                    type: string
+                  QMH_SHCITY:
+                    type: string
+                  QMH_SHSTATE:
+                    type: string
+                  QMH_SHZIP:
+                    type: string
+                  QMH_JOBTYPE:
+                    type: string
+                  QMH_JOBNUM:
+                    type: string
+                  QMH_TAXTYPE:
+                    type: string
+                  QMH_SPECIAL1:
+                    type: string
+                  QMH_JOBTOTAL:
+                    type: string
+                  QMH_WONUM:
+                    type: string
+                  QMH_CUSTPO:
+                    type: string
+                  QMH_ATTN:
+                    type: string
+                  QMH_QRDNO:
+                    type: string
+                  QMH_INSTALLDATE:
+                    type: string
+                  QMH_DATE:
+                    type: string
+                  QMH_SHPHONE1:
+                    type: string
+                  QMH_SHFAX:
+                    type: string
+                  QMH_SHCONTACT:
+                    type: string
+                  QMH_INSDATE_INITIALS:
+                    type: string
+                  QMH_TYPEDESC:
+                    type: string
+                  QMH_CARE:
+                    type: string
+                  QMH_ORDEREDBY:
+                    type: string
+                  QMH_SMOP:
+                    type: string
+                  QRDE_EMAIL:
+                    type: string
+                  QMH_SALESREP1:
+                    type: string
+                  QMH_SALESREP1_NAME:
+                    type: string
+                  QMH_SALESREP1_PHONE1:
+                    type: string
+                  QMH_SALESREP1_PHONE2:
+                    type: string
+                  QMH_SALESREP2:
+                    type: string
+                  QMH_SALESREP2_NAME:
+                    type: string
+                  QMH_SALESREP2_PHONE1:
+                    type: string
+                  QMH_SALESREP2_PHONE2:
+                    type: string
+                  C_NAME:
+                    type: string
+                  C_PHONE:
+                    type: string
+                  C_PHONE2:
+                    type: string
+                  C_FAX:
+                    type: string
+                  C_EMAIL:
+                    type: string
+  /{alias}/quoteline:
+    post:
+      operationId: createQuoteLine
+      summary: Create Quote Line
+      tags:
+      - Quote
+      description: Creates a line on an existing quote. Returns the key (header info) of the quote updated. <br><br> Only one of these parameters (ordlseq, ordlb2bsku, ordlbarcode) is required. If more than one is passed they execute in the precedence of  ordlseq > ordlb2bsku > ordlbarcode
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                quote:
+                  type: string
+                  maxLength: 6
+                ordlseq:
+                  type: string
+                  maxLength: 13
+                ordlb2bsku:
+                  type: string
+                  maxLength: 30
+                ordlbarcode:
+                  type: string
+                  maxLength: 30
+                ordlwqty:
+                  type: string
+                  maxLength: 9
+                ordlsqty:
+                  type: string
+                  maxLength: 9
+                ordlprice:
+                  type: string
+                  maxLength: 9
+                laborunitcost:
+                  type: string
+                  maxLength: 9
+                taxable:
+                  type: string
+                  maxLength: 1
+                  description: Y or N
+              required:
+              - company
+              - branch
+              - quote
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  QRDNO:
+                    type: string
+                  LINE:
+                    type: string
+    get:
+      operationId: getQuoteLines
+      summary: Get quote lines
+      tags:
+      - Quote
+      description: Get quote lines
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Optional - Sending will return single requested line.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QMI_ORDNO:
+                    type: string
+                  QMI_LNNUM:
+                    type: string
+                  QMI_RECSTAT:
+                    type: string
+                  QMI_CAT_SEQUENCE:
+                    type: string
+                  QMI_PRODCODE:
+                    type: string
+                  QMI_STYLE:
+                    type: string
+                  QMI_STYNUMBER:
+                    type: string
+                  QMI_COLOR:
+                    type: string
+                  QMI_COLNUMBER:
+                    type: string
+                  QMI_QTYASSIGNED:
+                    type: string
+                  QMI_SQUANTITY:
+                    type: string
+                  QMI_WQUANTITY:
+                    type: string
+                  QMI_SUNITS:
+                    type: string
+                  QMI_WUNITS:
+                    type: string
+                  QMI_PRICE:
+                    type: string
+                  QMI_TOTAL:
+                    type: string
+                  QMI_PONO:
+                    type: string
+                  QMI_TAXYN:
+                    type: string
+                  QMI_TAX:
+                    type: string
+                  QMI_INSTRUCTIONS:
+                    type: string
+                  QMI_BUNDLE_SEQ:
+                    type: string
+                  BQ_BUNDLE_NAME:
+                    type: string
+    patch:
+      operationId: updateQuoteLine
+      summary: Update Quote Line
+      tags:
+      - Quote
+      description: Updates a line on an existing quote. Returns the key (header info) of the quote updated.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+      - name: ordlwqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 9
+      - name: ordlsqty
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 9
+      - name: ordlprice
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 9
+      - name: laborunitcost
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 9
+      - name: taxable
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Y or N
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  QRDNO:
+                    type: string
+                  LINE:
+                    type: string
+    delete:
+      operationId: deleteQuoteLine
+      summary: Delete Quote Line
+      tags:
+      - Quote
+      description: Deletes a line on an existing quote. Returns the key (header info) of the quote deleted.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  QRDNO:
+                    type: string
+                  LINE:
+                    type: string
+  /{alias}/quotelinecomments:
+    post:
+      operationId: createQuoteLineComment
+      summary: Create Quote Line Comment
+      tags:
+      - Quote
+      description: Creates a quote line comment.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                quote:
+                  type: string
+                  maxLength: 6
+                lnnum:
+                  type: string
+                  maxLength: 3
+                linenote:
+                  type: string
+                  maxLength: 70
+                commenttype:
+                  type: string
+                  maxLength: 1
+                  description: W = work order, C = customer, B= both, N = none
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QLC_CODIV:
+                    type: string
+                  QLC_WHSE:
+                    type: string
+                  QLC_ORDNO:
+                    type: string
+                  QLC_LNNUM:
+                    type: string
+                  QLC_SEQ:
+                    type: string
+                  QLC_TYPE:
+                    type: string
+                  QLC_COMMENT:
+                    type: string
+                  QLC_WEBNAME:
+                    type: string
+                  QLC_DATE:
+                    type: string
+                  QLC_TIME:
+                    type: string
+                  QLC_REQUIRED:
+                    type: string
+                  QLC_NOTE_NUM:
+                    type: string
+    patch:
+      operationId: updateQuoteLineComment
+      summary: Update Quote Line Comment
+      tags:
+      - Quote
+      description: Updates an existing quote line comment.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: commseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: linenote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 53
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  QLC_CODIV:
+                    type: string
+                  QLC_WHSE:
+                    type: string
+                  QLC_ORDNO:
+                    type: string
+                  QLC_LNNUM:
+                    type: string
+                  QLC_SEQ:
+                    type: string
+                  QLC_TYPE:
+                    type: string
+                  QLC_COMMENT:
+                    type: string
+                  QLC_WEBNAME:
+                    type: string
+                  QLC_DATE:
+                    type: string
+                  QLC_TIME:
+                    type: string
+                  QLC_REQUIRED:
+                    type: string
+                  QLC_NOTE_NUM:
+                    type: string
+    get:
+      operationId: getQuoteLineCommments
+      summary: Get Quote line commments
+      tags:
+      - Quote
+      description: Get all quote line commments
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/quotenote:
+    get:
+      operationId: readsAQuoteNote
+      summary: Reads a Quote Note
+      tags:
+      - Quote
+      description: Reads a Quote Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: quote
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: jobpage
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BR:
+                    type: string
+                  ORDNO:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+  /{alias}/quotelinesub:
+    get:
+      operationId: getQrdlsubRecords
+      summary: Get QRDLSUB Records
+      tags:
+      - Quote
+      description: Get QRDLSUB Records
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: jobstatus
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 7
+        description: Optional, open/closed. When not sent open quotes are returned.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1'
+        description: Used to offset data by 'page'. Used in conjunction with 'pagelimit' parameter to limit the amount of records per page.
+      - name: pagelimit
+        in: query
+        required: false
+        schema:
+          type: number
+          maxLength: 4
+          default: '1000'
+        description: Limit of records allowed per 'page' of data. Used with the 'page' parameter to offset records and get chunks of a return.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

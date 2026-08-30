@@ -1,0 +1,376 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Invoice API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Invoice
+paths:
+  /{alias}/invoice:
+    get:
+      operationId: invoiceHeader
+      summary: Invoice Header
+      tags:
+      - Invoice
+      description: Invoice header by invoice number
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: invoice
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Invoice number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  KEY:
+                    type: string
+                  IVC_KEY:
+                    type: string
+                  IVC_CODIV:
+                    type: string
+                  IVC_WHSE:
+                    type: string
+                  IVC_INVNO:
+                    type: integer
+                  IVC_STATUS:
+                    type: string
+                  IVC_TYPE:
+                    type: string
+                  IVC_ORDNO:
+                    type: integer
+                  IVC_MATERIAL:
+                    type: number
+                  IVC_LABOR:
+                    type: number
+                  IVC_SPECIAL:
+                    type: number
+                  IVC_TOTTAX:
+                    type: number
+                  IVC_INVOICE:
+                    type: number
+                  IVC_DATE:
+                    type: integer
+                  IVC_CUSTOMER:
+                    type: string
+                  IVC_OTCSALE:
+                    type: string
+                  IVC_CURRDATE:
+                    type: integer
+                  IVC_RDATE:
+                    type: integer
+                  IVC_CURRTIME:
+                    type: integer
+                  IVC_USERID:
+                    type: string
+                  IVC_DEVICE:
+                    type: string
+                  IVC_TYPEDESC:
+                    type: string
+                  IVC_CUSTPO:
+                    type: string
+                  IVC_INSTALLDATE:
+                    type: integer
+                  IVC_DISCOUNT:
+                    type: number
+                  IVC_PRINT_QTY:
+                    type: string
+                  IVC_PRINT_PRICE:
+                    type: string
+                  IVC_PRINT_EXT:
+                    type: string
+                  IVC_DUEDATE:
+                    type: integer
+  /{alias}/invoicelines:
+    get:
+      operationId: getInvoiceLines
+      summary: Get Invoice Lines
+      tags:
+      - Invoice
+      description: Get Invoice Lines
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: invoice
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/salesinvoice:
+    get:
+      operationId: invoiceDownload
+      summary: Invoice download
+      tags:
+      - Invoice
+      description: Download Sales Invoice PDF
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: Invoice branch
+      - name: invoice
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+        description: 6 digit Invoice
+      responses:
+        '200':
+          description: OK
+  /{alias}/invoicecommission:
+    get:
+      operationId: getInvoiceCommissionInfo
+      summary: Get Invoice Commission Info
+      tags:
+      - Invoice
+      description: Get Invoice Commission Info
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: salesid
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Optional
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/jobcost:
+    get:
+      operationId: getJobCostInfo
+      summary: Get Job Cost Info
+      tags:
+      - Invoice
+      description: Get Job Cost Info
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      - name: startdate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Job audit date
+      - name: enddate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Job audit date
+      - name: startdate2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Pay date
+      - name: enddate2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD - Pay date
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

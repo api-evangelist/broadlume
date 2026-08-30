@@ -1,0 +1,409 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS General API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: General
+paths:
+  /{alias}/searchbyphone:
+    get:
+      operationId: getRecordsFromTheCustomerCustomerAddressCustomerContactsLeadsAndVendorRecordsBasedOnPhoneNumber
+      summary: Get records from the customer, customer address, customer contacts, leads, and vendor records based on phone number.
+      tags:
+      - General
+      description: Get records from the customer, customer address, customer contacts, leads, and vendor records based on phone number.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: term
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 30
+        description: Phone number in 111-111-1111 format.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANY:
+                    type: string
+                  BRANCH:
+                    type: string
+                  ID:
+                    type: string
+                  RECORD_TYPE:
+                    type: string
+                  SOURCE:
+                    type: string
+  /{alias}/contactcreation:
+    get:
+      operationId: getRecordsForContactsCreatedOnOrAfterDateSent
+      summary: Get records for contacts created on or after date sent.
+      tags:
+      - General
+      description: Get records for contacts created on or after date sent.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Date in YYYYMMDD format.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANY:
+                    type: string
+                  BRANCH:
+                    type: string
+                  ID:
+                    type: string
+                  RECORD_TYPE:
+                    type: string
+                  SOURCE:
+                    type: string
+                  CONTACT_FIRST:
+                    type: string
+                  CONTACT_LAST:
+                    type: string
+                  CONTACT_EMAIL:
+                    type: string
+                  CONTACT_BIRTHDAY:
+                    type: string
+                  CONTACT_PHONE1:
+                    type: string
+                  CONTACT_PHONE2:
+                    type: string
+                  CONTACT_CITY:
+                    type: string
+                  CONTACT_STATE:
+                    type: string
+                  CONTACT_DEF_EMAIL_LVL:
+                    type: string
+                  CONTACT_TEXT_UPDATE:
+                    type: string
+                  CONTACT_CREATED:
+                    type: string
+  /{alias}/webstorages:
+    get:
+      operationId: getWebStorageObjectsPerUser
+      summary: Get web storage objects per user
+      tags:
+      - General
+      description: Get web storage objects per user. Used for long term storage of web items that would normally end up in localStorage or Session objects
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Company ID, can be passed as a blank for all companies
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Branch ID, can be passed as blank or not submitted to return all branches
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/webstorage:
+    get:
+      operationId: getWebStorageObjectsPerUser1
+      summary: Get web storage objects per user
+      tags:
+      - General
+      description: Get web storage objects per user. Used for long term storage of web items that would normally end up in localStorage or Session objects
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Company ID, can be passed as a blank for all companies
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Branch ID, can be passed as blank or not submitted to return all branches
+      - name: SETTING
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 100
+        description: Setting ID, must be unique
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  WEBSTORAGE_CODIV:
+                    type: string
+                  WEBSTORAGE_WHSE:
+                    type: string
+                  WEBSTORAGE_USERID:
+                    type: string
+                  WEBSTORAGE_SETTING:
+                    type: string
+                  WEBSTORAGE_VALUE:
+                    type: string
+    post:
+      operationId: createWebstorageObject
+      summary: Create webstorage object
+      tags:
+      - General
+      description: Create webstorage object for username, setting, and value.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: Company ID
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: Branch ID
+                SETTING:
+                  type: string
+                  maxLength: 100
+                  description: Setting ID, must be unique
+                VALUE:
+                  type: string
+                  maxLength: 2048
+              required:
+              - SETTING
+              - VALUE
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  WEBSTORAGE_CODIV:
+                    type: string
+                  WEBSTORAGE_WHSE:
+                    type: string
+                  WEBSTORAGE_USERID:
+                    type: string
+                  WEBSTORAGE_SETTING:
+                    type: string
+                  WEBSTORAGE_VALUE:
+                    type: string
+    patch:
+      operationId: updateWebstorageObject
+      summary: Update webstorage object
+      tags:
+      - General
+      description: Update webstorage object for username, setting, and value.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Company ID
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Branch ID
+      - name: SETTING
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 100
+        description: Setting ID, must be unique
+      - name: VALUE
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2048
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  WEBSTORAGE_CODIV:
+                    type: string
+                  WEBSTORAGE_WHSE:
+                    type: string
+                  WEBSTORAGE_USERID:
+                    type: string
+                  WEBSTORAGE_SETTING:
+                    type: string
+                  WEBSTORAGE_VALUE:
+                    type: string
+    delete:
+      operationId: updateWebstorageObject1
+      summary: Update webstorage object
+      tags:
+      - General
+      description: Update webstorage object for username, setting, and value.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Company ID
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Branch ID
+      - name: SETTING
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 100
+        description: Setting ID, must be unique
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  WEBSTORAGE_CODIV:
+                    type: string
+                  WEBSTORAGE_WHSE:
+                    type: string
+                  WEBSTORAGE_USERID:
+                    type: string
+                  WEBSTORAGE_SETTING:
+                    type: string
+                  WEBSTORAGE_VALUE:
+                    type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

@@ -1,0 +1,261 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Bundle API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Bundle
+paths:
+  /{alias}/bundle:
+    post:
+      operationId: createBundleJobQuoteRecord
+      summary: Create Bundle(Job/Quote) Record
+      tags:
+      - Bundle
+      description: Creates Bundle Record for a Quote or Job based on 'type' of ('quote' or 'order')
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 5
+        description: quote, order (Sets mode of call)
+      - name: bundlename
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 30
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: required when type is order
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: required when type is quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BUNDLE_ORDNO:
+                    type: string
+                  BUNDLE_SEQ:
+                    type: string
+                  BUNDLE_NAME:
+                    type: string
+    patch:
+      operationId: updateBundleJobQuoteNameBySequence
+      summary: Update Bundle(Job/Quote) Name by sequence
+      tags:
+      - Bundle
+      description: Updates Bundle Name by sequence for a Quote or Job based on 'type' of ('quote' or 'order')
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 5
+        description: quote, order (Sets mode of call)
+      - name: bundleseq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+        description: sequence to rename
+      - name: bundlename
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 30
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: required when type is order
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: required when type is quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BUNDLE_ORDNO:
+                    type: string
+                  BUNDLE_SEQ:
+                    type: string
+                  BUNDLE_NAME:
+                    type: string
+    get:
+      operationId: returnBundleJobQuoteNameBySequence
+      summary: Return Bundle(Job/Quote) Name by sequence
+      tags:
+      - Bundle
+      description: Return Bundle Name by sequence for a Quote or Job based on 'type' of ('quote' or 'order') or all if no sequence provided
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 5
+        description: quote, order (Sets mode of call)
+      - name: bundleseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: when not sent all
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: required when type is order
+      - name: quote
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: required when type is quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BUNDLE_ORDNO:
+                    type: string
+                  BUNDLE_SEQ:
+                    type: string
+                  BUNDLE_NAME:
+                    type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

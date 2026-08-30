@@ -1,0 +1,284 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Company API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Company
+paths:
+  /{alias}/company:
+    get:
+      operationId: companyInfo
+      summary: Company Info
+      tags:
+      - Company
+      description: Get company info
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: string
+                  NAME:
+                    type: string
+  /{alias}/branch:
+    get:
+      operationId: branchInfo
+      summary: Branch info
+      tags:
+      - Company
+      description: Get branch info
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: string
+                  NAME:
+                    type: string
+                  ADDRESS1:
+                    type: string
+                  ADDRESS2:
+                    type: string
+                  CITYSTATE:
+                    type: string
+                  ZIPCD:
+                    type: string
+                  TELEPHONE1:
+                    type: string
+                  TELEPHONE2:
+                    type: string
+                  CITY:
+                    type: string
+                  STATE:
+                    type: string
+                  COUNTRY:
+                    type: string
+                  EMAIL:
+                    type: string
+  /{alias}/branches:
+    get:
+      operationId: branchesList
+      summary: Branches list
+      tags:
+      - Company
+      description: Get branches info
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/systeminfo:
+    get:
+      operationId: systemInformation
+      summary: System Information
+      tags:
+      - Company
+      description: Return various configuration, system, company, and branch settings
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Configuration:
+                    type: object
+                  Companies:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/globalsettings:
+    get:
+      operationId: globalSettings
+      summary: Global settings
+      tags:
+      - Company
+      description: Settings list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/companysettings:
+    get:
+      operationId: settingsSpecificToACompany
+      summary: Settings specific to a company
+      tags:
+      - Company
+      description: Settings list for specific company objects
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/territorycodes:
+    get:
+      operationId: territoryCodesList
+      summary: Territory Codes List
+      tags:
+      - Company
+      description: Territory Codes List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

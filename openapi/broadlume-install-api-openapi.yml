@@ -1,0 +1,667 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Install API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Install
+paths:
+  /{alias}/installers:
+    get:
+      operationId: installersList
+      summary: Installers list
+      tags:
+      - Install
+      description: Installers list
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/installer:
+    get:
+      operationId: installerInfo
+      summary: Installer info
+      tags:
+      - Install
+      description: Installer info
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: installer
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  INS_CODE:
+                    type: string
+                  INS_NAME:
+                    type: string
+                  INS_WHSE:
+                    type: string
+                  INS_ADDR1:
+                    type: string
+                  INS_ADDR2:
+                    type: string
+                  INS_CTYST:
+                    type: string
+                  INS_ZIPCD:
+                    type: string
+                  INS_TELE1:
+                    type: string
+                  INS_TELE2:
+                    type: string
+                  INS_PAYTYP:
+                    type: string
+                  INS_SPECIALTY:
+                    type: string
+                  INS2_INACTIVE:
+                    type: string
+                  INS_CITY:
+                    type: string
+                  INS_STATE:
+                    type: string
+                  INS_EMAIL:
+                    type: string
+                  INS_MAX_INSTALL:
+                    type: string
+                  INS_NOTE:
+                    type: string
+                  INS_RESTRICTIONS:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: string
+  /{alias}/installerlist:
+    get:
+      operationId: installerList
+      summary: Installer List
+      tags:
+      - Install
+      description: Installer List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/installdetail:
+    get:
+      operationId: installListByDate
+      summary: Install List by date
+      tags:
+      - Install
+      description: Order Time Slot List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: job
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+        description: Job (order) number
+      - name: lnnum
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 3
+        description: Line number. Send as 'X' if returning multi-date records.
+      - name: instime
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Install time code. Send as 'X' if returning multi-date records.
+      - name: insdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Install date. Send as 'X' if returning multi-date records.
+      - name: insseq
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 4
+        description: Install line sequence. Send as 'X' if returning multi-date records.
+      - name: installer
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Installer ID. Send as 'X' if returning multi-date records.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: string
+  /{alias}/installerinvoice:
+    get:
+      operationId: generateInstallerInvoicePdf
+      summary: Generate Installer Invoice PDF
+      tags:
+      - Install
+      description: Generate Installer Invoice PDF
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+        description: Job (order) number
+      - name: gst
+        in: query
+        required: false
+        schema:
+          type: string
+        description: GST input, expecting .99 format (percentile)
+      - name: invoicenumber
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 20
+      - name: invoicehours
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 7
+        description: Format of 999.999 expected
+      - name: note
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 250
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  RETURNED_PDF:
+                    type: string
+  /{alias}/getinstallations:
+    get:
+      operationId: installationsByDate
+      summary: Installations By Date
+      tags:
+      - Install
+      description: Get Installations By Date Range
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: beginning
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Sending 1 will search for install date records that have an earliest job starting date in range. Sending 2 will search for install date records that have an earliest accum starting date in range.
+      - name: leadslsfilter
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: CSV list of salesperson IDs. Special item `*!*` can be passed to denote empty or null sales ID's on an install. Should be urlencoded. See [salesreps](#/Order/get_salesreps) endpoint for more info.
+      - name: leadjsfilter
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: CSV list of order statuses. Special item `*!*` can be passed to denote empty or null job status. Should be urlencoded. See [orderstatus](#/Order/get_orderstatus) endpoint for more info.
+      - name: accumcodesfilter
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: CSV list of accum codes. See [accumcode](#/Order/get_accumcode) endpoint for more info.
+      - name: installers
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: CSV list of installers. Special item `*!*` can be passed to denote empty or null installer on an install. Should be urlencoded. See [installerlist](#/Install/get_installerlist) endpoint for more info.
+      - name: jobtypes
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: CSV list of job types. Special item `*!*` can be passed to denote empty or null job type on an install. Should be urlencoded. See [ordertype](#/Order/get_ordertype) endpoint for more info.
+      - name: properties
+        in: query
+        required: false
+        schema:
+          type: string
+        description: This is a special format collection. The string is build using 'customer','shiptocode' as a pair. i.e. MURLEY,0000 as a single item. Each customer set is then collected together using a special delimiter `/*\` in between each set. If sending the same customer and multiple shiptocodes would be `MURLEY,0000/*\MURLEY,0001/*\FRANKES,0210` etc. Should be urlencoded.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          default: both
+          enum:
+          - open
+          - closed
+          - both
+      - name: shunit
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Used to search by job unit, must be exact match.
+      - name: barcode
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 14
+        description: Catalog barcode to search by style & color.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/install:
+    post:
+      operationId: createInstallationRecord
+      summary: Create Installation Record
+      tags:
+      - Install
+      description: Creates Installation Records. Returns the record.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                job:
+                  type: string
+                  maxLength: 6
+                jobline:
+                  type: string
+                  maxLength: 3
+                startdate:
+                  type: string
+                  maxLength: 8
+                  description: Format - YYYYMMDD
+                enddate:
+                  type: string
+                  maxLength: 8
+                  description: Format - YYYYMMDD
+                installer:
+                  type: string
+                  maxLength: 8
+                quantity:
+                  type: string
+                  maxLength: 15
+                  description: Quantity to assign or all.
+              required:
+              - company
+              - branch
+              - job
+              - jobline
+              - startdate
+              - enddate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  DMOID_CODIV:
+                    type: string
+                  DMOID_WHSE:
+                    type: string
+                  DMOID_ORDNO:
+                    type: string
+                  DMOID_SEQ:
+                    type: string
+                  DMOID_LNNUM:
+                    type: string
+                  DMOID_LABOR_CODE:
+                    type: string
+                  DMOID_WQTY:
+                    type: string
+                  DMOID_INSTALLER:
+                    type: string
+                  DMOID_NAME:
+                    type: string
+                  DMOID_INSDATE:
+                    type: string
+                  DMOID_TIME:
+                    type: string
+                  DMOID_O_A_D:
+                    type: string
+                  DMOID_SUBMITTED:
+                    type: string
+  /{alias}/installs:
+    get:
+      operationId: getInstallationRecords
+      summary: Get Installation Records
+      tags:
+      - Install
+      description: Get Installation Records
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: jobline
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      - name: insseq
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+        description: Will use insseq instead of jobline when not empty.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/installcapacity:
+    get:
+      operationId: installationLimitsAndCapacities
+      summary: Installation limits and capacities
+      tags:
+      - Install
+      description: Installation scheduling limits and capacities
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms

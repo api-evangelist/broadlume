@@ -1,0 +1,1042 @@
+openapi: 3.2.0
+info:
+  title: Broadlume BMS Purchase Order API
+  version: v1
+  summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
+  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
+
+
+    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  contact:
+    name: Broadlume Developer Portal
+    url: https://developer.broadlume.com/bms
+servers:
+- url: https://api.rmaster.com/api
+  description: Production
+security:
+- apiKeyAuth: []
+  sessionToken: []
+tags:
+- name: Purchase Order
+paths:
+  /{alias}/po:
+    patch:
+      operationId: updatePo
+      summary: Update PO
+      tags:
+      - Purchase Order
+      description: Updates an existing po.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: pono
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: vendor
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: ordstatus
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: C will cancel PO.
+      - name: date
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+        description: MMDDYYYY Format
+      - name: terms
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: orderedby
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: takenby
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 10
+      - name: refnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 12
+      - name: stoporder
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Y
+      - name: allocated
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      - name: exchangerate
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 8
+      - name: includegross
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      - name: includefreight
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      - name: exchangefreight
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+      - name: exchangecost1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+      - name: exchangecost2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+      - name: exchangecost3
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 13
+      - name: includecost1
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      - name: includecost2
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      - name: includecost3
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      - name: enableexpcost
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: 1 for Yes, 0 for No
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PO_KEY:
+                    type: string
+                  PO_PONO:
+                    type: string
+                  PO_DATE:
+                    type: string
+                  PO_CREATED_FROM_BC:
+                    type: string
+                  PO_LNNUM:
+                    type: string
+  /{alias}/purchaseorderlines:
+    get:
+      operationId: readPurchaseOrderLinesThatAreOpen
+      summary: Read purchase order lines that are open
+      tags:
+      - Purchase Order
+      description: Read purchase order lines that are open
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  maxLength: 1
+                  description: PO Status filter. Defaults to 'blank'.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/purchaseorderheader:
+    get:
+      operationId: purchaseOrderDetail
+      summary: Purchase order detail
+      tags:
+      - Purchase Order
+      description: Purchase order detail
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: ponumber
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+        description: PO number requested
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANY:
+                    type: string
+                  BRANCH:
+                    type: string
+                  PONUMBER:
+                    type: string
+                  STATUS:
+                    type: string
+                  VENDOR:
+                    type: string
+                  COMMENT:
+                    type: string
+                  REFNUM:
+                    type: string
+                  DATE:
+                    type: string
+                  TERMS:
+                    type: string
+                  STOPORDER:
+                    type: string
+                  CONSIGNMENT-COPIED:
+                    type: string
+                  EXPENSES-ALLOCATED:
+                    type: number
+                  EST-EXCHG-RATE:
+                    type: number
+                  EXCHG-FREIGHT:
+                    type: number
+                  EXCHG-COST1:
+                    type: number
+                  EXCHG-COST2:
+                    type: number
+                  EXCHG-COST3:
+                    type: number
+                  INCLUDE-GROSS-COST:
+                    type: number
+                  INCLUDE-FREIGHT:
+                    type: number
+                  INCLUDE-COST1:
+                    type: number
+                  INCLUDE-COST2:
+                    type: number
+                  INCLUDE-COST3:
+                    type: number
+                  ENABLE-EXPANDED-COST:
+                    type: number
+  /{alias}/purchaseorderheaders:
+    get:
+      operationId: listOfPurchaseOrdersByDate
+      summary: List of purchase orders by date
+      tags:
+      - Purchase Order
+      description: List of purchase orders by date
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: startdate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: enddate
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 8
+        description: Format - YYYYMMDD
+      - name: lastdays
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+        description: Last X days of data to call for. Same as calling for startdate through enddate of X days ago to today. Call for either startdate/enddate OR lastdays. Lastdays WILL OVERRIDE startdate/enddate.
+      - name: vendor
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Vendors to filter by
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Status codes to filter by
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMPANY:
+                    type: string
+                  BRANCH:
+                    type: string
+                  PONUMBER:
+                    type: string
+                  STATUS:
+                    type: string
+                  VENDOR:
+                    type: string
+                  COMMENT:
+                    type: string
+                  REFNUM:
+                    type: string
+                  DATE:
+                    type: string
+                  TERMS:
+                    type: string
+                  STOPORDER:
+                    type: string
+                  CONSIGNMENT-COPIED:
+                    type: string
+                  EXPENSES-ALLOCATED:
+                    type: number
+                  EST-EXCHG-RATE:
+                    type: number
+                  EXCHG-FREIGHT:
+                    type: number
+                  EXCHG-COST1:
+                    type: number
+                  EXCHG-COST2:
+                    type: number
+                  EXCHG-COST3:
+                    type: number
+                  INCLUDE-GROSS-COST:
+                    type: number
+                  INCLUDE-FREIGHT:
+                    type: number
+                  INCLUDE-COST1:
+                    type: number
+                  INCLUDE-COST2:
+                    type: number
+                  INCLUDE-COST3:
+                    type: number
+                  ENABLE-EXPANDED-COST:
+                    type: number
+  /{alias}/shipvia:
+    get:
+      operationId: poShipvia
+      summary: PO Shipvia
+      tags:
+      - Purchase Order
+      description: PO Shipvia List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/freightterms:
+    get:
+      operationId: poFreightTerms
+      summary: PO Freight Terms
+      tags:
+      - Purchase Order
+      description: PO Freight Terms List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/smop:
+    get:
+      operationId: poShipmentMethodOfPayment
+      summary: PO Shipment Method of Payment
+      tags:
+      - Purchase Order
+      description: PO Shipment Method of Payment List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/vendortypes:
+    get:
+      operationId: vendorTypeList
+      summary: Vendor Type List
+      tags:
+      - Purchase Order
+      description: Venndor Type List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/customertype:
+    get:
+      operationId: customerTypeList
+      summary: Customer Type List
+      tags:
+      - Purchase Order
+      description: Customer Type List
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/ponote:
+    post:
+      operationId: createsAPoNote
+      summary: Creates a PO Note
+      tags:
+      - Purchase Order
+      description: Creates a PO Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                order:
+                  type: string
+                  maxLength: 6
+                note:
+                  type: string
+                  maxLength: 59
+              required:
+              - company
+              - branch
+              - order
+              - note
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BRANCH:
+                    type: string
+                  ORDER:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+    patch:
+      operationId: editsAPoNote
+      summary: Edits a PO Note
+      tags:
+      - Purchase Order
+      description: Edits a PO Note
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: note
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 59
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CO:
+                    type: string
+                  BRANCH:
+                    type: string
+                  ORDER:
+                    type: string
+                  PAGE:
+                    type: string
+                  LINE:
+                    type: string
+                  NOTE:
+                    type: string
+    get:
+      operationId: readsPoNotes
+      summary: Reads PO Notes
+      tags:
+      - Purchase Order
+      description: Reads PO Notes
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: order
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 6
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '0':
+                    type: array
+                    items:
+                      type: string
+  /{alias}/polinecomments:
+    post:
+      operationId: createPoLineComment
+      summary: Create PO Line Comment
+      tags:
+      - Purchase Order
+      description: Creates an PO line comment.
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster company.
+                branch:
+                  type: string
+                  maxLength: 2
+                  description: RollMaster branch.
+                job:
+                  type: string
+                  maxLength: 6
+                lnnum:
+                  type: string
+                  maxLength: 3
+                linenote:
+                  type: string
+                  maxLength: 59
+              required:
+              - company
+              - branch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  POLN_CODIV:
+                    type: string
+                  POLN_WHSE:
+                    type: string
+                  POLN_PONO:
+                    type: string
+                  POLN_LNNUM:
+                    type: string
+                  POLN_SEQ:
+                    type: string
+                  POLN_NOTES:
+                    type: string
+    get:
+      operationId: getPoLineCommments
+      summary: Get PO line commments
+      tags:
+      - Purchase Order
+      description: Get all PO line commments
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster branch.
+      - name: job
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+      - name: lnnum
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/popointers:
+    get:
+      operationId: getPoPointers
+      summary: Get PO Pointers
+      tags:
+      - Purchase Order
+      description: Get all PO Pointers
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: order
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Optional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+  /{alias}/pos:
+    get:
+      operationId: getPurchaseOrderFileDataSqlFormat
+      summary: Get Purchase Order File Data - SQL Format
+      tags:
+      - Purchase Order
+      description: Get Purchase Order File Data - SQL Format
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The clientid for the API call.
+      - name: company
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 2
+        description: RollMaster company.
+      - name: branch
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 2
+        description: Optional
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 1
+        description: Optional - When neither C (closed) or O (open) is sent only open purchase orders are returned.
+      - name: po
+        in: query
+        required: false
+        schema:
+          type: string
+          maxLength: 6
+        description: Optional - purchase order number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  COMMENT:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key issued by Broadlume, required on every request.
+    sessionToken:
+      type: apiKey
+      in: header
+      name: token
+      description: User session token obtained from POST /{alias}/token. Sessions expire after a server-specified idle timeout (default 5 minutes); refresh with the keepalive endpoint.
+externalDocs:
+  description: Broadlume BMS developer portal
+  url: https://developer.broadlume.com/bms
