@@ -269,6 +269,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - Customers
+  tags_raw:
   - Customer
   properties:
   - type: OpenAPI
@@ -317,6 +319,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - EDocs
+  tags_raw:
   - Edocs
   properties:
   - type: OpenAPI
@@ -340,7 +344,8 @@ apis:
   description: The General API from Broadlume — 4 operation(s) for general.
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
-  tags:
+  tags: []
+  tags_raw:
   - General
   properties:
   - type: OpenAPI
@@ -629,6 +634,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
