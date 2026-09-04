@@ -24,15 +24,18 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: contact
+  onboarding: approval
   trial: false
   try_now: false
-  public: true
-  label: Documented, key required
+  public: false
+  label: Requires approval
   confidence: medium
   source:
-  - https://developer.broadlume.com/bms
-  generated: '2026-08-13'
+  - plans
+  - authentication
+  - rate-limits
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://optimise2.assets-servd.host/broadlume-platform/production/images/Notebooks.png?w=1200&h=630&q=82&auto=format&fit=crop&dm=1663075995&s=fbf90ba9ce3de4a4318d0dd612edb58a
 x-type: company
@@ -805,8 +808,9 @@ common:
   url: packages/broadlume-packages.yml
 - type: SDKs
   url: packages/broadlume-packages.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/broadlume-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: Overlay
