@@ -316,32 +316,6 @@ apis:
     url: data-model/broadlume-data-model.yml
   - type: Console
     url: https://developer.broadlume.com/api-runner/broadlume/bms
-- aid: broadlume:broadlume-edocs-api
-  name: Broadlume Edocs API
-  description: The Edocs API from Broadlume — 3 operation(s) for edocs.
-  humanURL: https://developer.broadlume.com/bms
-  baseURL: https://api.rmaster.com/api
-  tags:
-  - EDocs
-  tags_raw:
-  - Edocs
-  properties:
-  - type: OpenAPI
-    url: openapi/broadlume-edocs-api-openapi.yml
-  - type: Documentation
-    url: https://developer.broadlume.com/bms
-  - type: APIReference
-    url: https://developer.broadlume.com/bms
-  - type: Authentication
-    url: authentication/broadlume-authentication.yml
-  - type: Conventions
-    url: conventions/broadlume-conventions.yml
-  - type: ErrorCatalog
-    url: errors/broadlume-problem-types.yml
-  - type: DataModel
-    url: data-model/broadlume-data-model.yml
-  - type: Console
-    url: https://developer.broadlume.com/api-runner/broadlume/bms
 - aid: broadlume:broadlume-general-api
   name: Broadlume General API
   description: The General API from Broadlume — 4 operation(s) for general.
@@ -739,6 +713,30 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/broadlume-version-api-openapi.yml
+  - type: Documentation
+    url: https://developer.broadlume.com/bms
+  - type: APIReference
+    url: https://developer.broadlume.com/bms
+  - type: Authentication
+    url: authentication/broadlume-authentication.yml
+  - type: Conventions
+    url: conventions/broadlume-conventions.yml
+  - type: ErrorCatalog
+    url: errors/broadlume-problem-types.yml
+  - type: DataModel
+    url: data-model/broadlume-data-model.yml
+  - type: Console
+    url: https://developer.broadlume.com/api-runner/broadlume/bms
+- aid: broadlume:broadlume-edocs-api
+  name: Broadlume Edocs API
+  description: The Edocs API from Broadlume — 3 operation(s) for edocs.
+  humanURL: https://developer.broadlume.com/bms
+  baseURL: https://api.rmaster.com/api
+  tags:
+  - Edocs
+  properties:
+  - type: OpenAPI
+    url: openapi/broadlume-edocs-api-openapi.yml
   - type: Documentation
     url: https://developer.broadlume.com/bms
   - type: APIReference
