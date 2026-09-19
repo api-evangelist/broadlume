@@ -298,6 +298,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -443,6 +445,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - Invoices
+  tags_raw:
   - Invoice
   properties:
   - type: OpenAPI
@@ -467,6 +471,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - Leads
+  tags_raw:
   - Lead
   properties:
   - type: OpenAPI
@@ -733,6 +739,8 @@ apis:
   humanURL: https://developer.broadlume.com/bms
   baseURL: https://api.rmaster.com/api
   tags:
+  - EDocs
+  tags_raw:
   - Edocs
   properties:
   - type: OpenAPI
