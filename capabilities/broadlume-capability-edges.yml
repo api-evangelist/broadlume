@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 10
+edge_count: 11
 edges:
 - tag: General Ledger
   spec_file: broadlume-general-ledger-api-openapi.yml
@@ -84,6 +84,17 @@ edges:
   reason: Operations cover safety-stock threshold reporting, inventory file/pointer records and assignment
     of inventory to jobs — stock level and allocation management. Spans both stock-level and allocation
     sub-capabilities, so the L1 is asserted.
+- tag: Product
+  spec_file: broadlume-product-api-openapi.yml
+  capability_id: BC-2370
+  capability_id_l1: BC-2370
+  capability_name: Product Information Management
+  confidence: 0.75
+  evidence: GET /{alias}/catalogattributes  Product Attributes; GET /{alias}/catalogdetails  Product details;
+    GET /{alias}/webproducts  Web Products
+  reason: Catalog item attributes, styles, colours, labels and web-publishable product records constitute
+    authoritative product information for the retailer; spans master data and syndication so L1 only.
+  recovered_from: vertical-retail-consumer-goods-edges.json
 - tag: Invoice
   spec_file: broadlume-invoice-api-openapi.yml
   capability_id: BC-200.30
