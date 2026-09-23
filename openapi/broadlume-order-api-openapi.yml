@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Order API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -567,7 +564,9 @@ paths:
       summary: Update Order Line Installer (Single Date Only)
       tags:
       - Order
-      description: Sets/updates the installer for a single labor line <br> <b>Single Intall Date Only </b>
+      description: 'Sets/updates the installer for a single labor line
+
+        Single Intall Date Only'
       parameters:
       - name: alias
         in: path
@@ -630,7 +629,6 @@ paths:
       summary: Get Order Lines - Inactive until 2102 Release
       tags:
       - Order
-      description: Get Order Lines - Inactive until 2102 Release
       parameters:
       - name: alias
         in: path
@@ -701,7 +699,10 @@ paths:
       summary: Create Order Line
       tags:
       - Order
-      description: Creates a line on an existing order. Returns the key (header info) of the order updated. <br><br> Only one of these parameters (ordlseq, ordlb2bsku, ordlbarcode) is required. If more than one is passed they execute in the precedence of  ordlseq > ordlb2bsku > ordlbarcode
+      description: 'Creates a line on an existing order. Returns the key (header info) of the order updated.
+
+
+        Only one of these parameters (ordlseq, ordlb2bsku, ordlbarcode) is required. If more than one is passed they execute in the precedence of ordlseq > ordlb2bsku > ordlbarcode'
       parameters:
       - name: alias
         in: path
@@ -841,7 +842,6 @@ paths:
       summary: Accumulator Code List
       tags:
       - Order
-      description: Accumulator Code List
       parameters:
       - name: alias
         in: path
@@ -874,7 +874,6 @@ paths:
       summary: Order Time Slot List
       tags:
       - Order
-      description: Order Time Slot List
       parameters:
       - name: alias
         in: path
@@ -907,7 +906,6 @@ paths:
       summary: Orders by date range
       tags:
       - Order
-      description: Orders by date range
       parameters:
       - name: alias
         in: path
@@ -981,7 +979,6 @@ paths:
       summary: Aging Invoices
       tags:
       - Order
-      description: Aging Invoices
       parameters:
       - name: alias
         in: path
@@ -1293,7 +1290,6 @@ paths:
       summary: Creates a Job Note
       tags:
       - Order
-      description: Creates a Job Note
       parameters:
       - name: alias
         in: path
@@ -1352,7 +1348,6 @@ paths:
       summary: Edits a Job Note
       tags:
       - Order
-      description: Edits a Job Note
       parameters:
       - name: alias
         in: path
@@ -1423,7 +1418,6 @@ paths:
       summary: Reads a Job Note
       tags:
       - Order
-      description: Reads a Job Note
       parameters:
       - name: alias
         in: path
@@ -1483,7 +1477,6 @@ paths:
       summary: Erases a Job Note
       tags:
       - Order
-      description: Erases a Job Note
       parameters:
       - name: alias
         in: path
@@ -1543,7 +1536,6 @@ paths:
       summary: List of Initials
       tags:
       - Order
-      description: List of Initials
       parameters:
       - name: alias
         in: path
@@ -1582,7 +1574,6 @@ paths:
       summary: Job Status List
       tags:
       - Order
-      description: Job Status List
       parameters:
       - name: alias
         in: path
@@ -1668,7 +1659,6 @@ paths:
       summary: Get Sales Rep Commission Details
       tags:
       - Order
-      description: Get Sales Rep Commission Details
       parameters:
       - name: alias
         in: path
@@ -1797,7 +1787,6 @@ paths:
       summary: Get ORDLSUB Records
       tags:
       - Order
-      description: Get ORDLSUB Records
       parameters:
       - name: alias
         in: path

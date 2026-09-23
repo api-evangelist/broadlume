@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Purchase Order API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -207,7 +204,6 @@ paths:
       summary: Read purchase order lines that are open
       tags:
       - Purchase Order
-      description: Read purchase order lines that are open
       parameters:
       - name: alias
         in: path
@@ -251,7 +247,6 @@ paths:
       summary: Purchase order detail
       tags:
       - Purchase Order
-      description: Purchase order detail
       parameters:
       - name: alias
         in: path
@@ -340,7 +335,6 @@ paths:
       summary: List of purchase orders by date
       tags:
       - Purchase Order
-      description: List of purchase orders by date
       parameters:
       - name: alias
         in: path
@@ -584,7 +578,6 @@ paths:
       summary: Customer Type List
       tags:
       - Purchase Order
-      description: Customer Type List
       parameters:
       - name: alias
         in: path
@@ -617,7 +610,6 @@ paths:
       summary: Creates a PO Note
       tags:
       - Purchase Order
-      description: Creates a PO Note
       parameters:
       - name: alias
         in: path
@@ -676,7 +668,6 @@ paths:
       summary: Edits a PO Note
       tags:
       - Purchase Order
-      description: Edits a PO Note
       parameters:
       - name: alias
         in: path
@@ -747,7 +738,6 @@ paths:
       summary: Reads PO Notes
       tags:
       - Purchase Order
-      description: Reads PO Notes
       parameters:
       - name: alias
         in: path
@@ -975,7 +965,6 @@ paths:
       summary: Get Purchase Order File Data - SQL Format
       tags:
       - Purchase Order
-      description: Get Purchase Order File Data - SQL Format
       parameters:
       - name: alias
         in: path

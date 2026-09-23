@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Dashboard API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -150,7 +147,6 @@ paths:
       summary: Inventory Valuation Quicklist
       tags:
       - Dashboard
-      description: Inventory Valuation Quicklist
       parameters:
       - name: alias
         in: path
@@ -183,7 +179,6 @@ paths:
       summary: Work in Process quicklist
       tags:
       - Dashboard
-      description: Work in Process quicklist
       parameters:
       - name: alias
         in: path

@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Lead API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -174,7 +171,6 @@ paths:
       summary: Creates Lead
       tags:
       - Lead
-      description: Creates Lead
       parameters:
       - name: alias
         in: path
@@ -352,7 +348,6 @@ paths:
       summary: Update lead
       tags:
       - Lead
-      description: Update lead
       parameters:
       - name: alias
         in: path
@@ -639,7 +634,6 @@ paths:
       summary: Updates Lead Notes
       tags:
       - Lead
-      description: Updates Lead Notes
       parameters:
       - name: alias
         in: path
@@ -693,7 +687,6 @@ paths:
       summary: Updates Lead Quick Note
       tags:
       - Lead
-      description: Updates Lead Quick Note
       parameters:
       - name: alias
         in: path
@@ -747,7 +740,6 @@ paths:
       summary: Updates Lead Disp Style/Quantity Notes
       tags:
       - Lead
-      description: Updates Lead Disp Style/Quantity Notes
       parameters:
       - name: alias
         in: path
@@ -801,7 +793,6 @@ paths:
       summary: Updates Lead Dispo Notes
       tags:
       - Lead
-      description: Updates Lead Dispo Notes
       parameters:
       - name: alias
         in: path
@@ -898,7 +889,7 @@ paths:
                       type: string
     patch:
       operationId: updatesNonqualifiersOnALeadSendingExistingDescriptionWillRemoveFromALead
-      summary: Updates Nonqualifiers on a Lead. Sending existing description will remove from a lead.
+      summary: Updates Nonqualifiers on a Lead.
       tags:
       - Lead
       description: Updates an existing Lead Office Note. Returns success message.
@@ -1328,7 +1319,6 @@ paths:
       summary: Nonqualified Categories
       tags:
       - Lead
-      description: Nonqualified Categories
       parameters:
       - name: alias
         in: path
@@ -2044,7 +2034,6 @@ paths:
       summary: Get Lead Specials
       tags:
       - Lead
-      description: Get Lead Specials
       parameters:
       - name: alias
         in: path
@@ -2079,7 +2068,6 @@ paths:
       summary: Converts an existing lead into a quote
       tags:
       - Lead
-      description: Converts an existing lead into a quote
       parameters:
       - name: alias
         in: path

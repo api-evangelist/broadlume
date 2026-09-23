@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Handheld API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -25,7 +22,6 @@ paths:
       summary: Inventory from barcode scan
       tags:
       - Handheld
-      description: Inventory from barcode scan
       parameters:
       - name: alias
         in: path
@@ -71,7 +67,6 @@ paths:
       summary: Inventory by location
       tags:
       - Handheld
-      description: Inventory by location
       parameters:
       - name: alias
         in: path
@@ -110,7 +105,6 @@ paths:
       summary: View A-J pricing
       tags:
       - Handheld
-      description: View A-J pricing
       parameters:
       - name: alias
         in: path
@@ -313,7 +307,6 @@ paths:
       summary: Find PO's by barcode
       tags:
       - Handheld
-      description: Find PO's by barcode
       parameters:
       - name: alias
         in: path
@@ -380,7 +373,6 @@ paths:
       summary: Find PO's by vendor that can have additional material added
       tags:
       - Handheld
-      description: Find PO's by vendor that can have additional material added
       parameters:
       - name: alias
         in: path
@@ -541,7 +533,6 @@ paths:
       summary: Get PO lines
       tags:
       - Handheld
-      description: Get PO lines
       parameters:
       - name: alias
         in: path
@@ -780,7 +771,6 @@ paths:
       summary: Read WO lines from barcode
       tags:
       - Handheld
-      description: Read WO lines from barcode
       parameters:
       - name: alias
         in: path
@@ -820,7 +810,6 @@ paths:
       summary: Read WO header from barcode
       tags:
       - Handheld
-      description: Read WO header from barcode
       parameters:
       - name: alias
         in: path
@@ -896,7 +885,6 @@ paths:
       summary: Unassign Inventory
       tags:
       - Handheld
-      description: Unassign Inventory
       parameters:
       - name: alias
         in: path
@@ -963,7 +951,6 @@ paths:
       summary: Assign Inventory
       tags:
       - Handheld
-      description: Assign Inventory
       parameters:
       - name: alias
         in: path
@@ -1162,7 +1149,6 @@ paths:
       summary: Get unpicked inventory
       tags:
       - Handheld
-      description: Get unpicked inventory
       parameters:
       - name: alias
         in: path
@@ -1208,7 +1194,6 @@ paths:
       summary: Get inventory comments
       tags:
       - Handheld
-      description: Get inventory comments
       parameters:
       - name: alias
         in: path
@@ -1238,7 +1223,7 @@ paths:
   /{alias}/tempbarcode:
     get:
       operationId: findTemporaryInventoryBarcode
-      summary: Find temporary inventory barcode.
+      summary: Find temporary inventory barcode
       tags:
       - Handheld
       description: Find temporary inventory barcode.
@@ -1277,7 +1262,7 @@ paths:
   /{alias}/barcodesettings:
     get:
       operationId: getUserBarcodeSettings
-      summary: Get user barcode settings.
+      summary: Get user barcode settings
       tags:
       - Handheld
       description: Get user barcode settings.
@@ -1323,7 +1308,6 @@ paths:
       summary: Get staged revisions list
       tags:
       - Handheld
-      description: Get staged revisions list
       parameters:
       - name: alias
         in: path
@@ -1369,7 +1353,6 @@ paths:
       summary: Convert Inventory Quantity
       tags:
       - Handheld
-      description: Convert Inventory Quantity
       parameters:
       - name: alias
         in: path

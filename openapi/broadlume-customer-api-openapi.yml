@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Customer API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -471,7 +468,6 @@ paths:
       summary: Customer Search
       tags:
       - Customer
-      description: Customer Search
       parameters:
       - name: alias
         in: path
@@ -527,7 +523,6 @@ paths:
       summary: Customer Search
       tags:
       - Customer
-      description: Customer Search
       parameters:
       - name: alias
         in: path
@@ -597,7 +592,6 @@ paths:
       summary: Customer Properties
       tags:
       - Customer
-      description: Customer Properties
       parameters:
       - name: alias
         in: path
@@ -637,7 +631,6 @@ paths:
       summary: Customer Property Managers
       tags:
       - Customer
-      description: Customer Property Managers
       parameters:
       - name: alias
         in: path
@@ -737,7 +730,6 @@ paths:
       summary: Customer 5 Year Sales
       tags:
       - Customer
-      description: Customer 5 Year Sales
       parameters:
       - name: alias
         in: path
@@ -783,7 +775,6 @@ paths:
       summary: Customer AR Contacts
       tags:
       - Customer
-      description: Customer AR Contacts
       parameters:
       - name: alias
         in: path
@@ -822,7 +813,6 @@ paths:
       summary: Creates Customer Contact
       tags:
       - Customer
-      description: Creates Customer Contact
       parameters:
       - name: alias
         in: path
@@ -994,7 +984,6 @@ paths:
       summary: Customer AR Contact Notes
       tags:
       - Customer
-      description: Customer AR Contact Notes
       parameters:
       - name: alias
         in: path
@@ -1045,7 +1034,6 @@ paths:
       summary: Create Customer AR Contact Notes
       tags:
       - Customer
-      description: Create Customer AR Contact Notes
       parameters:
       - name: alias
         in: path
@@ -1089,7 +1077,6 @@ paths:
       summary: Update Customer AR Contact Notes
       tags:
       - Customer
-      description: Update Customer AR Contact Notes
       parameters:
       - name: alias
         in: path
@@ -1134,7 +1121,6 @@ paths:
       summary: All Customer Contact Notes
       tags:
       - Customer
-      description: All Customer Contact Notes
       parameters:
       - name: alias
         in: path
@@ -1212,7 +1198,6 @@ paths:
       summary: Get Contact Role List
       tags:
       - Customer
-      description: Get Contact Role List
       parameters:
       - name: alias
         in: path
@@ -1388,7 +1373,6 @@ paths:
       summary: Payment History
       tags:
       - Customer
-      description: Payment History
       parameters:
       - name: alias
         in: path
@@ -1439,7 +1423,6 @@ paths:
       summary: AR Open Items
       tags:
       - Customer
-      description: AR Open Items
       parameters:
       - name: alias
         in: path
@@ -1490,7 +1473,6 @@ paths:
       summary: Ship To Code List
       tags:
       - Customer
-      description: Ship To Code List
       parameters:
       - name: alias
         in: path
@@ -1537,7 +1519,6 @@ paths:
       summary: Get list of national property manager relationships
       tags:
       - Customer
-      description: Get list of national property manager relationships
       parameters:
       - name: alias
         in: path
@@ -1570,7 +1551,6 @@ paths:
       summary: Creates a Customer Note
       tags:
       - Customer
-      description: Creates a Customer Note
       parameters:
       - name: alias
         in: path
@@ -1624,7 +1604,6 @@ paths:
       summary: Edits a Customer Note
       tags:
       - Customer
-      description: Edits a Customer Note
       parameters:
       - name: alias
         in: path
@@ -1688,7 +1667,6 @@ paths:
       summary: Reads a Customer Note
       tags:
       - Customer
-      description: Reads a Customer Note
       parameters:
       - name: alias
         in: path
@@ -1734,7 +1712,6 @@ paths:
       summary: Erases a Customer Note
       tags:
       - Customer
-      description: Erases a Customer Note
       parameters:
       - name: alias
         in: path
@@ -1793,7 +1770,6 @@ paths:
       summary: Creates a Sales Note
       tags:
       - Customer
-      description: Creates a Sales Note
       parameters:
       - name: alias
         in: path
@@ -1847,7 +1823,6 @@ paths:
       summary: Edits a Sales Note
       tags:
       - Customer
-      description: Edits a Sales Note
       parameters:
       - name: alias
         in: path
@@ -1899,7 +1874,6 @@ paths:
       summary: Reads a Sales Note
       tags:
       - Customer
-      description: Reads a Sales Note
       parameters:
       - name: alias
         in: path
@@ -1945,7 +1919,6 @@ paths:
       summary: Erases a Sales Note
       tags:
       - Customer
-      description: Erases a Sales Note
       parameters:
       - name: alias
         in: path
@@ -1992,7 +1965,6 @@ paths:
       summary: Creates a Customer Note by ShipTo Code - Inactive until 2102 Release
       tags:
       - Customer
-      description: Creates a Customer Note by ShipTo Code - Inactive until 2102 Release
       parameters:
       - name: alias
         in: path
@@ -2050,7 +2022,6 @@ paths:
       summary: Updates a Customer Note by ShipTo Code - Inactive until 2102 Release
       tags:
       - Customer
-      description: Updates a Customer Note by ShipTo Code - Inactive until 2102 Release
       parameters:
       - name: alias
         in: path
@@ -2126,7 +2097,6 @@ paths:
       summary: Gets all Customer Note by ShipTo Code - Inactive until 2102 Release
       tags:
       - Customer
-      description: Gets all Customer Note by ShipTo Code - Inactive until 2102 Release
       parameters:
       - name: alias
         in: path
@@ -2255,7 +2225,6 @@ paths:
       summary: Customer Search
       tags:
       - Customer
-      description: Customer Search
       parameters:
       - name: alias
         in: path
@@ -2311,7 +2280,6 @@ paths:
       summary: Get List of possible customer credit status codes
       tags:
       - Customer
-      description: Get List of possible customer credit status codes
       parameters:
       - name: alias
         in: path

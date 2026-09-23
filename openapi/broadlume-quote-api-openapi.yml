@@ -3,10 +3,7 @@ info:
   title: Broadlume BMS Quote API
   version: v1
   summary: Business management API for Broadlume BMS, the flooring ERP formerly known as RollMaster.
-  description: 'REST API for Broadlume BMS (formerly RollMaster), Broadlume''s business management system for flooring retailers. Covers orders, quotes, leads, customers, products and catalog, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling, e-documents, handheld/barcode operations, dashboards and reporting.
-
-
-    Transcribed by API Evangelist from Broadlume''s own published developer portal at https://developer.broadlume.com/bms — paths, methods, parameters and response fields are taken verbatim from that reference. Broadlume acquired RollMaster in November 2021, which is why the documented base URL remains api.rmaster.com.'
+  description: REST API for Broadlume BMS (formerly RollMaster), Broadlume's business management system for flooring retailers.
   contact:
     name: Broadlume Developer Portal
     url: https://developer.broadlume.com/bms
@@ -25,7 +22,6 @@ paths:
       summary: Quotes by follow up date range
       tags:
       - Quote
-      description: Quotes by follow up date range
       parameters:
       - name: alias
         in: path
@@ -688,7 +684,10 @@ paths:
       summary: Create Quote Line
       tags:
       - Quote
-      description: Creates a line on an existing quote. Returns the key (header info) of the quote updated. <br><br> Only one of these parameters (ordlseq, ordlb2bsku, ordlbarcode) is required. If more than one is passed they execute in the precedence of  ordlseq > ordlb2bsku > ordlbarcode
+      description: 'Creates a line on an existing quote. Returns the key (header info) of the quote updated.
+
+
+        Only one of these parameters (ordlseq, ordlb2bsku, ordlbarcode) is required. If more than one is passed they execute in the precedence of ordlseq > ordlb2bsku > ordlbarcode'
       parameters:
       - name: alias
         in: path
@@ -764,7 +763,6 @@ paths:
       summary: Get quote lines
       tags:
       - Quote
-      description: Get quote lines
       parameters:
       - name: alias
         in: path
@@ -1211,7 +1209,6 @@ paths:
       summary: Reads a Quote Note
       tags:
       - Quote
-      description: Reads a Quote Note
       parameters:
       - name: alias
         in: path
@@ -1272,7 +1269,6 @@ paths:
       summary: Get QRDLSUB Records
       tags:
       - Quote
-      description: Get QRDLSUB Records
       parameters:
       - name: alias
         in: path
