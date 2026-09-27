@@ -33,16 +33,13 @@
     "broadlume-vendor-api-openapi.yml",
     "broadlume-version-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "broadlume-bms-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "superseded outputs removed: broadlume-e-docs-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 28 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "broadlume-accounts-receivable-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -55,7 +52,7 @@
     "broadlume-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "broadlume-customer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "broadlume-dashboard-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "broadlume-e-docs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "broadlume-edocs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "broadlume-general-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "broadlume-general-ledger-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "broadlume-handheld-api-openapi.yml: previously refined output, superseded by openapi/_original/",
