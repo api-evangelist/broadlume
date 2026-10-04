@@ -1,21 +1,19 @@
-# Kin Score artifact — broadlume — 2026-08-29T230545
+# Kin Score artifact — broadlume — 2026-09-23T000603
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: broadlume
-  schema_version: 0.16.0
-  scored_at: '2026-08-29'
-  run_ts: 2026-08-29T230545
-  composite: 45.2
+  schema_version: 0.22.0
+  scored_at: '2026-09-23'
+  run_ts: 2026-09-23T000603
+  composite: 43.3
   band: developing
   facets:
-    discoverability: 81.5
-    contract_quality: 54.4
-    governance: 4.5
+    discoverability: 75.9
+    contract_quality: 51.7
+    contract_governance: 4.5
     operational_transparency: 18.4
     developer_ergonomics: 68.5
-    commercial_clarity: 34.2
-    contract_governance: 4.5
     access_clarity: 34.2
   agent_readiness:
     score: 21.8
@@ -45,7 +43,7 @@ kin_score:
     skills: derived
     conformance: derived
     contracts:
-      total: 1
+      total: 28
       derived: 0
       coverage: 0.0
       callable: 100.0
