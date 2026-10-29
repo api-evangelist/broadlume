@@ -64,6 +64,151 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Broadlume is a company surfaced as a portfolio company of techstars and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Broadlume is an all-in-one business platform for the flooring industry, serving more than 4,000 retailers and 300+ manufacturers. Its products span lead-generating websites, digital advertising, SEO and reputation management, product catalogs, and a suite of flooring business software covering accounting, inventory management, job costing, and lead management, plus a retail selling system with in-store visualization and e-commerce sample ordering. Broadlume publishes a public developer portal at developer.broadlume.com documenting the Broadlume BMS API — the REST interface to its flooring ERP, formerly known as RollMaster, which Broadlume acquired in November 2021 — covering orders, quotes, leads, customers, products, inventory, purchase orders, invoicing, accounts receivable, general ledger, installation scheduling and handheld barcode operations. Broadlume is owned by Cyncly.
 
-Backed by: techstars — https://broadlume.com/
+**Areas:** Company · Flooring · Retail · Marketing · Websites · Business Software · Home Improvement · ERP · Inventory · Point-of-Sale · Accounting · Order Management
+
+## Broadlume on APIs.io
+
+Everything profiled for Broadlume is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/broadlume/](https://apis.io/providers/broadlume/)** — or go straight to one of the APIs or properties below.
+
+### APIs (28)
+
+- [Broadlume Accounts Receivable API](https://apis.io/apis/broadlume/broadlume-accounts-receivable-api/) — The Accounts Receivable API from Broadlume — 4 operation(s) for accounts receivable.
+- [Broadlume Audit API](https://apis.io/apis/broadlume/broadlume-audit-api/) — The Audit API from Broadlume — 2 operation(s) for audit.
+- [Broadlume Authentication API](https://apis.io/apis/broadlume/broadlume-authentication-api/) — The Authentication API from Broadlume — 4 operation(s) for authentication.
+- [Broadlume Build Order API](https://apis.io/apis/broadlume/broadlume-build-order-api/) — The Build Order API from Broadlume — 4 operation(s) for build order.
+- [Broadlume Bundle API](https://apis.io/apis/broadlume/broadlume-bundle-api/) — The Bundle API from Broadlume — 1 operation(s) for bundle.
+- [Broadlume Charge It Pro API](https://apis.io/apis/broadlume/broadlume-chargeitpro-api/) — The ChargeItPro API from Broadlume — 1 operation(s) for chargeitpro.
+- [Broadlume Committed API](https://apis.io/apis/broadlume/broadlume-committed-api/) — The Committed API from Broadlume — 1 operation(s) for committed.
+- [Broadlume Company API](https://apis.io/apis/broadlume/broadlume-company-api/) — The Company API from Broadlume — 7 operation(s) for company.
+- [Broadlume Customer API](https://apis.io/apis/broadlume/broadlume-customer-api/) — The Customer API from Broadlume — 26 operation(s) for customer.
+- [Broadlume Dashboard API](https://apis.io/apis/broadlume/broadlume-dashboard-api/) — The Dashboard API from Broadlume — 6 operation(s) for dashboard.
+- [Broadlume General API](https://apis.io/apis/broadlume/broadlume-general-api/) — The General API from Broadlume — 4 operation(s) for general.
+- [Broadlume General Ledger API](https://apis.io/apis/broadlume/broadlume-general-ledger-api/) — The General Ledger API from Broadlume — 4 operation(s) for general ledger.
+- [Broadlume Handheld API](https://apis.io/apis/broadlume/broadlume-handheld-api/) — The Handheld API from Broadlume — 18 operation(s) for handheld.
+- [Broadlume Install API](https://apis.io/apis/broadlume/broadlume-install-api/) — The Install API from Broadlume — 9 operation(s) for install.
+- [Broadlume Inventory API](https://apis.io/apis/broadlume/broadlume-inventory-api/) — The Inventory API from Broadlume — 5 operation(s) for inventory.
+- [Broadlume Invoice API](https://apis.io/apis/broadlume/broadlume-invoice-api/) — The Invoice API from Broadlume — 5 operation(s) for invoice.
+- [Broadlume Lead API](https://apis.io/apis/broadlume/broadlume-lead-api/) — The Lead API from Broadlume — 22 operation(s) for lead.
+- [Broadlume Logo API](https://apis.io/apis/broadlume/broadlume-logo-api/) — The Logo API from Broadlume — 3 operation(s) for logo.
+- [Broadlume Order API](https://apis.io/apis/broadlume/broadlume-order-api/) — The Order API from Broadlume — 17 operation(s) for order.
+- [Broadlume Pivot API](https://apis.io/apis/broadlume/broadlume-pivot-api/) — The Pivot API from Broadlume — 6 operation(s) for pivot.
+- [Broadlume Product API](https://apis.io/apis/broadlume/broadlume-product-api/) — The Product API from Broadlume — 22 operation(s) for product.
+- [Broadlume Purchase Order API](https://apis.io/apis/broadlume/broadlume-purchase-order-api/) — The Purchase Order API from Broadlume — 13 operation(s) for purchase order.
+- [Broadlume Quote API](https://apis.io/apis/broadlume/broadlume-quote-api/) — The Quote API from Broadlume — 6 operation(s) for quote.
+- [Broadlume Reports API](https://apis.io/apis/broadlume/broadlume-reports-api/) — The Reports API from Broadlume — 3 operation(s) for reports.
+- [Broadlume Retail Pricing API](https://apis.io/apis/broadlume/broadlume-retail-pricing-api/) — The Retail Pricing API from Broadlume — 1 operation(s) for retail pricing.
+- [Broadlume Vendor API](https://apis.io/apis/broadlume/broadlume-vendor-api/) — The Vendor API from Broadlume — 2 operation(s) for vendor.
+- [Broadlume Version API](https://apis.io/apis/broadlume/broadlume-version-api/) — The Version API from Broadlume — 1 operation(s) for version.
+- [Broadlume Edocs API](https://apis.io/apis/broadlume/broadlume-edocs-api/) — The Edocs API from Broadlume — 3 operation(s) for edocs.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [broadlume-bms](https://apis.io/servers/broadlume/broadlume-bms/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [Broadlume BMS API](https://apis.io/collections/broadlume/open-broadlume-bms/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Broadlume Bms Overlay](https://apis.io/overlays/broadlume/broadlume-bms-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Broadlume Authentication](https://apis.io/security/broadlume/broadlume-authentication/)
+- [Broadlume Domain Security](https://apis.io/security/broadlume/broadlume-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Broadlume Plans Pricing](https://apis.io/plans/broadlume/broadlume-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Broadlume Rate Limits](https://apis.io/rate-limits/broadlume/broadlume-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://broadlume.com/)
+- [Documentation](https://developer.broadlume.com/bms)
+- [Getting started](https://developer.broadlume.com/bms/authentication)
+- [API reference](https://developer.broadlume.com/bms)
+- [Sign up](https://www.broadlume.com/schedule-a-demo)
+- [Blog](https://www.broadlume.com/resources/blog)
+- [Terms of service](https://www.broadlume.com/terms-of-use)
+- [Privacy policy](https://www.broadlume.com/privacy-policy)
+- [GitHub](https://github.com/broadlume)
+
+## API Evangelist rating
+
+**Kin Score 43.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 46.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 68.5 |
+| Access clarity | 34.2 |
+
+**Agent readiness 20.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/broadlume/](https://apis.io/providers/broadlume/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Broadlume: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/broadlume/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
